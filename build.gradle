@@ -11,8 +11,8 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 
 group = 'me.ritomg'
-version = '1.0-SNAPSHOT'
-archivesBaseName = 'ananta'
+version = '0.1T'
+archivesBaseName = 'Ananta'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
 
