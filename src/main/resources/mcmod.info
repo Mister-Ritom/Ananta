@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "ananta",
+    "name": "Ananta",
+    "description": "A Minecraft utility mod",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
