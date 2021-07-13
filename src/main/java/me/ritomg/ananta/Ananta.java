@@ -1,5 +1,6 @@
 package me.ritomg.ananta;
 
+import me.ritomg.ananta.gui.RaptorClientGui;
 import me.ritomg.ananta.module.ModuleManager;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -35,6 +36,8 @@ public class Ananta {
         INSTANCE = this;
     }
 
+    public RaptorClientGui gui;
+
     @Mod.Instance(MOD_ID)
     public static Ananta INSTANCE;
 
@@ -55,6 +58,8 @@ public class Ananta {
         ModuleManager.init();
         logger.info("Modules started");
         MinecraftForge.EVENT_BUS.register(new EventProcessor());
+        gui = new RaptorClientGui();
+        logger.info("Gui Started");
     }
 
     /**

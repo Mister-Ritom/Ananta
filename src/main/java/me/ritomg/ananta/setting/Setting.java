@@ -9,17 +9,35 @@ public class Setting {
     private String name;
     private Module parent;
     private Supplier<Boolean> isVisible;
+    private String description;
 
     public Setting(String name,Module parent) {
         this.name = name;
         this.parent = parent;
         this.isVisible = ()->true;
+        description = "no description";
     }
 
     public Setting(String name,Module parent, boolean isVisible) {
         this.name = name;
         this.parent = parent;
         this.isVisible = ()->isVisible;
+        description = "no description";
+    }
+
+    public Setting(String name,Module parent,String description, boolean isVisible) {
+        this.name = name;
+        this.parent = parent;
+        this.isVisible = ()->isVisible;
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getName() {

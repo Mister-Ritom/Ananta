@@ -53,6 +53,22 @@ public class ColourSetting extends Setting  {
         this.hasAlpha = hasAlpha;
     }
 
+    public ColourSetting(String name, Module parent,String description, boolean isVisible, Color color,boolean hasAlpha) {
+        super(name, parent,description, isVisible);
+        this.color = color;
+        this.isRainbow = false;
+        this.allowRainbow = true;
+        this.hasAlpha = hasAlpha;
+    }
+
+    public ColourSetting(String name, Module parent,String description, boolean isVisible, Color color,boolean hasAlpha,boolean allowRainbow,boolean isRainbow) {
+        super(name, parent,description, isVisible);
+        this.color = color;
+        this.isRainbow = isRainbow;
+        this.allowRainbow = allowRainbow;
+        this.hasAlpha = hasAlpha;
+    }
+
     public Color getColor() {
         return color;
     }

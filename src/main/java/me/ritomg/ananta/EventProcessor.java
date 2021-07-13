@@ -39,7 +39,6 @@ public class EventProcessor {
                 }
             }
         }
-        MinecraftForge.EVENT_BUS.post(event);
     }
 
 }

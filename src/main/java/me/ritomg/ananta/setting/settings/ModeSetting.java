@@ -32,6 +32,10 @@ public class ModeSetting extends Setting {
         return modes;
     }
 
+    public boolean is(String s) {
+        return getCurrentMode().toLowerCase().equalsIgnoreCase(s.toLowerCase());
+    }
+
     public void setModes(List<String> modes) {
         this.modes = modes;
     }
