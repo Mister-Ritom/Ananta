@@ -28,6 +28,12 @@ public class ModeSetting extends Setting {
         this.currentMode = currentMode;
     }
 
+    public ModeSetting(String name, Module parent,String description, boolean isVisible, List<String> modes, String currentMode) {
+        super(name, parent,description, isVisible);
+        this.modes = modes;
+        this.currentMode = currentMode;
+    }
+
     public List<String> getModes() {
         return modes;
     }

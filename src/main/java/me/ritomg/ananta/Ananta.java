@@ -1,18 +1,12 @@
 package me.ritomg.ananta;
 
-import me.ritomg.ananta.gui.RaptorClientGui;
+import me.ritomg.ananta.gui.AnantaClientGUi;
 import me.ritomg.ananta.module.ModuleManager;
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,7 +30,7 @@ public class Ananta {
         INSTANCE = this;
     }
 
-    public RaptorClientGui gui;
+    public AnantaClientGUi gui;
 
     @Mod.Instance(MOD_ID)
     public static Ananta INSTANCE;
@@ -58,7 +52,7 @@ public class Ananta {
         ModuleManager.init();
         logger.info("Modules started");
         MinecraftForge.EVENT_BUS.register(new EventProcessor());
-        gui = new RaptorClientGui();
+        gui = new AnantaClientGUi();
         logger.info("Gui Started");
     }
 

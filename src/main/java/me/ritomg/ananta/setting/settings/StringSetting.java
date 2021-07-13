@@ -17,6 +17,11 @@ public class StringSetting extends Setting {
         this.text = text;
     }
 
+    public StringSetting(String name, Module parent,String desciption, boolean isVisible, String text) {
+        super(name, parent,desciption, isVisible);
+        this.text = text;
+    }
+
     public String getText() {
         return text;
     }

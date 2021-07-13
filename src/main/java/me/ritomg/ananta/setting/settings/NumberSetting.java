@@ -21,6 +21,13 @@ public class NumberSetting extends Setting {
         this.max = max;
     }
 
+    public NumberSetting(String name, Module parent,String desc, boolean isVisible, int current, int min, int max) {
+        super(name, parent, desc, isVisible);
+        this.current = current;
+        this.min = min;
+        this.max = max;
+    }
+
     public int getCurrent() {
         return current;
     }

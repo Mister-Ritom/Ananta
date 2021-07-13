@@ -7,6 +7,4 @@ public enum Category {
     Misc,
     Movement,
     Render,
-    Hud;
-
 }

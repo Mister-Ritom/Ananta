@@ -1,8 +1,6 @@
 package me.ritomg.ananta.module.modules.client;
 
-import com.lukflug.panelstudio.base.AnimatedToggleable;
 import me.ritomg.ananta.Ananta;
-import me.ritomg.ananta.gui.RaptorClientGui;
 import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.setting.settings.BooleanSetting;
@@ -16,8 +14,9 @@ import java.util.Arrays;
 public class ClickGui extends Module {
 
     public NumberSetting scrollSpeed = addIntegerSetting("ScrollSpeed", 1,2,20);
-    public ModeSetting theme = addModeSetting("Theme", "GamesenseTheme",Arrays.asList("RainbowTheme", "ClearGradientTheme", "GamesenseTheme", "ClearTheme", "Windows"));
-    public ModeSetting layout = addModeSetting("Layout", "Normal", Arrays.asList("Normal", "CSGO", "Search", "Single"));
+    public ModeSetting theme = addModeSetting("Theme", "GamesenseTheme",Arrays.asList("RainbowTheme", "ClearGradientTheme", "GamesenseTheme", "ClearTheme", "Windows","ImpactTheme"));
+    public ModeSetting scrolling = addModeSetting("Scrolling", "Screen",Arrays.asList("Screen", "Container"));
+    public ModeSetting layout = addModeSetting("Layout", "Normal", Arrays.asList("Normal", "CSGO", "Search", "Single","Stacked"));
     public BooleanSetting ignoreDisabled = addBooleanSetting("IgnoreDisabled", true);
     public BooleanSetting buttonRainbow = addBooleanSetting("ButtonRainbow", false);
     public NumberSetting animationSpeed = addIntegerSetting("AnimationSpeed", 0,200,1000);

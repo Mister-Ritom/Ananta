@@ -32,6 +32,7 @@ public class Module {
     public Info getInfo() {
         return getClass().getAnnotation(Info.class);
     }
+    protected static Minecraft mc  = Minecraft.getMinecraft();
 
     private String name = getInfo().name();
     private String description = getInfo().description();

@@ -3,7 +3,6 @@ package me.ritomg.ananta;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -24,6 +23,7 @@ public class EventProcessor {
                     m.toggle();
             }
         }
+        Ananta.INSTANCE.gui.handleKeyEvent(key);
 
     }
 

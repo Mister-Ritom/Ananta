@@ -1,6 +1,8 @@
 package me.ritomg.ananta.module;
 
-import me.ritomg.ananta.module.modules.client.ClickGui;
+import me.ritomg.ananta.module.modules.client.*;
+import me.ritomg.ananta.module.modules.misc.*;
+import me.ritomg.ananta.module.modules.movement.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,8 @@ public class ModuleManager {
     public static void init() {
         modules = new ArrayList<>();
         addnewModule(new ClickGui());
-
+        addnewModule(new Sprint());
+        addnewModule(new ChatUtils());
     }
 
     public static List<Module> getModulesinCategory(Category c) {

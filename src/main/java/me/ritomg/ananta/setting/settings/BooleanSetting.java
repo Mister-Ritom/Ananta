@@ -17,6 +17,11 @@ public class BooleanSetting extends Setting {
         this.isOn = isOn;
     }
 
+    public BooleanSetting(String name, Module parent, String description,boolean isVisible,boolean isOn) {
+        super(name,parent,description,isVisible);
+        this.isOn = isOn;
+    }
+
     public boolean isOn() {
         return isOn;
     }

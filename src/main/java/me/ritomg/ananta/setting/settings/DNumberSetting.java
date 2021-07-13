@@ -21,6 +21,13 @@ public class DNumberSetting extends Setting {
         this.max = max;
     }
 
+    public DNumberSetting(String name, Module parent, String description, boolean isVisible, double current, double min, double max) {
+        super(name, parent,description, isVisible);
+        this.current = current;
+        this.min = min;
+        this.max = max;
+    }
+
     public double getCurrent() {
         return current;
     }

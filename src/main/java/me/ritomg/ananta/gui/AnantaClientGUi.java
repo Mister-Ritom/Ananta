@@ -1,18 +1,12 @@
 package me.ritomg.ananta.gui;
 
 import com.lukflug.panelstudio.base.*;
-import com.lukflug.panelstudio.component.IComponent;
-import com.lukflug.panelstudio.component.IFixedComponent;
-import com.lukflug.panelstudio.component.IFixedComponentProxy;
-import com.lukflug.panelstudio.component.IScrollSize;
+import com.lukflug.panelstudio.component.*;
 import com.lukflug.panelstudio.container.IContainer;
 import com.lukflug.panelstudio.hud.HUDGUI;
 import com.lukflug.panelstudio.layout.*;
 import com.lukflug.panelstudio.mc12.MinecraftHUDGUI;
-import com.lukflug.panelstudio.popup.IPopupPositioner;
-import com.lukflug.panelstudio.popup.MousePositioner;
-import com.lukflug.panelstudio.popup.PanelPositioner;
-import com.lukflug.panelstudio.popup.PopupTuple;
+import com.lukflug.panelstudio.popup.*;
 import com.lukflug.panelstudio.setting.*;
 import com.lukflug.panelstudio.theme.*;
 import com.lukflug.panelstudio.widget.ColorPickerComponent;
@@ -22,16 +16,18 @@ import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.module.modules.client.ClickGui;
 import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.*;
+import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-public class RaptorClientGui extends MinecraftHUDGUI {
+public class AnantaClientGUi extends MinecraftHUDGUI {
 
     public GUIInterface guiInterface;
     public HUDGUI gui;
@@ -45,7 +41,7 @@ public class RaptorClientGui extends MinecraftHUDGUI {
     private ITheme cleargradientTheme;
     private ITheme impacttheme;
 
-    public RaptorClientGui() {
+    public AnantaClientGUi() {
         guiInterface = new GUIInterface(true) {
             @Override
             protected String getResourcePrefix() {
@@ -105,25 +101,27 @@ public class RaptorClientGui extends MinecraftHUDGUI {
 
                     @Override
                     public Stream<ISetting<?>> getSettings() {
-                        Stream<ISetting<?>> temp=module.getSettings().stream().map(RaptorClientGui.this::createSettings);
-                        return Stream.concat(temp,Stream.concat(Stream.of(new IBooleanSetting() {
+
+                        Stream<ISetting<?>> temp=module.getSettings().stream().map(AnantaClientGUi.this::createSettings);
+                        final Stream<ISetting<?>> concat = Stream.concat(temp, Stream.concat(Stream.of(new IBooleanSetting() {
                             @Override
                             public String getDisplayName() {
-                                return "Toggle Msgs";
+                                return "Enabled";
                             }
 
                             @Override
                             public void toggle() {
+                                module.toggle();
                             }
 
                             @Override
                             public boolean isOn() {
-                                return false;
+                                return module.isEnabled();
                             }
-                        }),Stream.of(new IKeybindSetting() {
+                        }), Stream.of(new IKeybindSetting() {
                             @Override
                             public String getDisplayName() {
-                                return "Keybind";
+                                return "Bind";
                             }
 
                             @Override
@@ -141,6 +139,7 @@ public class RaptorClientGui extends MinecraftHUDGUI {
                                 return Keyboard.getKeyName(module.getBind());
                             }
                         })));
+                        return concat;
                     }
 
                     @Override
@@ -158,10 +157,25 @@ public class RaptorClientGui extends MinecraftHUDGUI {
 
         Supplier<Animation> animation=()->new SettingsAnimation(()->clickGui.animationSpeed.getCurrent(),()->guiInterface.getTime());
 
+        BiFunction<Context,Integer,Integer> scrollHeight=(context, componentHeight)->{
+            if (clickGui.scrolling.is("Screen")) return componentHeight;
+            else return Math.min(componentHeight,Math.max(10*4, AnantaClientGUi.this.height-context.getPos().y-10));
+        };
+
         IContainer<IFixedComponent> container = new IContainer<IFixedComponent>() {
             @Override
             public boolean addComponent(IFixedComponent component) {
                 return gui.addComponent(new IFixedComponentProxy<IFixedComponent>() {
+
+                    @Override
+                    public void handleScroll (Context context, int diff) {
+                        IFixedComponentProxy.super.handleScroll(context,diff);
+                        if (clickGui.scrolling.is("Screen")) {
+                            Point p = getPosition(guiInterface);
+                            p.translate(0, -diff);
+                            setPosition(guiInterface, p);
+                        }
+                    }
 
                     @Override
                     public IFixedComponent getComponent() {
@@ -173,6 +187,17 @@ public class RaptorClientGui extends MinecraftHUDGUI {
             @Override
             public boolean addComponent(IFixedComponent component, IBoolean visible) {
                 return gui.addComponent(new IFixedComponentProxy<IFixedComponent>() {
+
+                    @Override
+                    public void handleScroll (Context context, int diff) {
+                        IFixedComponentProxy.super.handleScroll(context,diff);
+                        if (clickGui.scrolling.is("Screen")) {
+                            Point p = getPosition(guiInterface);
+                            p.translate(0, -diff);
+                            setPosition(guiInterface, p);
+                        }
+                    }
+
                     @Override
                     public IFixedComponent getComponent() {
                         return component;
@@ -193,18 +218,149 @@ public class RaptorClientGui extends MinecraftHUDGUI {
             }
         };
 
-        PopupTuple popupTuple=new PopupTuple(new PanelPositioner(new Point(0,0)),false,new IScrollSize(){});
+        PopupTuple popupTuple=new PopupTuple(new PanelPositioner(new Point(0,0)),false,new IScrollSize() {
+            @Override
+            public int getScrollHeight (Context context, int componentHeight) {
+                return scrollHeight.apply(context,componentHeight);
+            }
+        });
 
         //normal layout
-        IComponentAdder classicPanelaAder = new PanelAdder(container,false,()->clickGui.layout.is("normal"),title->title);
+        IComponentAdder classicPanelaAder = new PanelAdder(container,false,()->clickGui.layout.is("normal"),title->title) {
+            @Override
+            protected IScrollSize getScrollSize (IResizable size) {
+                return new IScrollSize() {
+                    @Override
+                    public int getScrollHeight (Context context, int componentHeight) {
+                        return scrollHeight.apply(context,componentHeight);
+                    }
+                };
+            }
+
+            @Override
+            protected IResizable getResizable(int width) {
+
+                Dimension dimension = new Dimension(110,100 );
+
+                return new IResizable() {
+                    @Override
+                    public Dimension getSize() {
+                        return dimension;
+                    }
+
+                    @Override
+                    public void setSize(Dimension size) {
+
+                        if (size.getWidth() < 75) size.width = 75;
+                        if (size.getHeight() <50) size.height = 50;
+                         dimension.setSize(size);
+                    }
+                };
+            }
+        };
+        int WIDTH = 100, HEIGHT = 12, FONT_HEIGHT = 9, DISTANCE = 10, HUD_BORDER = 2;
         ILayout classicPanelLayout=new PanelLayout(100,new Point(10,10),(110)/2,112,animation, level-> ChildUtil.ChildMode.DOWN, level-> ChildUtil.ChildMode.DOWN,popupTuple);
         classicPanelLayout.populateGUI(classicPanelaAder,generator,client,theme);
 
+        //stacked panel layout
+        IComponentAdder satckedComponentAdder = new StackedPanelAdder(container,new Labeled("AnantaClient",null,()->true),theme, new Point(0,0), WIDTH + 400,animation, ChildUtil.ChildMode.DOWN,new PanelPositioner(new Point(0,0)),()->clickGui.layout.is("Stacked"),"Stacked") {
+            @Override
+            protected IResizable getResizable(int width) {
+
+                Dimension dimension = new Dimension(250,100 );
+
+                return new IResizable() {
+                    @Override
+                    public Dimension getSize() {
+                        return dimension;
+                    }
+
+                    @Override
+                    public void setSize(Dimension size) {
+
+                        if (size.getWidth() < 75) size.width = 75;
+                        if (size.getHeight() <50) size.height = 50;
+                        dimension.setSize(size);
+                    }
+                };
+            }
+        };
+        ILayout StackedPanelLayout=new PanelLayout(WIDTH,new Point(DISTANCE,DISTANCE),(WIDTH+DISTANCE)/2,HEIGHT+DISTANCE,animation,level-> ChildUtil.ChildMode.DOWN, level-> ChildUtil.ChildMode.DOWN,popupTuple);
+        StackedPanelLayout.populateGUI(satckedComponentAdder,generator,client, theme);
+        //single panel layout
+
+        IComponentAdder singlePanelAdder = new SinglePanelAdder(container, new Labeled("AnantaClient",null, ()->true), theme,new Point(0,0), WIDTH + 500,animation, ()->clickGui.layout.is("Single"), "SinglePanel") {
+            @Override
+            protected IResizable getResizable(int width) {
+
+                Dimension dimension = new Dimension(250,100 );
+
+                return new IResizable() {
+                    @Override
+                    public Dimension getSize() {
+                        return dimension;
+                    }
+
+                    @Override
+                    public void setSize(Dimension size) {
+
+                        if (size.getWidth() < 75) size.width = 75;
+                        if (size.getHeight() <50) size.height = 50;
+                        dimension.setSize(size);
+                    }
+                };
+            }
+        };
+
+        ILayout singlePanelLayout=new PanelLayout(WIDTH,new Point(DISTANCE,DISTANCE),(WIDTH+DISTANCE)/2,HEIGHT+DISTANCE,animation,level-> ChildUtil.ChildMode.DOWN, level-> ChildUtil.ChildMode.DOWN,popupTuple);
+        singlePanelLayout.populateGUI(singlePanelAdder,generator,client, theme);
+
+        // CSGO Layout!
+        IComponentAdder horizontalCSGOAdder=new PanelAdder(gui,true,()->clickGui.layout.is("CSGO"),title->title);
+        ILayout horizontalCSGOLayout=new CSGOLayout(new Labeled("AnantaClient",null,()->true),new Point(100,100),470,WIDTH,animation,"Enabled",true,true,2, ChildUtil.ChildMode.DOWN,popupTuple) {
+            @Override
+            public int getScrollHeight (Context context, int componentHeight) {
+                return 320;
+            }
+
+            @Override
+            protected boolean isUpKey (int key) {
+                return key==Keyboard.KEY_UP;
+            }
+
+            @Override
+            protected boolean isDownKey (int key) {
+                return key==Keyboard.KEY_DOWN;
+            }
+
+            @Override
+            protected boolean isLeftKey (int key) {
+                return key==Keyboard.KEY_LEFT;
+            }
+
+            @Override
+            protected boolean isRightKey (int key) {
+                return key==Keyboard.KEY_RIGHT;
+            }
+        };
+        horizontalCSGOLayout.populateGUI(horizontalCSGOAdder,generator,client, theme);
+
+        //SEARCHABLE Layout!
+        Comparator<IModule> modulesCompar = Comparator.comparing(o -> o.getDisplayName().toLowerCase());
+        IComponentAdder searchAdder=new PanelAdder(gui,true,()->clickGui.layout.is("Search"),title->title);
+        ILayout searchLayout = new SearchableLayout(new Labeled("AnantaClient", null, () -> true), new Labeled("Search", null, () -> true), new Point(100, 100), 480, WIDTH, animation, "Enabled", 2, ChildUtil.ChildMode.DOWN, popupTuple, modulesCompar , character -> character >= ' ', new TextFieldKeys());
+        searchLayout.populateGUI(searchAdder, generator,client, theme);
+
     }
 
+    //settings
     private ISetting<?> createSettings (Setting setting) {
         if (setting instanceof BooleanSetting) {
             return new IBooleanSetting() {
+                @Override
+                public String getDescription() {
+                    return setting.getDescription();
+                }
                 @Override
                 public String getDisplayName() {
                     return setting.getName();
@@ -232,6 +388,10 @@ public class RaptorClientGui extends MinecraftHUDGUI {
             };
         } else if (setting instanceof NumberSetting) {
             return new INumberSetting() {
+                @Override
+                public String getDescription() {
+                    return setting.getDescription();
+                }
                 @Override
                 public String getDisplayName() {
                     return setting.getName();
@@ -275,6 +435,10 @@ public class RaptorClientGui extends MinecraftHUDGUI {
         } else if (setting instanceof DNumberSetting) {
             return new INumberSetting() {
                 @Override
+                public String getDescription() {
+                    return setting.getDescription();
+                }
+                @Override
                 public String getDisplayName() {
                     return setting.getName();
                 }
@@ -315,7 +479,12 @@ public class RaptorClientGui extends MinecraftHUDGUI {
                 }
             };
         } else if (setting instanceof ModeSetting) {
+
             return new IEnumSetting() {
+                @Override
+                public String getDescription() {
+                    return setting.getDescription();
+                }
                 private final ILabeled[] states = ((ModeSetting) setting).getModes().stream().map(mode -> new Labeled(mode, null, () -> true)).toArray(ILabeled[]::new);
 
                 @Override
@@ -365,6 +534,11 @@ public class RaptorClientGui extends MinecraftHUDGUI {
             };
         } else if (setting instanceof ColourSetting) {
             return new IColorSetting() {
+                @Override
+                public String getDescription() {
+                    return setting.getDescription();
+                }
+
                 @Override
                 public String getDisplayName() {
                     return TextFormatting.BOLD+setting.getName();
