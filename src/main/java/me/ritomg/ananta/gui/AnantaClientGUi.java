@@ -2,10 +2,11 @@ package me.ritomg.ananta.gui;
 
 import com.lukflug.panelstudio.base.*;
 import com.lukflug.panelstudio.component.*;
+import com.lukflug.panelstudio.container.GUI;
 import com.lukflug.panelstudio.container.IContainer;
 import com.lukflug.panelstudio.hud.HUDGUI;
 import com.lukflug.panelstudio.layout.*;
-import com.lukflug.panelstudio.mc12.MinecraftHUDGUI;
+import com.lukflug.panelstudio.mc12.MinecraftGUI;
 import com.lukflug.panelstudio.popup.*;
 import com.lukflug.panelstudio.setting.*;
 import com.lukflug.panelstudio.theme.*;
@@ -16,7 +17,6 @@ import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.module.modules.client.ClickGui;
 import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.*;
-import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.input.Keyboard;
 
@@ -27,10 +27,10 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-public class AnantaClientGUi extends MinecraftHUDGUI {
+public class AnantaClientGUi extends MinecraftGUI {
 
     public GUIInterface guiInterface;
-    public HUDGUI gui;
+    public GUI gui;
     public ClickGui clickGui = ModuleManager.getModule(ClickGui.class);
     public IClient client;
     public int FONT_HEIGHT = 9;
@@ -48,12 +48,12 @@ public class AnantaClientGUi extends MinecraftHUDGUI {
                 return "ananta:gui/";
             }
         };
-        gameSenseTheme = new GameSenseTheme(new RCColorScheme(clickGui.theme.is("GamesenseTheme")), FONT_HEIGHT, 3, 5, ": " + TextFormatting.GRAY);
-        clearTheme = new ClearTheme(new RCColorScheme(clickGui.theme.is("ClearTheme")), () -> false, FONT_HEIGHT, 3, 1, ": " + TextFormatting.GRAY);
-        cleargradientTheme = new ClearTheme(new RCColorScheme(clickGui.theme.is("ClearGradientTheme")), () -> true, FONT_HEIGHT, 3, 1, ": " + TextFormatting.GRAY);
-        rainbowTheme = new RainbowTheme(new RCColorScheme(clickGui.theme.is("RainbowTheme")), () -> !clickGui.ignoreDisabled.isOn(), () -> clickGui.buttonRainbow.isOn(), () -> 1, FONT_HEIGHT, 3, ":" + TextFormatting.GRAY);
-        windowstheme = new Windows31Theme(new RCColorScheme(clickGui.theme.is("Windows")), FONT_HEIGHT, 3, 5, ":" + TextFormatting.GRAY);
-        impacttheme = new ImpactTheme(new RCColorScheme(clickGui.theme.is("ImpactTheme")), FONT_HEIGHT, 3);
+        gameSenseTheme = new GameSenseTheme(new AColorScheme(clickGui.theme.is("GamesenseTheme")), FONT_HEIGHT, 3, 5, ": " + TextFormatting.GRAY);
+        clearTheme = new ClearTheme(new AColorScheme(clickGui.theme.is("ClearTheme")), () -> false, FONT_HEIGHT, 3, 1, ": " + TextFormatting.GRAY);
+        cleargradientTheme = new ClearTheme(new AColorScheme(clickGui.theme.is("ClearGradientTheme")), () -> true, FONT_HEIGHT, 3, 1, ": " + TextFormatting.GRAY);
+        rainbowTheme = new RainbowTheme(new AColorScheme(clickGui.theme.is("RainbowTheme")), () -> !clickGui.ignoreDisabled.isOn(), () -> clickGui.buttonRainbow.isOn(), () -> 1, FONT_HEIGHT, 3, ":" + TextFormatting.GRAY);
+        windowstheme = new Windows31Theme(new AColorScheme(clickGui.theme.is("Windows")), FONT_HEIGHT, 3, 5, ":" + TextFormatting.GRAY);
+        impacttheme = new ImpactTheme(new AColorScheme(clickGui.theme.is("ImpactTheme")), FONT_HEIGHT, 3);
         ITheme theme = new IThemeMultiplexer() {
             @Override
             public ITheme getTheme() {
@@ -149,11 +149,7 @@ public class AnantaClientGUi extends MinecraftHUDGUI {
                 });
             }
         });
-
-        IToggleable guiToggle = new SimpleToggleable(false);
-        IToggleable hudToggle = new SimpleToggleable(false);
-
-        gui = new HUDGUI(guiInterface, theme.getDescriptionRenderer(), new MousePositioner(new Point(10, 10)), guiToggle, hudToggle);
+        gui = new GUI(guiInterface, theme.getDescriptionRenderer(), new MousePositioner(new Point(10, 10)));
 
         Supplier<Animation> animation=()->new SettingsAnimation(()->clickGui.animationSpeed.getCurrent(),()->guiInterface.getTime());
 
@@ -240,7 +236,7 @@ public class AnantaClientGUi extends MinecraftHUDGUI {
             @Override
             protected IResizable getResizable(int width) {
 
-                Dimension dimension = new Dimension(110,100 );
+                Dimension dimension = new Dimension(100,100 );
 
                 return new IResizable() {
                     @Override
@@ -258,7 +254,7 @@ public class AnantaClientGUi extends MinecraftHUDGUI {
                 };
             }
         };
-        int WIDTH = 100, HEIGHT = 12, FONT_HEIGHT = 9, DISTANCE = 10, HUD_BORDER = 2;
+        int WIDTH = 100, HEIGHT = 12, DISTANCE = 10;
         ILayout classicPanelLayout=new PanelLayout(100,new Point(10,10),(110)/2,112,animation, level-> ChildUtil.ChildMode.DOWN, level-> ChildUtil.ChildMode.DOWN,popupTuple);
         classicPanelLayout.populateGUI(classicPanelaAder,generator,client,theme);
 
@@ -267,7 +263,7 @@ public class AnantaClientGUi extends MinecraftHUDGUI {
             @Override
             protected IResizable getResizable(int width) {
 
-                Dimension dimension = new Dimension(250,100 );
+                Dimension dimension = new Dimension(500,100 );
 
                 return new IResizable() {
                     @Override
@@ -293,7 +289,7 @@ public class AnantaClientGUi extends MinecraftHUDGUI {
             @Override
             protected IResizable getResizable(int width) {
 
-                Dimension dimension = new Dimension(250,100 );
+                Dimension dimension = new Dimension(500,100 );
 
                 return new IResizable() {
                     @Override
@@ -646,7 +642,7 @@ public class AnantaClientGUi extends MinecraftHUDGUI {
     }
 
     @Override
-    protected HUDGUI getGUI() {
+    protected GUI getGUI() {
         return gui;
     }
 }

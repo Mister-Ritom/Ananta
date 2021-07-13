@@ -1,5 +1,7 @@
 package com.lukflug.panelstudio.mc12;
 
+import me.ritomg.ananta.module.ModuleManager;
+import me.ritomg.ananta.module.modules.client.ClickGui;
 import org.lwjgl.input.Keyboard;
 
 import com.lukflug.panelstudio.container.GUI;
@@ -37,13 +39,14 @@ public abstract class MinecraftHUDGUI extends MinecraftGUI {
 		if (!getGUI().getHUDVisibility().isOn()) getGUI().getHUDVisibility().toggle();
 		super.enterGUI();
 	}
-	
-	@Override
-	public void initGui() {
-	}
-	
+
 	@Override
 	public void onGuiClosed() {
+		ModuleManager.getModule(ClickGui.class).disable();
+	}
+
+	@Override
+	public void initGui() {
 	}
 	
 	@Override

@@ -8,12 +8,12 @@ import me.ritomg.ananta.setting.settings.ColourSetting;
 
 import java.awt.*;
 
-public class RCColorScheme implements IColorScheme {
+public class AColorScheme implements IColorScheme {
 
     ClickGui clickGui = ModuleManager.getModule(ClickGui.class);
 
-    private boolean isVisible;
-    public RCColorScheme(boolean isVisible) {
+    private final boolean isVisible;
+    public AColorScheme(boolean isVisible) {
         this.isVisible = isVisible;
     }
 

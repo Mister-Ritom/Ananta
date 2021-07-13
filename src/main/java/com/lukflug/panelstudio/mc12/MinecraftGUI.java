@@ -2,6 +2,8 @@ package com.lukflug.panelstudio.mc12;
 
 import java.awt.Point;
 
+import me.ritomg.ananta.module.ModuleManager;
+import me.ritomg.ananta.module.modules.client.ClickGui;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -64,6 +66,7 @@ public abstract class MinecraftGUI extends GuiScreen {
 	
 	@Override
 	public void onGuiClosed() {
+		ModuleManager.getModule(ClickGui.class).disable();
 		getGUI().exit();
 	}
 	
@@ -77,6 +80,7 @@ public abstract class MinecraftGUI extends GuiScreen {
 			else getGUI().handleScroll(getScrollSpeed());
 		}
 	}
+
 
 	@Override
 	public void mouseClicked (int mouseX, int mouseY, int clickedButton) {
@@ -119,7 +123,7 @@ public abstract class MinecraftGUI extends GuiScreen {
 	public boolean doesGuiPauseGame() {
 		return false;
 	}
-	
+
 	/**
 	 * Get the {@link GUI} to be rendered.
 	 * @return current GUI

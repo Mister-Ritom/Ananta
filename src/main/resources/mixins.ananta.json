@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "compatibilityLevel": "JAVA_8",
+  "minVersion": "0.7",
+  "package": "me.ritomg.ananta.mixin",
+  "refmap": "ananta.refmap.json",
+  "mixins": [
+  ]
+}

@@ -1,8 +1,10 @@
 package me.ritomg.ananta.module;
 
 import me.ritomg.ananta.module.modules.client.*;
+import me.ritomg.ananta.module.modules.combat.AutoXp;
 import me.ritomg.ananta.module.modules.misc.*;
 import me.ritomg.ananta.module.modules.movement.*;
+import me.ritomg.ananta.module.modules.render.FullBright;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,8 @@ public class ModuleManager {
         addnewModule(new ClickGui());
         addnewModule(new Sprint());
         addnewModule(new ChatUtils());
+        addnewModule(new AutoXp());
+        addnewModule(new FullBright());
     }
 
     public static List<Module> getModulesinCategory(Category c) {

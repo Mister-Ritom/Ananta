@@ -17,13 +17,17 @@ public class ClickGui extends Module {
     public ModeSetting theme = addModeSetting("Theme", "GamesenseTheme",Arrays.asList("RainbowTheme", "ClearGradientTheme", "GamesenseTheme", "ClearTheme", "Windows","ImpactTheme"));
     public ModeSetting scrolling = addModeSetting("Scrolling", "Screen",Arrays.asList("Screen", "Container"));
     public ModeSetting layout = addModeSetting("Layout", "Normal", Arrays.asList("Normal", "CSGO", "Search", "Single","Stacked"));
-    public BooleanSetting ignoreDisabled = addBooleanSetting("IgnoreDisabled", true);
-    public BooleanSetting buttonRainbow = addBooleanSetting("ButtonRainbow", false);
+    public BooleanSetting ignoreDisabled = new BooleanSetting("IgnoreDisabled",this, theme.is("RainbowTheme"),true);
+    public BooleanSetting buttonRainbow = new BooleanSetting("ButtowRainbow",this,theme.is("RainbowTheme"),false);
     public NumberSetting animationSpeed = addIntegerSetting("AnimationSpeed", 0,200,1000);
+
+    public ClickGui() {
+        addSetting(buttonRainbow);
+        addSetting(ignoreDisabled);
+    }
 
     public void onEnable() {
         Ananta.INSTANCE.gui.enterGUI();
-        disable();
     }
 
     public void onDisable() {

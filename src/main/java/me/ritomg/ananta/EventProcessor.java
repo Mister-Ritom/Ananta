@@ -23,7 +23,6 @@ public class EventProcessor {
                     m.toggle();
             }
         }
-        Ananta.INSTANCE.gui.handleKeyEvent(key);
 
     }
 
