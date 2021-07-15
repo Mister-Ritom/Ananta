@@ -4,10 +4,12 @@ import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
+import zone.rong.mixinbooter.MixinLoader;
 
 import javax.annotation.Nullable;
 import java.util.Map;
 
+@MixinLoader
 @IFMLLoadingPlugin.MCVersion("1.12.2")
 @IFMLLoadingPlugin.Name("Ananata")
 public class CoreMixin implements IFMLLoadingPlugin {

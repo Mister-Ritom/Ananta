@@ -9,7 +9,7 @@ import java.awt.*;
 public class ColourSetting extends Setting  {
 
     private Color color;
-    private  boolean isRainbow,allowRainbow;
+    private  boolean isRainbow = false,allowRainbow;
     private  boolean hasAlpha;
 
     public ColourSetting(String name, Module parent, Color color, boolean isRainbow, boolean allowRainbow) {
@@ -69,8 +69,21 @@ public class ColourSetting extends Setting  {
         this.hasAlpha = hasAlpha;
     }
 
+    public long getColorRGB() {
+        long colorgb = getColor().getRGB();
+        return colorgb;
+    }
+
+    public void setColorRGB(long RGB) {
+        setColor(new Color((int) RGB));
+    }
+
     public Color getColor() {
-        return color;
+        return this.color;
+    }
+
+    public static Color fromHSB(float hue, float saturation, float brightness) {
+        return Color.getHSBColor(hue, saturation, brightness);
     }
 
     public void setColor(Color color) {
