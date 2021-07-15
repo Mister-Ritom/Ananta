@@ -7,15 +7,14 @@ import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
-import java.awt.datatransfer.StringSelection;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
+//thanks to gamesense for this idea
 public class Module {
 
     @Retention(RetentionPolicy.RUNTIME)
