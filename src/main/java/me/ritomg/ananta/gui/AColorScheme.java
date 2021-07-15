@@ -20,7 +20,7 @@ public class AColorScheme implements IColorScheme {
     @Override
     public void createSetting(ITheme theme, String name, String description, boolean hasAlpha, boolean allowsRainbow, Color color, boolean rainbow) {
         ColourSetting setting = new ColourSetting(name,clickGui,description,isVisible,color,hasAlpha,allowsRainbow,rainbow);
-        clickGui.addSetting(setting);
+        if (!clickGui.getSettings().contains(setting)) clickGui.addSetting(setting);
     }
 
     @Override

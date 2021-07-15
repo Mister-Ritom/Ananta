@@ -70,16 +70,24 @@ public class ColourSetting extends Setting  {
     }
 
     public long getColorRGB() {
-        long colorgb = getColor().getRGB();
+        long colorgb=getColor().getRGB() & 0xFFFFFF;
+        if (colorgb < 255 || colorgb == 1052688) {
+            return Color.green.getRGB();
+        }
         return colorgb;
     }
 
     public void setColorRGB(long RGB) {
-        setColor(new Color((int) RGB));
+        if (RGB < 255 || RGB == 1052688) {
+            return;
+        }
+        setColor(new Color((int) (RGB & 0xFFFFFF)));
     }
 
     public Color getColor() {
-        return this.color;
+        float hue = System.currentTimeMillis() % (360 * 32) / (360f * 32);
+        if (isRainbow) return fromHSB(hue,1,color.getAlpha());
+       else return this.color;
     }
 
     public static Color fromHSB(float hue, float saturation, float brightness) {

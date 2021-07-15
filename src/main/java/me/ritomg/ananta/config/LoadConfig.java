@@ -92,9 +92,8 @@ public class LoadConfig {
                         ((NumberSetting)setting).setCurrent(dataObject.getAsInt());
                     } else if (setting instanceof DNumberSetting) {
                         ((DNumberSetting)setting).setCurrent(dataObject.getAsDouble());
-                    }else if (setting instanceof ColourSetting) {
-                        ((ColourSetting)setting).setColorRGB(dataObject.getAsLong());
-                    }
+                    }/*else if (setting instanceof ColourSetting) {
+                        ((ColourSetting)setting).setColorRGB(dataObject.getAsLong());}*/ // TODO
                     else if (setting instanceof ModeSetting) {
                         ((ModeSetting) setting).setCurrentMode(dataObject.getAsString());
                     } else if (setting instanceof StringSetting) {
