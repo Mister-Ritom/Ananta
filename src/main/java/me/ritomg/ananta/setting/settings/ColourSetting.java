@@ -70,17 +70,10 @@ public class ColourSetting extends Setting  {
     }
 
     public long getColorRGB() {
-        long colorgb=getColor().getRGB() & 0xFFFFFF;
-        if (colorgb < 255 || colorgb == 1052688) {
-            return Color.green.getRGB();
-        }
-        return colorgb;
+        return getColor().getRGB() & 0xFFFFFF;
     }
 
     public void setColorRGB(long RGB) {
-        if (RGB < 255 || RGB == 1052688) {
-            return;
-        }
         setColor(new Color((int) (RGB & 0xFFFFFF)));
     }
 

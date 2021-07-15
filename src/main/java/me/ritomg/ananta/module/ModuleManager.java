@@ -15,7 +15,13 @@ public class ModuleManager {
 
     public static void init() {
         modules = new ArrayList<>();
+        //themes
         addnewModule(new ClickGui());
+        addnewModule(new ClearTheme());
+        addnewModule(new ImpactTheme());
+        addnewModule(new RainbowTheme());
+        addnewModule(new WindowsTheme());
+
         addnewModule(new Sprint());
         addnewModule(new ChatUtils());
         addnewModule(new AutoXp());

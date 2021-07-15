@@ -15,6 +15,7 @@ import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.module.modules.client.ClickGui;
+import me.ritomg.ananta.module.modules.client.WindowsTheme;
 import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.*;
 import net.minecraft.util.text.TextFormatting;
@@ -48,12 +49,12 @@ public class AnantaClientGUi extends MinecraftGUI {
                 return "ananta:gui/";
             }
         };
-        gameSenseTheme = new GameSenseTheme(new AColorScheme(clickGui.theme.is("GamesenseTheme")), FONT_HEIGHT, 3, 5, ": " + TextFormatting.GRAY);
-        clearTheme = new ClearTheme(new AColorScheme(clickGui.theme.is("ClearTheme")), () -> false, FONT_HEIGHT, 3, 1, ": " + TextFormatting.GRAY);
-        cleargradientTheme = new ClearTheme(new AColorScheme(clickGui.theme.is("ClearGradientTheme")), () -> true, FONT_HEIGHT, 3, 1, ": " + TextFormatting.GRAY);
-        rainbowTheme = new RainbowTheme(new AColorScheme(clickGui.theme.is("RainbowTheme")), () -> !clickGui.ignoreDisabled.isOn(), () -> clickGui.buttonRainbow.isOn(), () -> 1, FONT_HEIGHT, 3, ":" + TextFormatting.GRAY);
-        windowstheme = new Windows31Theme(new AColorScheme(clickGui.theme.is("Windows")), FONT_HEIGHT, 3, 5, ":" + TextFormatting.GRAY);
-        impacttheme = new ImpactTheme(new AColorScheme(clickGui.theme.is("ImpactTheme")), FONT_HEIGHT, 3);
+        gameSenseTheme = new GameSenseTheme(new AColorScheme(clickGui), FONT_HEIGHT, 3, 5, ": " + TextFormatting.GRAY);
+        clearTheme = new ClearTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.ClearTheme.class)), () -> false, FONT_HEIGHT, 3, 1, ": " + TextFormatting.GRAY);
+        cleargradientTheme = new ClearTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.ClearTheme.class)), () -> true, FONT_HEIGHT, 3, 1, ": " + TextFormatting.GRAY);
+        rainbowTheme = new RainbowTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.RainbowTheme.class)), () -> !clickGui.ignoreDisabled.isOn(), () -> clickGui.buttonRainbow.isOn(), () -> 1, FONT_HEIGHT, 3, ":" + TextFormatting.GRAY);
+        windowstheme = new Windows31Theme(new AColorScheme(ModuleManager.getModule(WindowsTheme.class)), FONT_HEIGHT, 3, 5, ":" + TextFormatting.GRAY);
+        impacttheme = new ImpactTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.ImpactTheme.class)), FONT_HEIGHT, 3);
         ITheme theme = new IThemeMultiplexer() {
             @Override
             public ITheme getTheme() {
@@ -61,6 +62,7 @@ public class AnantaClientGUi extends MinecraftGUI {
                     case "Windows":
                         return windowstheme;
                     case "RainbowTheme":
+
                         return rainbowTheme;
                     case "ClearTheme":
                         return clearTheme;
@@ -97,6 +99,11 @@ public class AnantaClientGUi extends MinecraftGUI {
                                 return module.isEnabled();
                             }
                         };
+                    }
+
+                    @Override
+                    public String getDescription() {
+                        return module.getDescription();
                     }
 
                     @Override
@@ -214,7 +221,7 @@ public class AnantaClientGUi extends MinecraftGUI {
             }
         };
 
-        PopupTuple popupTuple=new PopupTuple(new PanelPositioner(new Point(0,0)),false,new IScrollSize() {
+        PopupTuple popupTuple=new PopupTuple(new PanelPositioner(new Point(0,0)),true,new IScrollSize() {
             @Override
             public int getScrollHeight (Context context, int componentHeight) {
                 return scrollHeight.apply(context,componentHeight);
@@ -500,7 +507,7 @@ public class AnantaClientGUi extends MinecraftGUI {
 
                 @Override
                 public void decrement() {
-
+                    ((ModeSetting)setting).decreaseMode();
                 }
 
                 @Override

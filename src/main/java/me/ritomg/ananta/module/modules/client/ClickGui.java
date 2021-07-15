@@ -4,10 +4,12 @@ import me.ritomg.ananta.Ananta;
 import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.setting.settings.BooleanSetting;
+import me.ritomg.ananta.setting.settings.ColourSetting;
 import me.ritomg.ananta.setting.settings.ModeSetting;
 import me.ritomg.ananta.setting.settings.NumberSetting;
 import org.lwjgl.input.Keyboard;
 
+import java.awt.*;
 import java.util.Arrays;
 
 @Module.Info(name = "ClickGui", description = "Open the gui", category = Category.Client, bind = Keyboard.KEY_RSHIFT)
@@ -33,4 +35,5 @@ public class ClickGui extends Module {
     public void onDisable() {
 
     }
+
 }

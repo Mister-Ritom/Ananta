@@ -2,6 +2,7 @@ package me.ritomg.ananta.config;
 
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
+import me.ritomg.ananta.module.modules.client.ClickGui;
 import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.*;
 import com.google.gson.JsonElement;
@@ -92,8 +93,8 @@ public class LoadConfig {
                         ((NumberSetting)setting).setCurrent(dataObject.getAsInt());
                     } else if (setting instanceof DNumberSetting) {
                         ((DNumberSetting)setting).setCurrent(dataObject.getAsDouble());
-                    }/*else if (setting instanceof ColourSetting) {
-                        ((ColourSetting)setting).setColorRGB(dataObject.getAsLong());}*/ // TODO
+                    }else if (setting instanceof ColourSetting) {
+                        ((ColourSetting)setting).setColorRGB(dataObject.getAsLong());} // TODO
                     else if (setting instanceof ModeSetting) {
                         ((ModeSetting) setting).setCurrentMode(dataObject.getAsString());
                     } else if (setting instanceof StringSetting) {

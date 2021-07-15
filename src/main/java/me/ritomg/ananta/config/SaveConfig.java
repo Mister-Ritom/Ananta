@@ -3,6 +3,7 @@ package me.ritomg.ananta.config;
 import com.google.gson.*;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
+import me.ritomg.ananta.module.modules.client.ClickGui;
 import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.*;
 

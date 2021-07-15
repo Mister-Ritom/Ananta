@@ -16,6 +16,13 @@ public class ModeSetting extends Setting {
         setCurrentMode(modes.get(modeindex));
     }
 
+    public void decreaseMode() {
+        int modeindex = modes.indexOf(currentMode);
+        modeindex =-1;
+        if (modeindex <0) modeindex = modes.size()-1;
+        setCurrentMode(modes.get(modeindex));
+    }
+
     public ModeSetting(String name, Module parent, List<String> modes, String currentMode) {
         super(name, parent);
         this.modes = modes;
@@ -39,7 +46,7 @@ public class ModeSetting extends Setting {
     }
 
     public boolean is(String s) {
-        return getCurrentMode().toLowerCase().equalsIgnoreCase(s.toLowerCase());
+        return getCurrentMode().equalsIgnoreCase(s);
     }
 
     public void setModes(List<String> modes) {
