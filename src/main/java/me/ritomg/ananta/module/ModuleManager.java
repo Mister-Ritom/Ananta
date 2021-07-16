@@ -46,6 +46,13 @@ public class ModuleManager {
         modules.add(m);
     }
 
+    public static Module getModule(String name) {
+        for (Module m : ModuleManager.getModules()) {
+            if (m.getName().equalsIgnoreCase(name)) return m;
+        }
+        return null;
+    }
+
     public static <T extends Module> T getModule(Class<T> clazz) {
         for (Module m : modules) {
             if (m.getClass().equals(clazz)) {

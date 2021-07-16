@@ -46,6 +46,7 @@ public class EventProcessor {
     public void onChatSent(ClientChatEvent event) {
         if (event.getMessage().startsWith(CommandManager.prefix)) {
             event.setCanceled(true);
+            Minecraft.getMinecraft().ingameGUI.getChatGUI().addToSentMessages(event.getMessage());
             CommandManager.callCommand(event.getMessage());
         }
     }

@@ -1,7 +1,11 @@
 package me.ritomg.ananta.command;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+import me.ritomg.ananta.command.commands.BindCommand;
+import me.ritomg.ananta.command.commands.HelpCommand;
+import me.ritomg.ananta.command.commands.PrefixCommand;
 import me.ritomg.ananta.util.AnantaMessageUtil;
+import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +17,9 @@ public class CommandManager {
     public static String prefix = ".";
 
     public static void init() {
+        commandList.add(new BindCommand());
+        commandList.add(new HelpCommand());
+        commandList.add(new PrefixCommand());
     }
 
     public static void callCommand(String message) {
