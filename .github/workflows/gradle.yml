@@ -11,7 +11,7 @@ jobs :
     env:
       BUILD: ${{ github.run_number }}
       SHA: ${{ github.sha }}
-      WEBHOOK: ${{ secrets.DiscordWebhook }}
+      WEBHOOK: ${{ secrets.Discord }}
 
     steps :
       - name : Check out repository
