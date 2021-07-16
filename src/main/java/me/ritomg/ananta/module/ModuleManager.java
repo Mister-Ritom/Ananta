@@ -21,6 +21,7 @@ public class ModuleManager {
         addnewModule(new ImpactTheme());
         addnewModule(new RainbowTheme());
         addnewModule(new WindowsTheme());
+        addnewModule(new GamesenseThemeModule());
 
         addnewModule(new Sprint());
         addnewModule(new ChatUtils());

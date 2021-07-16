@@ -2,7 +2,6 @@ package me.ritomg.ananta.config;
 
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
-import me.ritomg.ananta.module.modules.client.ClickGui;
 import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.*;
 import com.google.gson.JsonElement;
@@ -25,6 +24,7 @@ public class LoadConfig {
     public static void init() {
         try {
             loadModules();
+            loadGuiPos();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -108,6 +108,10 @@ public class LoadConfig {
             }
         }
         inputStream.close();
+    }
+
+    public static void loadGuiPos() throws IOException{
+        me.ritomg.ananta.Ananta.INSTANCE.gui.gui.loadConfig(new AnantaGuiConfig());
     }
 
 }

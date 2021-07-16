@@ -4,7 +4,6 @@ import com.lukflug.panelstudio.base.*;
 import com.lukflug.panelstudio.component.*;
 import com.lukflug.panelstudio.container.GUI;
 import com.lukflug.panelstudio.container.IContainer;
-import com.lukflug.panelstudio.hud.HUDGUI;
 import com.lukflug.panelstudio.layout.*;
 import com.lukflug.panelstudio.mc12.MinecraftGUI;
 import com.lukflug.panelstudio.popup.*;
@@ -15,6 +14,7 @@ import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.module.modules.client.ClickGui;
+import me.ritomg.ananta.module.modules.client.GamesenseThemeModule;
 import me.ritomg.ananta.module.modules.client.WindowsTheme;
 import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.*;
@@ -49,7 +49,7 @@ public class AnantaClientGUi extends MinecraftGUI {
                 return "ananta:gui/";
             }
         };
-        gameSenseTheme = new GameSenseTheme(new AColorScheme(clickGui), FONT_HEIGHT, 3, 5, ": " + TextFormatting.GRAY);
+        gameSenseTheme = new GameSenseTheme(new AColorScheme(ModuleManager.getModule(GamesenseThemeModule.class)), FONT_HEIGHT, 3, 5, ": " + TextFormatting.GRAY);
         clearTheme = new ClearTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.ClearTheme.class)), () -> false, FONT_HEIGHT, 3, 1, ": " + TextFormatting.GRAY);
         cleargradientTheme = new ClearTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.ClearTheme.class)), () -> true, FONT_HEIGHT, 3, 1, ": " + TextFormatting.GRAY);
         rainbowTheme = new RainbowTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.RainbowTheme.class)), () -> !clickGui.ignoreDisabled.isOn(), () -> clickGui.buttonRainbow.isOn(), () -> 1, FONT_HEIGHT, 3, ":" + TextFormatting.GRAY);

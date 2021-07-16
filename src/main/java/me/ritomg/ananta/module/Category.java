@@ -7,4 +7,5 @@ public enum Category {
     Misc,
     Movement,
     Render,
+    Theme
 }

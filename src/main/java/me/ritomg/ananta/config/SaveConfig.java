@@ -3,7 +3,6 @@ package me.ritomg.ananta.config;
 import com.google.gson.*;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
-import me.ritomg.ananta.module.modules.client.ClickGui;
 import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.*;
 
@@ -25,6 +24,7 @@ public class SaveConfig {
         try {
             saveConfig();
             saveModules();
+            saveGuiPos();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -37,6 +37,9 @@ public class SaveConfig {
         if (!Files.exists(Paths.get(Ananta + modulesPath))) {
             Files.createDirectories(Paths.get(Ananta + modulesPath));
         }
+        if (!Files.exists(Paths.get(Ananta + "Main/"))) {
+            Files.createDirectories(Paths.get(Ananta + "Main/"));
+        }
     }
 
     private static void registerFiles(String location, String name) throws IOException {
@@ -48,7 +51,7 @@ public class SaveConfig {
         }
         Files.createFile(Paths.get(Ananta + location + name + ".json"));
     }
-
+//TODO do it in one method
     private static void saveModules() throws IOException {
         for (Module module : ModuleManager.getModules()) {
             try {
@@ -89,6 +92,10 @@ public class SaveConfig {
         String jsonString = gson.toJson(new JsonParser().parse(moduleObject.toString()));
         fileOutputStreamWriter.write(jsonString);
         fileOutputStreamWriter.close();
+    }
+
+    public static void saveGuiPos()throws IOException {
+        me.ritomg.ananta.Ananta.INSTANCE.gui.gui.saveConfig(new AnantaGuiConfig());
     }
 
 }
