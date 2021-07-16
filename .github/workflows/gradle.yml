@@ -1,40 +1,59 @@
-name: build
+name : gradle.build
 
-on: [push,pull_request]
+on :
+  push :
+  pull_request :
+  workflow_dispatch :
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
-        
-    - name: Cache Gradle packages
-      uses: actions/cache@v2
-      with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*','**/gradle-wrapper.properties') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-
-          
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-      
-    - name: Build
-      run: ./gradlew build
-      
-    - uses: actions/upload-artifact@v2
-      with:
-        name: Package
-        path: build/libs/Ananta-*.jar
+jobs :
+  build :
+    runs-on : ubuntu-latest
+    env:
+      BUILD: ${{ github.run_number }}
+      SHA: ${{ github.sha }}
+      WEBHOOK: ${{ secrets.Discord }}
 
-    - name: Cleanup Gradle Cache
-      run: |
-        rm -rf ~/.gradle/caches/modules-2/modules-2.lock
-        rm -rf ~/.gradle/caches/modules-2/gc.properties
+    steps :
+      - name : Check out repository
+        uses : actions/checkout@v2
+
+      - name : Check out submodules
+        uses : snickerbockers/submodules-init@v4
+
+      - name : Set up JDK
+        uses : actions/setup-java@v1
+        with :
+          java-version : 1.8
+
+      - name : Gradle cache
+        uses : actions/cache@v2
+        with :
+          path : |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key : ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys : |
+            ${{ runner.os }}-gradle-
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew      
+      - name : Build forge mod
+        run : ./gradlew --build-cache build
+
+      - name: Rename built forge mod
+        run: mv build/libs/Ananta-*.jar Ananta-${{ github.run_number }}.jar
+
+      - name : Generate forge mod checksum
+        uses : ToxicAven/generate-checksum-file@v1
+        with :
+          filePath : Ananta-${{ github.run_number }}.jar
+          saveFile : forgeModSum.txt
+          algorithm : SHA256
+
+      - name : Get branch name
+        uses: nelonoel/branch-name@v1.0.1
+
+      - name : Send Discord build message
+        if: github.ref == 'refs/heads/master'
+        run : |
+          COMMITMESSAGE=`git log --pretty=format:'- \`%h\` %s' -5 --reverse` &&
+          (curl "$WEBHOOK" -sS -H "Content-Type:application/json" -X POST -d "{\"content\":null,\"embeds\":[{\"title\":\"Build $BUILD\",\"description\":\"**Branch:** $BRANCH_NAME\\n**Changes:**\\n$COMMITMESSAGE\",\"url\":\"https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID\",\"color\":1487872,\"fields\":[{\"name\":\"Artifacts:\",\"value\":\"- [Ananta-$BUILD.zip](https://nightly.link/$GITHUB_REPOSITORY/workflows/gradle.yml/$BRANCH_NAME/Ananta-$BUILD.zip)\"}],\"footer\":{\"text\":\"$GITHUB_REPOSITORY\"},\"thumbnail\":{\"url\":\"https://raw.githubusercontent.com/lambda-client/lambda/master/src/main/resources/assets/minecraft/lambda/lambda_map.png\"}}],\"username\":\"Github Actions\",\"avatar_url\":\"https://www.2b2t.com.au/assets/github.jpeg\"}")
