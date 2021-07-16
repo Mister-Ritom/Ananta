@@ -7,6 +7,7 @@ import me.ritomg.ananta.setting.settings.BooleanSetting;
 import me.ritomg.ananta.setting.settings.ColourSetting;
 import me.ritomg.ananta.setting.settings.ModeSetting;
 import me.ritomg.ananta.setting.settings.NumberSetting;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
@@ -19,21 +20,28 @@ public class ClickGui extends Module {
     public ModeSetting theme = addModeSetting("Theme", "GamesenseTheme",Arrays.asList("RainbowTheme", "ClearGradientTheme", "GamesenseTheme", "ClearTheme", "WindowsTheme","ImpactTheme"));
     public ModeSetting scrolling = addModeSetting("Scrolling", "Screen",Arrays.asList("Screen", "Container"));
     public ModeSetting layout = addModeSetting("Layout", "Normal", Arrays.asList("Normal", "CSGO", "Search", "Single","Stacked"));
-    public BooleanSetting ignoreDisabled = new BooleanSetting("IgnoreDisabled",this, theme.is("RainbowTheme"),true);
-    public BooleanSetting buttonRainbow = new BooleanSetting("ButtowRainbow",this,theme.is("RainbowTheme"),false);
     public NumberSetting animationSpeed = addIntegerSetting("AnimationSpeed", 0,200,1000);
+    BooleanSetting blur = addBooleanSetting("Blur", false);
 
     public ClickGui() {
-        addSetting(buttonRainbow);
-        addSetting(ignoreDisabled);
     }
+
+    ResourceLocation blurLocation = new ResourceLocation("shaders/post/blur.json");
 
     public void onEnable() {
         Ananta.INSTANCE.gui.enterGUI();
+        if (blur.isOn())
+            mc.entityRenderer.loadShader(blurLocation);
+    }
+
+    public void onUpdate() {
+        if (!blur.isOn())
+            mc.entityRenderer.stopUseShader();
     }
 
     public void onDisable() {
-
+        if (blur.isOn())
+            mc.entityRenderer.stopUseShader();
     }
 
 }

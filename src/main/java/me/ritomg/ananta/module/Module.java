@@ -1,7 +1,9 @@
 package me.ritomg.ananta.module;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.*;
+import me.ritomg.ananta.util.AnantaMessageUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Keyboard;
@@ -45,12 +47,14 @@ public class Module {
         isEnabled = false;
         MinecraftForge.EVENT_BUS.unregister(this);
         onDisable();
+        if (toggleMessage) AnantaMessageUtil.sendClientPrefixMessage(ChatFormatting.AQUA + getName() + ChatFormatting.RED +" Disabled");
     }
 
     public void enable() {
         isEnabled = true;
         MinecraftForge.EVENT_BUS.register(this);
         onEnable();
+        if (toggleMessage) AnantaMessageUtil.sendClientPrefixMessage(ChatFormatting.AQUA + getName() + ChatFormatting.GREEN +" Enabled");
     }
 
     public void toggle() {
@@ -59,6 +63,8 @@ public class Module {
         else if (!isEnabled)
             enable();
     }
+
+    public boolean toggleMessage = true;
 
     public void onEnable() {}
     public void onDisable() {}

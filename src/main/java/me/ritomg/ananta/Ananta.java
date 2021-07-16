@@ -1,8 +1,9 @@
 package me.ritomg.ananta;
 
+import me.ritomg.ananta.command.CommandManager;
 import me.ritomg.ananta.config.LoadConfig;
 import me.ritomg.ananta.event.EventProcessor;
-import me.ritomg.ananta.gui.AnantaClientGUi;
+import me.ritomg.ananta.gui.AnantaClientGui;
 import me.ritomg.ananta.module.ModuleManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -32,7 +33,7 @@ public class Ananta {
         INSTANCE = this;
     }
 
-    public AnantaClientGUi gui;
+    public AnantaClientGui gui;
 
     @Mod.Instance(MOD_ID)
     public static Ananta INSTANCE;
@@ -58,8 +59,10 @@ public class Ananta {
         ModuleManager.init();
         logger.info("Modules started");
         MinecraftForge.EVENT_BUS.register(new EventProcessor());
-        gui = new AnantaClientGUi();
+        gui = new AnantaClientGui();
         logger.info("Gui Started");
+        CommandManager.init();
+        logger.info("Commands Started");
         LoadConfig.init();
         logger.info("Loaded Config");
     }

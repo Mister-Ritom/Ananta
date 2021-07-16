@@ -28,7 +28,7 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-public class AnantaClientGUi extends MinecraftGUI {
+public class AnantaClientGui extends MinecraftGUI {
 
     public GUIInterface guiInterface;
     public GUI gui;
@@ -42,7 +42,7 @@ public class AnantaClientGUi extends MinecraftGUI {
     private ITheme cleargradientTheme;
     private ITheme impacttheme;
 
-    public AnantaClientGUi() {
+    public AnantaClientGui() {
         guiInterface = new GUIInterface(true) {
             @Override
             protected String getResourcePrefix() {
@@ -52,7 +52,7 @@ public class AnantaClientGUi extends MinecraftGUI {
         gameSenseTheme = new GameSenseTheme(new AColorScheme(ModuleManager.getModule(GamesenseThemeModule.class)), FONT_HEIGHT, 3, 5, ": " + TextFormatting.GRAY);
         clearTheme = new ClearTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.ClearTheme.class)), () -> false, FONT_HEIGHT, 3, 1, ": " + TextFormatting.GRAY);
         cleargradientTheme = new ClearTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.ClearTheme.class)), () -> true, FONT_HEIGHT, 3, 1, ": " + TextFormatting.GRAY);
-        rainbowTheme = new RainbowTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.RainbowTheme.class)), () -> !clickGui.ignoreDisabled.isOn(), () -> clickGui.buttonRainbow.isOn(), () -> 1, FONT_HEIGHT, 3, ":" + TextFormatting.GRAY);
+        rainbowTheme = new RainbowTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.RainbowTheme.class)), () -> ModuleManager.getModule(me.ritomg.ananta.module.modules.client.RainbowTheme.class).ignoreDisabled.isOn(), () -> ModuleManager.getModule(me.ritomg.ananta.module.modules.client.RainbowTheme.class).buttonRainbow.isOn(), () -> 1, FONT_HEIGHT, 3, ":" + TextFormatting.GRAY);
         windowstheme = new Windows31Theme(new AColorScheme(ModuleManager.getModule(WindowsTheme.class)), FONT_HEIGHT, 3, 5, ":" + TextFormatting.GRAY);
         impacttheme = new ImpactTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.ImpactTheme.class)), FONT_HEIGHT, 3);
         ITheme theme = new IThemeMultiplexer() {
@@ -109,21 +109,21 @@ public class AnantaClientGUi extends MinecraftGUI {
                     @Override
                     public Stream<ISetting<?>> getSettings() {
 
-                        Stream<ISetting<?>> temp=module.getSettings().stream().map(AnantaClientGUi.this::createSettings);
+                        Stream<ISetting<?>> temp=module.getSettings().stream().map(AnantaClientGui.this::createSettings);
                         final Stream<ISetting<?>> concat = Stream.concat(temp, Stream.concat(Stream.of(new IBooleanSetting() {
                             @Override
                             public String getDisplayName() {
-                                return "Enabled";
+                                return "ToggleMessage";
                             }
 
                             @Override
                             public void toggle() {
-                                module.toggle();
+                                module.toggleMessage = !module.toggleMessage;
                             }
 
                             @Override
                             public boolean isOn() {
-                                return module.isEnabled();
+                                return module.toggleMessage;
                             }
                         }), Stream.of(new IKeybindSetting() {
                             @Override
@@ -162,7 +162,7 @@ public class AnantaClientGUi extends MinecraftGUI {
 
         BiFunction<Context,Integer,Integer> scrollHeight=(context, componentHeight)->{
             if (clickGui.scrolling.is("Screen")) return componentHeight;
-            else return Math.min(componentHeight,Math.max(10*4, AnantaClientGUi.this.height-context.getPos().y-10));
+            else return Math.min(componentHeight,Math.max(10*4, AnantaClientGui.this.height-context.getPos().y-10));
         };
 
         IContainer<IFixedComponent> container = new IContainer<IFixedComponent>() {
@@ -243,7 +243,7 @@ public class AnantaClientGUi extends MinecraftGUI {
             @Override
             protected IResizable getResizable(int width) {
 
-                Dimension dimension = new Dimension(100,100 );
+                Dimension dimension = new Dimension(130,100 );
 
                 return new IResizable() {
                     @Override
@@ -270,7 +270,7 @@ public class AnantaClientGUi extends MinecraftGUI {
             @Override
             protected IResizable getResizable(int width) {
 
-                Dimension dimension = new Dimension(500,100 );
+                Dimension dimension = new Dimension(500,100);
 
                 return new IResizable() {
                     @Override

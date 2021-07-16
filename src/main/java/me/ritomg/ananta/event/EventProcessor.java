@@ -1,8 +1,10 @@
 package me.ritomg.ananta.event;
 
+import me.ritomg.ananta.command.CommandManager;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -37,6 +39,14 @@ public class EventProcessor {
                     m.onUpdate();
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public void onChatSent(ClientChatEvent event) {
+        if (event.getMessage().startsWith(CommandManager.prefix)) {
+            event.setCanceled(true);
+            CommandManager.callCommand(event.getMessage());
         }
     }
 

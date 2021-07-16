@@ -20,7 +20,6 @@ public class AColorScheme implements IColorScheme {
     public void createSetting(ITheme theme, String name, String description, boolean hasAlpha, boolean allowsRainbow, Color color, boolean rainbow) {
         m.addSetting(new ColourSetting(name,m,description,true,color,hasAlpha,allowsRainbow,rainbow));
         m.setCategory(Category.Theme);
-        if (!ModuleManager.getModules().contains(m)) ModuleManager.addnewModule(m);
     }
 
     @Override

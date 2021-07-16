@@ -2,6 +2,7 @@ package me.ritomg.ananta.module;
 
 import me.ritomg.ananta.module.modules.client.*;
 import me.ritomg.ananta.module.modules.combat.AutoXp;
+import me.ritomg.ananta.module.modules.exploits.Fastutil;
 import me.ritomg.ananta.module.modules.misc.*;
 import me.ritomg.ananta.module.modules.movement.*;
 import me.ritomg.ananta.module.modules.render.FullBright;
@@ -25,8 +26,10 @@ public class ModuleManager {
 
         addnewModule(new PlayerMovements());
         addnewModule(new ChatUtils());
+        addnewModule(new Fastutil());
         addnewModule(new AutoXp());
         addnewModule(new FullBright());
+        addnewModule(new ToggleMessage());
     }
 
     public static List<Module> getModulesinCategory(Category c) {
