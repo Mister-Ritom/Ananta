@@ -1,6 +1,7 @@
 package me.ritomg.ananta;
 
 import me.ritomg.ananta.config.LoadConfig;
+import me.ritomg.ananta.event.EventProcessor;
 import me.ritomg.ananta.gui.AnantaClientGUi;
 import me.ritomg.ananta.module.ModuleManager;
 import net.minecraftforge.common.MinecraftForge;

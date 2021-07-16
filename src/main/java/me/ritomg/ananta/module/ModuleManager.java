@@ -23,7 +23,7 @@ public class ModuleManager {
         addnewModule(new WindowsTheme());
         addnewModule(new GamesenseThemeModule());
 
-        addnewModule(new Sprint());
+        addnewModule(new PlayerMovements());
         addnewModule(new ChatUtils());
         addnewModule(new AutoXp());
         addnewModule(new FullBright());

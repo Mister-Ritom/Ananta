@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.lukflug.panelstudio.config.IPanelConfig;
+
 import java.awt.*;
 //thanks lukflug
 public class APanelConfig implements IPanelConfig {
@@ -12,6 +13,7 @@ public class APanelConfig implements IPanelConfig {
 
     public APanelConfig(JsonObject configObject) {
         this.configObject = configObject;
+
     }
 
     @Override

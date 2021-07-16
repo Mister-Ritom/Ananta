@@ -1,9 +1,13 @@
 package me.ritomg.ananta.module.modules.misc;
 
+import me.ritomg.ananta.event.events.PacketEvent;
+import me.ritomg.ananta.mixin.mixins.accessor.CPacketChatMessageAccessor;
 import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.setting.settings.BooleanSetting;
 import me.ritomg.ananta.setting.settings.ModeSetting;
+import net.minecraft.network.play.client.CPacketChatMessage;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Arrays;
 
@@ -12,6 +16,15 @@ public class ChatUtils extends Module {
 
     BooleanSetting suffix = addBooleanSetting("Suffix", false);
     ModeSetting Separator = addModeSetting("Separator", "|",Arrays.asList(">>", "<<", "|"));
+
+    @SubscribeEvent
+    public void onChatPacket(PacketEvent.Send event) {
+        if (event.getPacket() instanceof CPacketChatMessage) {
+            if (((CPacketChatMessage) event.getPacket()).getMessage().startsWith("/")) return;
+            if (suffix.isOn())
+            ((CPacketChatMessageAccessor)event.getPacket()).setMessage(((CPacketChatMessage) event.getPacket()).getMessage() + getSeparator() + toUnicode("AnantaClient"));
+        }
+    }
 
     private String toUnicode(String s) {
         return s.toLowerCase()
@@ -41,6 +54,14 @@ public class ChatUtils extends Module {
                 .replace("x", "\u02e3")
                 .replace("y", "\u028f")
                 .replace("z", "\u1d22");
+    }
+
+    public String getSeparator() {
+        switch (Separator.getCurrentMode()) {
+            case ">>" : return" \u300b";
+            case "<<" : return " \u300a";
+            default: return " \u23D0 ";
+        }
     }
 
 }

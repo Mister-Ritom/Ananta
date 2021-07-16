@@ -32,7 +32,7 @@ public class AnantaGuiConfig implements IConfigList {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
+        } else if (!loading){
             panelObject = new JsonObject();
         }
     }
@@ -40,7 +40,11 @@ public class AnantaGuiConfig implements IConfigList {
     @Override
     public void end(boolean loading) {
         if (panelObject == null) return;
-        if (!loading) {
+        if (loading) {
+            //see begin method
+        }
+
+        else if (!loading) {
             try {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 OutputStreamWriter fileOutputStreamWriter = new OutputStreamWriter(new FileOutputStream("Ananta/Main/" + "ClickGUI" + ".json"), StandardCharsets.UTF_8);

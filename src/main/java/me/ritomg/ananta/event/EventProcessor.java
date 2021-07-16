@@ -1,4 +1,4 @@
-package me.ritomg.ananta;
+package me.ritomg.ananta.event;
 
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
