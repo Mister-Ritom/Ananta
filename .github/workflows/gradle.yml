@@ -42,18 +42,16 @@ jobs :
       - name: Rename built forge mod
         run: mv build/libs/Ananta-*.jar Ananta-${{ github.run_number }}.jar
 
-      - name : Generate forge mod checksum
-        uses : ToxicAven/generate-checksum-file@v1
-        with :
-          filePath : Ananta-${{ github.run_number }}.jar
-          saveFile : forgeModSum.txt
-          algorithm : SHA256
-
       - name : Get branch name
         uses: nelonoel/branch-name@v1.0.1
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Package
+          path: build/libs/Ananta-*.jar
 
       - name : Send Discord build message
         if: github.ref == 'refs/heads/master'
         run : |
           COMMITMESSAGE=`git log --pretty=format:'- \`%h\` %s' -5 --reverse` &&
-          (curl "$WEBHOOK" -sS -H "Content-Type:application/json" -X POST -d "{\"content\":null,\"embeds\":[{\"title\":\"Build $BUILD\",\"description\":\"**Branch:** $BRANCH_NAME\\n**Changes:**\\n$COMMITMESSAGE\",\"url\":\"https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID\",\"color\":1487872,\"fields\":[{\"name\":\"Artifacts:\",\"value\":\"- [Ananta-$BUILD.zip](https://nightly.link/$GITHUB_REPOSITORY/workflows/gradle.yml/$BRANCH_NAME/Ananta-$BUILD.zip)\"}],\"footer\":{\"text\":\"$GITHUB_REPOSITORY\"},\"thumbnail\":{\"url\":\"https://raw.githubusercontent.com/lambda-client/lambda/master/src/main/resources/assets/minecraft/lambda/lambda_map.png\"}}],\"username\":\"Github Actions\",\"avatar_url\":\"https://www.2b2t.com.au/assets/github.jpeg\"}")
+          (curl "$WEBHOOK" -sS -H "Content-Type:application/json" -X POST -d "{\"content\":null,\"embeds\":[{\"title\":\"Build $BUILD\",\"description\":\"**Branch:** $BRANCH_NAME\\n**Changes:**\\n$COMMITMESSAGE\",\"url\":\"https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID\",\"color\":1487872,\"fields\":[{\"name\":\"Artifacts:\",\"value\":\"- [Ananta-$BUILD.zip](https://nightly.link/RitomG69/Ananta/workflows/gradle/master/Package.zip)\"}],\"footer\":{\"text\":\"$GITHUB_REPOSITORY\"},\"thumbnail\":{\"url\":\"https://raw.githubusercontent.com/lambda-client/lambda/master/src/main/resources/assets/minecraft/lambda/lambda_map.png\"}}],\"username\":\"Github Actions\",\"avatar_url\":\"https://www.2b2t.com.au/assets/github.jpeg\"}")
