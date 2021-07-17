@@ -79,7 +79,7 @@ public class SaveConfig {
         OutputStreamWriter fileOutputStreamWriter = new OutputStreamWriter(new FileOutputStream(Ananta + hudsPath + module.getName() + ".json"), StandardCharsets.UTF_8);
         JsonObject moduleObject = new JsonObject();
         JsonObject settingObject = new JsonObject();
-        JsonObject positionObject = new JsonObject();
+//        JsonObject positionObject = new JsonObject();
         moduleObject.add("Hud", new JsonPrimitive(module.getName()));
         for (Setting setting : module.getSettings()) {
             if (setting instanceof BooleanSetting) {
@@ -97,12 +97,12 @@ public class SaveConfig {
                 settingObject.add(setting.getName().replace(" ", ""), new JsonPrimitive(((StringSetting) setting).getText()));
             }
         }
-        positionObject.add("X", new JsonPrimitive(module.x));
-        positionObject.add("Y", new JsonPrimitive(module.y));
+//        positionObject.add("X", new JsonPrimitive(module.x));
+//        positionObject.add("Y", new JsonPrimitive(module.y));
         settingObject.add("Enabled", new JsonPrimitive(module.isEnabled()));
         settingObject.add("Bind", new JsonPrimitive(module.getBind()));
         moduleObject.add("Settings", settingObject);
-        moduleObject.add("Position", positionObject);
+//        moduleObject.add("Position", positionObject);
         String jsonString = gson.toJson(new JsonParser().parse(moduleObject.toString()));
         fileOutputStreamWriter.write(jsonString);
         fileOutputStreamWriter.close();
@@ -152,6 +152,7 @@ public class SaveConfig {
 
     public static void saveGuiPos()throws IOException {
         me.ritomg.ananta.Ananta.INSTANCE.gui.gui.saveConfig(new AnantaGuiConfig());
+        me.ritomg.ananta.Ananta.INSTANCE.hudGui.gui.saveConfig(new AnantaGuiConfig());
     }
 
     public static void saveCommandPrefix() throws IOException {

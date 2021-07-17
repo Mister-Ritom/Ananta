@@ -28,19 +28,19 @@ public class ImpactTheme extends ThemeBase {
 		scheme.createSetting(this,"Highlight Color","The color for highlighted text.",false,true,new Color(0,0,255),false);
 		scheme.createSetting(this,"Tooltip Color","The color for description tooltips.",false,true,new Color(0,0,0,128),false);
 	}
-
+	
 	protected void renderBackground (Context context, boolean focus) {
 		Color color=getBackgroundColor(focus);
 		context.getInterface().fillRect(new Rectangle(context.getPos().x,context.getPos().y,context.getSize().width,context.getSize().height),color,color,color,color);
 	}
-
+	
 	protected void renderOverlay (Context context) {
 		if (context.isHovered()) {
 			Color color=new Color(0,0,0,24);
 			context.getInterface().fillRect(context.getRect(),color,color,color,color);
 		}
 	}
-
+	
 	protected void renderSmallButton(Context context, String title, int symbol, boolean focus) {
 		Point points[]=new Point[3];
 		int padding=context.getSize().height<=12?(context.getSize().height<=8?2:4):6;
@@ -49,43 +49,43 @@ public class ImpactTheme extends ThemeBase {
 		Color color=getFontColor(focus);
 		if (context.isHovered()) color=scheme.getColor("Active Font Color");
 		switch (symbol) {
-			case ITheme.CLOSE:
-				context.getInterface().drawLine(new Point(rect.x,rect.y),new Point(rect.x+rect.width,rect.y+rect.height),color,color);
-				context.getInterface().drawLine(new Point(rect.x,rect.y+rect.height),new Point(rect.x+rect.width,rect.y),color,color);
-				break;
-			case ITheme.MINIMIZE:
-				context.getInterface().fillRect(new Rectangle(rect.x,rect.y+rect.height-2,rect.width,2),color,color,color,color);
-				break;
-			case ITheme.ADD:
-				if (rect.width%2==1) rect.width-=1;
-				if (rect.height%2==1) rect.height-=1;
-				context.getInterface().fillRect(new Rectangle(rect.x+rect.width/2-1,rect.y,2,rect.height),color,color,color,color);
-				context.getInterface().fillRect(new Rectangle(rect.x,rect.y+rect.height/2-1,rect.width,2),color,color,color,color);
-				break;
-			case ITheme.LEFT:
-				if (rect.height%2==1) rect.height-=1;
-				points[2]=new Point(rect.x+rect.width,rect.y);
-				points[0]=new Point(rect.x+rect.width,rect.y+rect.height);
-				points[1]=new Point(rect.x,rect.y+rect.height/2);
-				break;
-			case ITheme.RIGHT:
-				if (rect.height%2==1) rect.height-=1;
-				points[0]=new Point(rect.x,rect.y);
-				points[2]=new Point(rect.x,rect.y+rect.height);
-				points[1]=new Point(rect.x+rect.width,rect.y+rect.height/2);
-				break;
-			case ITheme.UP:
-				if (rect.width%2==1) rect.width-=1;
-				points[0]=new Point(rect.x,rect.y+rect.height);
-				points[2]=new Point(rect.x+rect.width,rect.y+rect.height);
-				points[1]=new Point(rect.x+rect.width/2,rect.y);
-				break;
-			case ITheme.DOWN:
-				if (rect.width%2==1) rect.width-=1;
-				points[2]=new Point(rect.x,rect.y);
-				points[0]=new Point(rect.x+rect.width,rect.y);
-				points[1]=new Point(rect.x+rect.width/2,rect.y+rect.height);
-				break;
+		case ITheme.CLOSE:
+			context.getInterface().drawLine(new Point(rect.x,rect.y),new Point(rect.x+rect.width,rect.y+rect.height),color,color);
+			context.getInterface().drawLine(new Point(rect.x,rect.y+rect.height),new Point(rect.x+rect.width,rect.y),color,color);
+			break;
+		case ITheme.MINIMIZE:
+			context.getInterface().fillRect(new Rectangle(rect.x,rect.y+rect.height-2,rect.width,2),color,color,color,color);
+			break;
+		case ITheme.ADD:
+			if (rect.width%2==1) rect.width-=1;
+			if (rect.height%2==1) rect.height-=1;
+			context.getInterface().fillRect(new Rectangle(rect.x+rect.width/2-1,rect.y,2,rect.height),color,color,color,color);
+			context.getInterface().fillRect(new Rectangle(rect.x,rect.y+rect.height/2-1,rect.width,2),color,color,color,color);
+			break;
+		case ITheme.LEFT:
+			if (rect.height%2==1) rect.height-=1;
+			points[2]=new Point(rect.x+rect.width,rect.y);
+			points[0]=new Point(rect.x+rect.width,rect.y+rect.height);
+			points[1]=new Point(rect.x,rect.y+rect.height/2);
+			break;
+		case ITheme.RIGHT:
+			if (rect.height%2==1) rect.height-=1;
+			points[0]=new Point(rect.x,rect.y);
+			points[2]=new Point(rect.x,rect.y+rect.height);
+			points[1]=new Point(rect.x+rect.width,rect.y+rect.height/2);
+			break;
+		case ITheme.UP:
+			if (rect.width%2==1) rect.width-=1;
+			points[0]=new Point(rect.x,rect.y+rect.height);
+			points[2]=new Point(rect.x+rect.width,rect.y+rect.height);
+			points[1]=new Point(rect.x+rect.width/2,rect.y);
+			break;
+		case ITheme.DOWN:
+			if (rect.width%2==1) rect.width-=1;
+			points[2]=new Point(rect.x,rect.y);
+			points[0]=new Point(rect.x+rect.width,rect.y);
+			points[1]=new Point(rect.x+rect.width/2,rect.y+rect.height);
+			break;
 		}
 		if (symbol>=ITheme.LEFT && symbol<=ITheme.DOWN) {
 			context.getInterface().drawLine(points[0],points[1],color,color);
@@ -114,27 +114,27 @@ public class ImpactTheme extends ThemeBase {
 			public void renderBackground (Context context, boolean focus) {
 				if (graphicalLevel==0) ImpactTheme.this.renderBackground(context,focus);
 			}
-
+			
 			@Override
 			public int getBorder() {
 				return 2;
 			}
-
+			
 			@Override
 			public int getLeft() {
 				return 2;
 			}
-
+			
 			@Override
 			public int getRight() {
 				return 2;
 			}
-
+			
 			@Override
 			public int getTop() {
 				return 2;
 			}
-
+			
 			@Override
 			public int getBottom() {
 				return 2;
@@ -149,27 +149,27 @@ public class ImpactTheme extends ThemeBase {
 			public int getBorder() {
 				return graphicalLevel<=0?1:0;
 			}
-
+			
 			@Override
 			public int getLeft() {
 				return 1;
 			}
-
+			
 			@Override
 			public int getRight() {
 				return 1;
 			}
-
+			
 			@Override
 			public int getTop() {
 				return 1;
 			}
-
+			
 			@Override
 			public int getBottom() {
 				return 1;
 			}
-
+			
 			@Override
 			public void renderPanelOverlay(Context context, boolean focus, T state, boolean open) {
 				Color color=graphicalLevel<=0?scheme.getColor("Panel Outline Color"):scheme.getColor("Component Outline Color");
@@ -407,7 +407,7 @@ public class ImpactTheme extends ThemeBase {
 			public int getDefaultHeight() {
 				return container?getBaseHeight()-2:getBaseHeight();
 			}
-
+			
 			@Override
 			public Rectangle getSlideArea (Context context, String title, String state) {
 				if (getColor(null)!=null && (title.equals("Red")||title.equals("Green")||title.equals("Blue")||title.equals("Hue")||title.equals("Saturation")||title.equals("Brightness"))) {
@@ -673,7 +673,7 @@ public class ImpactTheme extends ThemeBase {
 			public int getBaseHeight() {
 				return ImpactTheme.this.getBaseHeight();
 			}
-
+			
 			@Override
 			public void renderCursor (Context context, Point p, Color color) {
 				Color fontColor=scheme.getColor("Active Font Color");
