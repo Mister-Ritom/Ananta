@@ -1,14 +1,13 @@
 package me.ritomg.ananta.command;
 
-import scala.actors.threadpool.Arrays;
-
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class Command {
 
     private String name;
     private String description;
-    private String alias[];
+    private String[] alias;
     private String syntax;
 
     public Command(String name, String description, String[] alias, String syntax) {
@@ -28,7 +27,7 @@ public abstract class Command {
         return description;
     }
 
-    public List<String> getAlias() {
+	public List<String> getAlias() {
         return Arrays.asList(alias);
     }
 

@@ -1,6 +1,7 @@
 package me.ritomg.ananta.config;
 
 import com.google.gson.*;
+import me.ritomg.ananta.command.CommandManager;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.setting.Setting;
@@ -25,6 +26,7 @@ public class SaveConfig {
             saveConfig();
             saveModules();
             saveGuiPos();
+            saveCommandPrefix();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -96,6 +98,18 @@ public class SaveConfig {
 
     public static void saveGuiPos()throws IOException {
         me.ritomg.ananta.Ananta.INSTANCE.gui.gui.saveConfig(new AnantaGuiConfig());
+    }
+
+    public static void saveCommandPrefix() throws IOException {
+        registerFiles("Main/", "Command");
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        OutputStreamWriter fileOutputStreamWriter = new OutputStreamWriter(new FileOutputStream(Ananta + "Main/" + "Command" + ".json"), StandardCharsets.UTF_8);
+        JsonObject prefixObject = new JsonObject();
+
+        prefixObject.add("Command", new JsonPrimitive(CommandManager.prefix));
+        String jsonString = gson.toJson(new JsonParser().parse(prefixObject.toString()));
+        fileOutputStreamWriter.write(jsonString);
+        fileOutputStreamWriter.close();
     }
 
 }

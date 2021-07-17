@@ -29,7 +29,9 @@ public class ModuleManager {
         addnewModule(new Fastutil());
         addnewModule(new AutoXp());
         addnewModule(new FullBright());
+        addnewModule(new AutoReply());
         addnewModule(new ToggleMessage());
+        addnewModule(new HudEditor());
     }
 
     public static List<Module> getModulesinCategory(Category c) {
@@ -53,7 +55,8 @@ public class ModuleManager {
         return null;
     }
 
-    public static <T extends Module> T getModule(Class<T> clazz) {
+    @SuppressWarnings("unchecked")
+	public static <T extends Module> T getModule(Class<T> clazz) {
         for (Module m : modules) {
             if (m.getClass().equals(clazz)) {
                 return (T) m;

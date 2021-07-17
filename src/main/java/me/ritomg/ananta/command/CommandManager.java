@@ -5,7 +5,6 @@ import me.ritomg.ananta.command.commands.BindCommand;
 import me.ritomg.ananta.command.commands.HelpCommand;
 import me.ritomg.ananta.command.commands.PrefixCommand;
 import me.ritomg.ananta.util.AnantaMessageUtil;
-import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 import java.util.Arrays;

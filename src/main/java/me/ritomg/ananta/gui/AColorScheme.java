@@ -4,7 +4,6 @@ import com.lukflug.panelstudio.theme.IColorScheme;
 import com.lukflug.panelstudio.theme.ITheme;
 import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
-import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.setting.settings.ColourSetting;
 
 import java.awt.*;

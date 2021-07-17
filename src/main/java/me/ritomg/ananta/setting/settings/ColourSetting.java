@@ -1,6 +1,5 @@
 package me.ritomg.ananta.setting.settings;
 
-import com.lukflug.panelstudio.setting.IColorSetting;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.setting.Setting;
 

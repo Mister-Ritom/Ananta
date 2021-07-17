@@ -1,65 +1,67 @@
-package me.ritomg.ananta.gui;
+package me.ritomg.ananta.hud;
 
-import com.lukflug.panelstudio.base.*;
+
 import com.lukflug.panelstudio.component.*;
-import com.lukflug.panelstudio.container.GUI;
-import com.lukflug.panelstudio.container.IContainer;
 import com.lukflug.panelstudio.layout.*;
-import com.lukflug.panelstudio.mc12.MinecraftGUI;
-import com.lukflug.panelstudio.popup.*;
 import com.lukflug.panelstudio.setting.*;
 import com.lukflug.panelstudio.theme.*;
-import com.lukflug.panelstudio.widget.ColorPickerComponent;
+import com.lukflug.panelstudio.widget.*;
+import com.lukflug.panelstudio.base.Animation;
+import com.lukflug.panelstudio.base.Context;
+import com.lukflug.panelstudio.base.IBoolean;
+import com.lukflug.panelstudio.base.IToggleable;
+import com.lukflug.panelstudio.base.SettingsAnimation;
+import com.lukflug.panelstudio.base.SimpleToggleable;
+import com.lukflug.panelstudio.container.IContainer;
+import com.lukflug.panelstudio.hud.HUDGUI;
+import com.lukflug.panelstudio.mc12.MinecraftHUDGUI;
+import com.lukflug.panelstudio.popup.MousePositioner;
+import com.lukflug.panelstudio.popup.PanelPositioner;
+import com.lukflug.panelstudio.popup.PopupTuple;
+
+import me.ritomg.ananta.Ananta;
+import me.ritomg.ananta.gui.TextFieldKeys;
 import me.ritomg.ananta.module.Category;
-import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.module.modules.client.ClickGui;
-import me.ritomg.ananta.module.modules.client.GamesenseThemeModule;
-import me.ritomg.ananta.module.modules.client.WindowsTheme;
 import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.*;
 import net.minecraft.util.text.TextFormatting;
-import org.lwjgl.input.Keyboard;
+
 
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-public class AnantaClientGui extends MinecraftGUI {
+public class HudGui extends MinecraftHUDGUI {
 
-    public GUIInterface guiInterface;
-    public GUI gui;
     public ClickGui clickGui = ModuleManager.getModule(ClickGui.class);
-    public IClient client;
-    public int FONT_HEIGHT = 9;
-    private ITheme gameSenseTheme;
-    private ITheme clearTheme;
-    private ITheme rainbowTheme;
-    private ITheme windowstheme;
-    private ITheme cleargradientTheme;
-    private ITheme impacttheme;
+    public static final int WIDTH = 100, HEIGHT = 12, FONT_HEIGHT = 9, DISTANCE = 10, HUD_BORDER = 2;
+    public static IClient client;
+    public static GUIInterface guiInterface;
+    public static Comparator<IModule> modulesCompar;
+    public static HUDGUI gui;
 
-    public AnantaClientGui() {
+    public HudGui() {
+
+        // Define interface and themes ..
         guiInterface = new GUIInterface(true) {
+
             @Override
-            protected String getResourcePrefix() {
-                return "ananta:gui/";
+            public String getResourcePrefix() {
+                return "raptor:gui/";
             }
         };
-        gameSenseTheme = new GameSenseTheme(new AColorScheme(ModuleManager.getModule(GamesenseThemeModule.class)), FONT_HEIGHT, 3, 5, ": " + TextFormatting.GRAY);
-        clearTheme = new ClearTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.ClearTheme.class)), () -> false, FONT_HEIGHT, 3, 1, ": " + TextFormatting.GRAY);
-        cleargradientTheme = new ClearTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.ClearTheme.class)), () -> true, FONT_HEIGHT, 3, 1, ": " + TextFormatting.GRAY);
-        rainbowTheme = new RainbowTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.RainbowTheme.class)), () -> ModuleManager.getModule(me.ritomg.ananta.module.modules.client.RainbowTheme.class).ignoreDisabled.isOn(), () -> ModuleManager.getModule(me.ritomg.ananta.module.modules.client.RainbowTheme.class).buttonRainbow.isOn(), () -> 1, FONT_HEIGHT, 3, ":" + TextFormatting.GRAY);
-        windowstheme = new Windows31Theme(new AColorScheme(ModuleManager.getModule(WindowsTheme.class)), FONT_HEIGHT, 3, 5, ":" + TextFormatting.GRAY);
-        impacttheme = new ImpactTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.ImpactTheme.class)), FONT_HEIGHT, 3);
 
-        ITheme theme = getTheme();
 
-        client = () -> Arrays.stream(Category.values()).sorted(Comparator.comparing(Enum::toString)).map(category -> new ICategory() {
+        ITheme theme = Ananta.INSTANCE.gui.getTheme();
 
+        // Define client structure
+        client=()-> Arrays.stream(Category.values()).sorted(Comparator.comparing(Enum::toString)).map(category->new ICategory() {
             @Override
             public String getDisplayName() {
                 return category.toString();
@@ -67,20 +69,10 @@ public class AnantaClientGui extends MinecraftGUI {
 
             @Override
             public Stream<IModule> getModules() {
-                return ModuleManager.getModulesinCategory(category).stream().sorted(Comparator.comparing(Module::getName)).map(module -> new IModule() {
+                return HudManager.getHudInCategory(category).stream().sorted(Comparator.comparing(Hud::getName)).map(module->new IModule() {
                     @Override
-                    public IToggleable isEnabled() {
-                        return new IToggleable() {
-                            @Override
-                            public void toggle() {
-                                module.toggle();
-                            }
-
-                            @Override
-                            public boolean isOn() {
-                                return module.isEnabled();
-                            }
-                        };
+                    public String getDisplayName() {
+                        return module.getName();
                     }
 
                     @Override
@@ -89,13 +81,27 @@ public class AnantaClientGui extends MinecraftGUI {
                     }
 
                     @Override
-                    public Stream<ISetting<?>> getSettings() {
+                    public IToggleable isEnabled() {
+                        return new IToggleable() {
+                            @Override
+                            public boolean isOn() {
+                                return module.isEnabled();
+                            }
 
-                        Stream<ISetting<?>> temp=module.getSettings().stream().map(AnantaClientGui.this::createSettings);
-                        final Stream<ISetting<?>> concat = Stream.concat(temp, Stream.concat(Stream.of(new IBooleanSetting() {
+                            @Override
+                            public void toggle() {
+                                module.toggle();
+                            }
+                        };
+                    }
+
+                    @Override
+                    public Stream<ISetting<?>> getSettings() {
+                        Stream<ISetting<?>> temp=module.getSettings().stream().map(HudGui.this::createSettings);
+                        return Stream.concat(temp,Stream.concat(Stream.of(new IBooleanSetting() {
                             @Override
                             public String getDisplayName() {
-                                return "ToggleMessage";
+                                return "Toggle Msgs";
                             }
 
                             @Override
@@ -107,10 +113,10 @@ public class AnantaClientGui extends MinecraftGUI {
                             public boolean isOn() {
                                 return module.toggleMessage;
                             }
-                        }), Stream.of(new IKeybindSetting() {
+                        }),Stream.of(new IKeybindSetting() {
                             @Override
                             public String getDisplayName() {
-                                return "Bind";
+                                return "Keybind";
                             }
 
                             @Override
@@ -128,24 +134,45 @@ public class AnantaClientGui extends MinecraftGUI {
                                 return Keyboard.getKeyName(module.getBind());
                             }
                         })));
-                        return concat;
-                    }
-
-                    @Override
-                    public String getDisplayName() {
-                        return module.getName();
                     }
                 });
             }
+
         });
-        gui = new GUI(guiInterface, theme.getDescriptionRenderer(), new MousePositioner(new Point(10, 10)));
 
         Supplier<Animation> animation=()->new SettingsAnimation(()->clickGui.animationSpeed.getCurrent(),()->guiInterface.getTime());
 
         BiFunction<Context,Integer,Integer> scrollHeight=(context, componentHeight)->{
             if (clickGui.scrolling.is("Screen")) return componentHeight;
-            else return Math.min(componentHeight,Math.max(10*4, AnantaClientGui.this.height-context.getPos().y-10));
+            else return Math.min(componentHeight,Math.max(10*4, HudGui.this.height-context.getPos().y-10));
         };
+
+        // Define GUI object
+        IToggleable guiToggle=new SimpleToggleable(false);
+        IToggleable hudToggle=new SimpleToggleable(false) {
+            @Override
+            public boolean isOn() {
+                if (guiToggle.isOn()&&super.isOn()) return true;
+                return super.isOn();
+            }
+        };
+        gui = new HUDGUI(guiInterface, theme.getDescriptionRenderer(),new MousePositioner(new Point(10,10)),guiToggle,hudToggle);
+        // Populate HUD
+        for (Hud module : HudManager.huds) {
+                (module).populate(theme);
+                gui.addHUDComponent((module).getComponent(),new IToggleable() {
+                    @Override
+                    public boolean isOn() {
+                        return module.isEnabled();
+                    }
+
+                    @Override
+                    public void toggle() {
+                        module.toggle();
+                    }
+                },animation.get(), theme,HUD_BORDER);
+        }
+
 
         IContainer<IFixedComponent> container = new IContainer<IFixedComponent>() {
             @Override
@@ -199,7 +226,7 @@ public class AnantaClientGui extends MinecraftGUI {
         IComponentGenerator generator=new ComponentGenerator(scancode->scancode==Keyboard.KEY_DELETE, character->character>=' ', new TextFieldKeys()){
             @Override
             public IComponent getColorComponent(IColorSetting setting, Supplier<Animation> animation, IComponentAdder adder, ThemeTuple theme, int colorLevel, boolean isContainer) {
-                    return new ColorPickerComponent(setting,theme);
+                return new ColorPickerComponent(setting,theme);
             }
         };
 
@@ -238,7 +265,7 @@ public class AnantaClientGui extends MinecraftGUI {
 
                         if (size.getWidth() < 75) size.width = 75;
                         if (size.getHeight() <50) size.height = 50;
-                         dimension.setSize(size);
+                        dimension.setSize(size);
                     }
                 };
             }
@@ -338,7 +365,6 @@ public class AnantaClientGui extends MinecraftGUI {
 
     }
 
-    //settings
     private ISetting<?> createSettings (Setting setting) {
         if (setting instanceof BooleanSetting) {
             return new IBooleanSetting() {
@@ -620,27 +646,9 @@ public class AnantaClientGui extends MinecraftGUI {
         };
     }
 
-    public ITheme getTheme() {
-        return new IThemeMultiplexer() {
-            @Override
-            public ITheme getTheme() {
-                switch (clickGui.theme.getCurrentMode()) {
-                    case "Windows":
-                        return windowstheme;
-                    case "RainbowTheme":
-
-                        return rainbowTheme;
-                    case "ClearTheme":
-                        return clearTheme;
-                    case "ClearGradientTheme":
-                        return cleargradientTheme;
-                    case "ImpactTheme":
-                        return impacttheme;
-                    default:
-                        return gameSenseTheme;
-                }
-            }
-        };
+    @Override
+    protected HUDGUI getGUI() {
+        return gui;
     }
 
     @Override
@@ -650,11 +658,8 @@ public class AnantaClientGui extends MinecraftGUI {
 
     @Override
     protected int getScrollSpeed() {
-        return clickGui.scrollSpeed.getCurrent();
+        return Objects.requireNonNull(ModuleManager.getModule(ClickGui.class)).scrollSpeed.getCurrent();
     }
 
-    @Override
-    protected GUI getGUI() {
-        return gui;
-    }
+
 }

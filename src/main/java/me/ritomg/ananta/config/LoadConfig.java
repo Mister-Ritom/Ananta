@@ -1,5 +1,6 @@
 package me.ritomg.ananta.config;
 
+import me.ritomg.ananta.command.CommandManager;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.setting.Setting;
@@ -25,6 +26,7 @@ public class LoadConfig {
         try {
             loadModules();
             loadGuiPos();
+            loadCommandPrefix();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -112,6 +114,27 @@ public class LoadConfig {
 
     public static void loadGuiPos() throws IOException{
         me.ritomg.ananta.Ananta.INSTANCE.gui.gui.loadConfig(new AnantaGuiConfig());
+    }
+
+    private static void loadCommandPrefix() throws IOException {
+
+        if (!Files.exists(Paths.get(Ananta + "Main/" + "Command" + ".json"))) {
+            return;
+        }
+
+        InputStream inputStream = Files.newInputStream(Paths.get(Ananta + "Main/" + "Command" + ".json"));
+        JsonObject mainObject = new JsonParser().parse(new InputStreamReader(inputStream)).getAsJsonObject();
+
+        if (mainObject.get("Prefix") == null) {
+            return;
+        }
+
+        JsonElement prefixObject = mainObject.get("Prefix");
+
+        if (prefixObject != null && prefixObject.isJsonPrimitive()) {
+            CommandManager.prefix = prefixObject.getAsString();
+        }
+        inputStream.close();
     }
 
 }

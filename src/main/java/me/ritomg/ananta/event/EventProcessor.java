@@ -1,15 +1,19 @@
 package me.ritomg.ananta.event;
 
+import me.ritomg.ananta.Ananta;
 import me.ritomg.ananta.command.CommandManager;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ClientChatEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
+
+import static net.minecraft.client.Minecraft.getMinecraft;
 
 public class EventProcessor {
 
@@ -30,10 +34,10 @@ public class EventProcessor {
 
     @SubscribeEvent
     public void onUpdateEvent(LivingEvent.LivingUpdateEvent event) {
-        if (Minecraft.getMinecraft().player == null || Minecraft.getMinecraft().world == null) {
+        if (getMinecraft().player == null || getMinecraft().world == null) {
             return;
         }
-        if (event.getEntity().getEntityWorld().isRemote && event.getEntityLiving() == Minecraft.getMinecraft().player) {
+        if (event.getEntity().getEntityWorld().isRemote && event.getEntityLiving() == getMinecraft().player) {
             for (Module m : ModuleManager.getModules()) {
                 if (m.isEnabled()) {
                     m.onUpdate();
@@ -46,9 +50,19 @@ public class EventProcessor {
     public void onChatSent(ClientChatEvent event) {
         if (event.getMessage().startsWith(CommandManager.prefix)) {
             event.setCanceled(true);
-            Minecraft.getMinecraft().ingameGUI.getChatGUI().addToSentMessages(event.getMessage());
+            getMinecraft().ingameGUI.getChatGUI().addToSentMessages(event.getMessage());
             CommandManager.callCommand(event.getMessage());
         }
+    }
+
+    @SubscribeEvent
+    public void onRender(RenderGameOverlayEvent.Post event) {
+        if (getMinecraft().player == null || getMinecraft().world == null) return;
+
+        if (event.getType() == RenderGameOverlayEvent.ElementType.HOTBAR) {
+            Ananta.INSTANCE.hudGui.render();
+        }
+
     }
 
 }
