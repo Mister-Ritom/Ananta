@@ -71,21 +71,21 @@ public class LoadConfig {
         JsonElement bindObject = settingObject.get("Bind");
         JsonElement enabledObject = settingObject.get("Enabled");
 
-        JsonObject positionObject;
-            positionObject = moduleObject.get("Position").getAsJsonObject();
-            try {
-     /*TODO*/   JsonElement xElement = positionObject.get("X");
-                JsonElement yElement = positionObject.get("Y");
-                if (xElement != null && xElement.isJsonPrimitive()) {
-                    module.x = xElement.getAsInt();
-                }
-                if (yElement != null && yElement.isJsonPrimitive()) {
-                    module.y = yElement.getAsInt();
-                }
-
-            } catch (java.lang.NumberFormatException e) {
-                System.out.println(module.x + " " + module.y + " " + module.getName());
-            }
+//        JsonObject positionObject;
+//            positionObject = moduleObject.get("Position").getAsJsonObject();
+//            try {
+//     /*TODO*/   JsonElement xElement = positionObject.get("X");
+//                JsonElement yElement = positionObject.get("Y");
+//                if (xElement != null && xElement.isJsonPrimitive()) {
+//                    module.x = xElement.getAsInt();
+//                }
+//                if (yElement != null && yElement.isJsonPrimitive()) {
+//                    module.y = yElement.getAsInt();
+//                }
+//
+//            } catch (java.lang.NumberFormatException e) {
+//                System.out.println(module.x + " " + module.y + " " + module.getName());
+//            }
         try {
             if (bindObject != null && bindObject.isJsonPrimitive()) {
                 module.setBind(bindObject.getAsInt());

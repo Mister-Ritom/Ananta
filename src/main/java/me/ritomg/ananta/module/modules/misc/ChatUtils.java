@@ -7,6 +7,7 @@ import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.setting.settings.BooleanSetting;
 import me.ritomg.ananta.setting.settings.ModeSetting;
 import net.minecraft.network.play.client.CPacketChatMessage;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Arrays;
