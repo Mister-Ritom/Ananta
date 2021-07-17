@@ -1,6 +1,9 @@
 package me.ritomg.ananta.config;
 
+import me.ritomg.ananta.Ananta;
 import me.ritomg.ananta.command.CommandManager;
+import me.ritomg.ananta.hud.Hud;
+import me.ritomg.ananta.hud.HudManager;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.setting.Setting;
@@ -21,12 +24,14 @@ public class LoadConfig {
 
     private static final String Ananta = "Ananta/";
     private static final String modulesPath = "Modules/";
+    private static final String hudsPath = "HUDS/";
 
     public static void init() {
         try {
             loadModules();
             loadGuiPos();
             loadCommandPrefix();
+            loadHuds();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,6 +43,86 @@ public class LoadConfig {
         for (Module module : ModuleManager.getModules()) {
             try {
                 loadModuleDirect(moduleLocation, module);
+            } catch (IOException e) {
+                System.out.println(module.getName());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void loadHudDirect(String moduleLocation, Hud module) throws IOException {
+        if (!Files.exists(Paths.get(moduleLocation + module.getName() + ".json"))) {
+            return;
+        }
+
+        InputStream inputStream = Files.newInputStream(Paths.get(moduleLocation + module.getName() + ".json"));
+        JsonObject moduleObject;
+        try {
+            moduleObject = new JsonParser().parse(new InputStreamReader(inputStream)).getAsJsonObject();
+        }catch (java.lang.IllegalStateException e) {
+            return;
+        }
+
+        if (moduleObject.get("Hud") == null) {
+            return;
+        }
+
+        JsonObject settingObject = moduleObject.get("Settings").getAsJsonObject();
+        JsonElement bindObject = settingObject.get("Bind");
+        JsonElement enabledObject = settingObject.get("Enabled");
+
+        try {
+            if (bindObject != null && bindObject.isJsonPrimitive()) {
+                module.setBind(bindObject.getAsInt());
+            }
+        }  catch (java.lang.NumberFormatException e) {
+            System.out.println(module.getBind() + " " + module.getName());
+            System.out.println(bindObject);
+        }
+        try {
+            if (enabledObject != null && enabledObject.isJsonPrimitive()) {
+                if (enabledObject.getAsBoolean()) {
+                    module.enable();
+                }
+            }
+        }catch (java.lang.NumberFormatException e) {
+            System.out.println(module.isEnabled()+ " " + module.getName());
+            System.out.println(enabledObject);
+        }
+
+        for (Setting setting : module.getSettings()) {
+            JsonElement dataObject = settingObject.get(setting.getName().replace(" ", ""));
+            try {
+                if (dataObject != null && dataObject.isJsonPrimitive()) {
+                    if (setting instanceof BooleanSetting) {
+                        ((BooleanSetting)setting).On(dataObject.getAsBoolean());
+                    } else if (setting instanceof NumberSetting) {
+                        ((NumberSetting)setting).setCurrent(dataObject.getAsInt());
+                    } else if (setting instanceof DNumberSetting) {
+                        ((DNumberSetting)setting).setCurrent(dataObject.getAsDouble());
+                    }else if (setting instanceof ColourSetting) {
+                        ((ColourSetting)setting).setColorRGB(dataObject.getAsLong());} // TODO
+                    else if (setting instanceof ModeSetting) {
+                        ((ModeSetting) setting).setCurrentMode(dataObject.getAsString());
+                    } else if (setting instanceof StringSetting) {
+                        ((StringSetting)setting).setText(dataObject.getAsString());
+                    }
+
+                }
+            } catch (java.lang.NumberFormatException e) {
+                System.out.println(setting.getName().replace(" ", "") + " " + module.getName());
+                System.out.println(dataObject);
+            }
+        }
+        inputStream.close();
+    }
+
+    private static void loadHuds() throws IOException {
+        String moduleLocation = Ananta + hudsPath;
+
+        for (Hud module : HudManager.huds) {
+            try {
+                loadHudDirect(moduleLocation, module);
             } catch (IOException e) {
                 System.out.println(module.getName());
                 e.printStackTrace();
@@ -113,6 +198,7 @@ public class LoadConfig {
     }
 
     public static void loadGuiPos() throws IOException{
+        me.ritomg.ananta.Ananta.INSTANCE.hudGui.gui.loadConfig(new AnantaGuiConfig());
         me.ritomg.ananta.Ananta.INSTANCE.gui.gui.loadConfig(new AnantaGuiConfig());
     }
 

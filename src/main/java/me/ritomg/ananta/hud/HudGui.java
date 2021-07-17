@@ -27,6 +27,7 @@ import me.ritomg.ananta.module.modules.client.ClickGui;
 import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.*;
 import net.minecraft.util.text.TextFormatting;
+import org.lwjgl.input.Keyboard;
 
 
 import java.awt.*;
@@ -44,7 +45,7 @@ public class HudGui extends MinecraftHUDGUI {
     public static IClient client;
     public static GUIInterface guiInterface;
     public static Comparator<IModule> modulesCompar;
-    public static HUDGUI gui;
+    public HUDGUI gui;
 
     public HudGui() {
 
@@ -223,7 +224,7 @@ public class HudGui extends MinecraftHUDGUI {
             }
         };
 
-        IComponentGenerator generator=new ComponentGenerator(scancode->scancode==Keyboard.KEY_DELETE, character->character>=' ', new TextFieldKeys()){
+        IComponentGenerator generator=new ComponentGenerator(scancode->scancode== Keyboard.KEY_DELETE, character->character>=' ', new TextFieldKeys()){
             @Override
             public IComponent getColorComponent(IColorSetting setting, Supplier<Animation> animation, IComponentAdder adder, ThemeTuple theme, int colorLevel, boolean isContainer) {
                 return new ColorPickerComponent(setting,theme);
@@ -238,7 +239,7 @@ public class HudGui extends MinecraftHUDGUI {
         });
 
         //normal layout
-        IComponentAdder classicPanelaAder = new PanelAdder(container,false,()->clickGui.layout.is("normal"),title->title) {
+        IComponentAdder classicPanelaAder = new PanelAdder(container,false,()->true,title->title) {
             @Override
             protected IScrollSize getScrollSize (IResizable size) {
                 return new IScrollSize() {
@@ -270,98 +271,98 @@ public class HudGui extends MinecraftHUDGUI {
                 };
             }
         };
-        int WIDTH = 100, HEIGHT = 12, DISTANCE = 10;
         ILayout classicPanelLayout=new PanelLayout(100,new Point(10,10),(110)/2,112,animation, level-> ChildUtil.ChildMode.DOWN, level-> ChildUtil.ChildMode.DOWN,popupTuple);
         classicPanelLayout.populateGUI(classicPanelaAder,generator,client,theme);
 
-        //stacked panel layout
-        IComponentAdder satckedComponentAdder = new StackedPanelAdder(container,new Labeled("AnantaClient",null,()->true),theme, new Point(0,0), WIDTH + 400,animation, ChildUtil.ChildMode.DOWN,new PanelPositioner(new Point(0,0)),()->clickGui.layout.is("Stacked"),"Stacked") {
-            @Override
-            protected IResizable getResizable(int width) {
-
-                Dimension dimension = new Dimension(500,100);
-
-                return new IResizable() {
-                    @Override
-                    public Dimension getSize() {
-                        return dimension;
-                    }
-
-                    @Override
-                    public void setSize(Dimension size) {
-
-                        if (size.getWidth() < 75) size.width = 75;
-                        if (size.getHeight() <50) size.height = 50;
-                        dimension.setSize(size);
-                    }
-                };
-            }
-        };
-        ILayout StackedPanelLayout=new PanelLayout(WIDTH,new Point(DISTANCE,DISTANCE),(WIDTH+DISTANCE)/2,HEIGHT+DISTANCE,animation,level-> ChildUtil.ChildMode.DOWN, level-> ChildUtil.ChildMode.DOWN,popupTuple);
-        StackedPanelLayout.populateGUI(satckedComponentAdder,generator,client, theme);
-        //single panel layout
-
-        IComponentAdder singlePanelAdder = new SinglePanelAdder(container, new Labeled("AnantaClient",null, ()->true), theme,new Point(0,0), WIDTH + 500,animation, ()->clickGui.layout.is("Single"), "SinglePanel") {
-            @Override
-            protected IResizable getResizable(int width) {
-
-                Dimension dimension = new Dimension(500,100 );
-
-                return new IResizable() {
-                    @Override
-                    public Dimension getSize() {
-                        return dimension;
-                    }
-
-                    @Override
-                    public void setSize(Dimension size) {
-
-                        if (size.getWidth() < 75) size.width = 75;
-                        if (size.getHeight() <50) size.height = 50;
-                        dimension.setSize(size);
-                    }
-                };
-            }
-        };
-
-        ILayout singlePanelLayout=new PanelLayout(WIDTH,new Point(DISTANCE,DISTANCE),(WIDTH+DISTANCE)/2,HEIGHT+DISTANCE,animation,level-> ChildUtil.ChildMode.DOWN, level-> ChildUtil.ChildMode.DOWN,popupTuple);
-        singlePanelLayout.populateGUI(singlePanelAdder,generator,client, theme);
-
-        // CSGO Layout!
-        IComponentAdder horizontalCSGOAdder=new PanelAdder(gui,true,()->clickGui.layout.is("CSGO"),title->title);
-        ILayout horizontalCSGOLayout=new CSGOLayout(new Labeled("AnantaClient",null,()->true),new Point(100,100),470,WIDTH,animation,"Enabled",true,true,2, ChildUtil.ChildMode.DOWN,popupTuple) {
-            @Override
-            public int getScrollHeight (Context context, int componentHeight) {
-                return 320;
-            }
-
-            @Override
-            protected boolean isUpKey (int key) {
-                return key==Keyboard.KEY_UP;
-            }
-
-            @Override
-            protected boolean isDownKey (int key) {
-                return key==Keyboard.KEY_DOWN;
-            }
-
-            @Override
-            protected boolean isLeftKey (int key) {
-                return key==Keyboard.KEY_LEFT;
-            }
-
-            @Override
-            protected boolean isRightKey (int key) {
-                return key==Keyboard.KEY_RIGHT;
-            }
-        };
-        horizontalCSGOLayout.populateGUI(horizontalCSGOAdder,generator,client, theme);
-
-        //SEARCHABLE Layout!
-        Comparator<IModule> modulesCompar = Comparator.comparing(o -> o.getDisplayName().toLowerCase());
-        IComponentAdder searchAdder=new PanelAdder(gui,true,()->clickGui.layout.is("Search"),title->title);
-        ILayout searchLayout = new SearchableLayout(new Labeled("AnantaClient", null, () -> true), new Labeled("Search", null, () -> true), new Point(100, 100), 480, WIDTH, animation, "Enabled", 2, ChildUtil.ChildMode.DOWN, popupTuple, modulesCompar , character -> character >= ' ', new TextFieldKeys());
-        searchLayout.populateGUI(searchAdder, generator,client, theme);
+        // not needed for HUD
+//        //stacked panel layout
+//        IComponentAdder satckedComponentAdder = new StackedPanelAdder(container,new Labeled("AnantaClient",null,()->true),theme, new Point(0,0), WIDTH + 400,animation, ChildUtil.ChildMode.DOWN,new PanelPositioner(new Point(0,0)),()->clickGui.layout.is("Stacked"),"Stacked") {
+//            @Override
+//            protected IResizable getResizable(int width) {
+//
+//                Dimension dimension = new Dimension(500,100);
+//
+//                return new IResizable() {
+//                    @Override
+//                    public Dimension getSize() {
+//                        return dimension;
+//                    }
+//
+//                    @Override
+//                    public void setSize(Dimension size) {
+//
+//                        if (size.getWidth() < 75) size.width = 75;
+//                        if (size.getHeight() <50) size.height = 50;
+//                        dimension.setSize(size);
+//                    }
+//                };
+//            }
+//        };
+//        ILayout StackedPanelLayout=new PanelLayout(WIDTH,new Point(DISTANCE,DISTANCE),(WIDTH+DISTANCE)/2,HEIGHT+DISTANCE,animation,level-> ChildUtil.ChildMode.DOWN, level-> ChildUtil.ChildMode.DOWN,popupTuple);
+//        StackedPanelLayout.populateGUI(satckedComponentAdder,generator,client, theme);
+//        //single panel layout
+//
+//        IComponentAdder singlePanelAdder = new SinglePanelAdder(container, new Labeled("AnantaClient",null, ()->true), theme,new Point(0,0), WIDTH + 500,animation, ()->clickGui.layout.is("Single"), "SinglePanel") {
+//            @Override
+//            protected IResizable getResizable(int width) {
+//
+//                Dimension dimension = new Dimension(500,100 );
+//
+//                return new IResizable() {
+//                    @Override
+//                    public Dimension getSize() {
+//                        return dimension;
+//                    }
+//
+//                    @Override
+//                    public void setSize(Dimension size) {
+//
+//                        if (size.getWidth() < 75) size.width = 75;
+//                        if (size.getHeight() <50) size.height = 50;
+//                        dimension.setSize(size);
+//                    }
+//                };
+//            }
+//        };
+//
+//        ILayout singlePanelLayout=new PanelLayout(WIDTH,new Point(DISTANCE,DISTANCE),(WIDTH+DISTANCE)/2,HEIGHT+DISTANCE,animation,level-> ChildUtil.ChildMode.DOWN, level-> ChildUtil.ChildMode.DOWN,popupTuple);
+//        singlePanelLayout.populateGUI(singlePanelAdder,generator,client, theme);
+//
+//        // CSGO Layout!
+//        IComponentAdder horizontalCSGOAdder=new PanelAdder(gui,true,()->clickGui.layout.is("CSGO"),title->title);
+//        ILayout horizontalCSGOLayout=new CSGOLayout(new Labeled("AnantaClient",null,()->true),new Point(100,100),470,WIDTH,animation,"Enabled",true,true,2, ChildUtil.ChildMode.DOWN,popupTuple) {
+//            @Override
+//            public int getScrollHeight (Context context, int componentHeight) {
+//                return 320;
+//            }
+//
+//            @Override
+//            protected boolean isUpKey (int key) {
+//                return key==Keyboard.KEY_UP;
+//            }
+//
+//            @Override
+//            protected boolean isDownKey (int key) {
+//                return key==Keyboard.KEY_DOWN;
+//            }
+//
+//            @Override
+//            protected boolean isLeftKey (int key) {
+//                return key==Keyboard.KEY_LEFT;
+//            }
+//
+//            @Override
+//            protected boolean isRightKey (int key) {
+//                return key==Keyboard.KEY_RIGHT;
+//            }
+//        };
+//        horizontalCSGOLayout.populateGUI(horizontalCSGOAdder,generator,client, theme);
+//
+//        //SEARCHABLE Layout!
+//        Comparator<IModule> modulesCompar = Comparator.comparing(o -> o.getDisplayName().toLowerCase());
+//        IComponentAdder searchAdder=new PanelAdder(gui,true,()->clickGui.layout.is("Search"),title->title);
+//        ILayout searchLayout = new SearchableLayout(new Labeled("AnantaClient", null, () -> true), new Labeled("Search", null, () -> true), new Point(100, 100), 480, WIDTH, animation, "Enabled", 2, ChildUtil.ChildMode.DOWN, popupTuple, modulesCompar , character -> character >= ' ', new TextFieldKeys());
+//        searchLayout.populateGUI(searchAdder, generator,client, theme);
 
     }
 

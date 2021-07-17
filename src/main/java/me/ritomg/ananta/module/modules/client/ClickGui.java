@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class ClickGui extends Module {
 
     public NumberSetting scrollSpeed = addIntegerSetting("ScrollSpeed", 1,2,20);
-    public ModeSetting theme = addModeSetting("Theme", "GamesenseTheme",Arrays.asList("RainbowTheme", "ClearGradientTheme", "GamesenseTheme", "ClearTheme", "WindowsTheme","ImpactTheme"));
+    public ModeSetting theme = addModeSetting("Theme", "ImpactTheme",Arrays.asList("RainbowTheme", "ClearGradientTheme", "GamesenseTheme", "ClearTheme", "WindowsTheme","ImpactTheme"));
     public ModeSetting scrolling = addModeSetting("Scrolling", "Screen",Arrays.asList("Screen", "Container"));
     public ModeSetting layout = addModeSetting("Layout", "Normal", Arrays.asList("Normal", "CSGO", "Search", "Single","Stacked"));
     public NumberSetting animationSpeed = addIntegerSetting("AnimationSpeed", 0,200,1000);
