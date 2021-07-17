@@ -6,11 +6,9 @@
   "refmap": "ananta.refmap.json",
   "client": [
     "MixinMinecraft",
-    "MixinNetWorkManager",
-    "accessor.CPacketChatMessageAccessor",
-    "accessor.MinecraftAccessor"
+    "MixinNetWorkManager"
   ],
   "mixins": [
-
+    "accessor.CPacketChatMessageAccessor"
   ]
 }

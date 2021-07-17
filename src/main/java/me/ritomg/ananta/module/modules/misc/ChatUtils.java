@@ -14,16 +14,24 @@ import java.util.Arrays;
 @Module.Info(name = "ChatUtils", description = "Chat things", category = Category.Misc)
 public class ChatUtils extends Module {
 
-    BooleanSetting suffix = addBooleanSetting("Suffix", false);
+    public BooleanSetting suffix = addBooleanSetting("Suffix", false);
     ModeSetting Separator = addModeSetting("Separator", "|",Arrays.asList(">>", "<<", "|"));
 
-    @SubscribeEvent
-    public void onChatPacket(PacketEvent.Send event) {
-        if (event.getPacket() instanceof CPacketChatMessage) {
-            if (((CPacketChatMessage) event.getPacket()).getMessage().startsWith("/")) return;
-            if (suffix.isOn())
-            ((CPacketChatMessageAccessor)event.getPacket()).setMessage(((CPacketChatMessage) event.getPacket()).getMessage() + getSeparator() + toUnicode("AnantaClient"));
-        }
+
+    //TODO i hate you chatSUFFIX
+//    @SubscribeEvent
+//    public void onChatPacket(PacketEvent.Send event) {
+//        if (event.getPacket() instanceof CPacketChatMessage) {
+//            if (((CPacketChatMessage) event.getPacket()).getMessage().startsWith("/")) return;
+//            if (suffix.isOn())
+//                event.setCanceled(true);
+//            mc.player.sendChatMessage(((CPacketChatMessage) event.getPacket()).getMessage() + getSeparator() + toUnicode("AnantaClient"));
+// //           ((CPacketChatMessageAccessor)event.getPacket()).setMessage(((CPacketChatMessage) event.getPacket()).getMessage() + getSeparator() + toUnicode("AnantaClient"));
+//        }
+//    }
+
+    public String getSuffix(String message) {
+        return  message + getSeparator() + toUnicode("AnantaClient");
     }
 
     private String toUnicode(String s) {
