@@ -19,7 +19,7 @@ public class Watermark extends Hud {
     ColourSetting color  = addColorSetting("Color", new Color(0,255,0));
 
     public Watermark() {
-        super(10,15);
+        super(20,25);
     }
 
     @Override

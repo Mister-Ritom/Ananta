@@ -11,16 +11,16 @@ import java.awt.*;
 //code looks skidded ha!
 public abstract class Hud extends Module {
 
-    public int x,z;
+    public int x,y;
 
-    public Hud( int x, int z) {
+    public Hud( int x, int y) {
         this.x = x;
-        this.z = z;
+        this.y = y;
     }
 
     public static final int LIST_BORDER=1;
     protected IFixedComponent component;
-    protected Point position = new Point(x, z);
+    public Point position = new Point(x, y);
 
     public abstract void populate(ITheme theme);
 

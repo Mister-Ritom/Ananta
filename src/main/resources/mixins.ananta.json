@@ -4,10 +4,13 @@
   "minVersion": "0.7",
   "package": "me.ritomg.ananta.mixin.mixins",
   "refmap": "ananta.refmap.json",
-  "mixins": [
+  "client": [
     "MixinMinecraft",
     "MixinNetWorkManager",
     "accessor.CPacketChatMessageAccessor",
     "accessor.MinecraftAccessor"
+  ],
+  "mixins": [
+
   ]
 }
