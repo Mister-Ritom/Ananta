@@ -74,10 +74,6 @@ dependencies {
     }
     implementation('club.minnced:java-discord-rpc:2.0.1')
 
-    implementation ('org.slick2d:slick2d-core:1.0.2') {
-        exclude module: 'lwjgl'
-    }
-
 }
 
 processResources {

@@ -2,11 +2,13 @@ package me.ritomg.ananta;
 
 import me.ritomg.ananta.command.CommandManager;
 import me.ritomg.ananta.config.LoadConfig;
+import me.ritomg.ananta.config.SaveConfig;
 import me.ritomg.ananta.event.EventProcessor;
 import me.ritomg.ananta.gui.AnantaClientGui;
 import me.ritomg.ananta.hud.HudGui;
 import me.ritomg.ananta.hud.HudManager;
 import me.ritomg.ananta.module.ModuleManager;
+import me.ritomg.ananta.util.font.CFontRenderer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -14,6 +16,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.awt.*;
 
 @Mod(
         modid = Ananta.MOD_ID,
@@ -37,6 +41,7 @@ public class Ananta {
 
     public AnantaClientGui gui;
     public HudGui hudGui;
+    public static CFontRenderer customFont;
 
     @Mod.Instance(MOD_ID)
     public static Ananta INSTANCE;
@@ -72,6 +77,8 @@ public class Ananta {
         logger.info("Commands Started");
         LoadConfig.init();
         logger.info("Loaded Config");
+        customFont = new CFontRenderer(new Font("Verdana", Font.BOLD, 18), true, true);
+        Runtime.getRuntime().addShutdownHook(new ConfigStopper());
     }
 
     /**
@@ -80,5 +87,12 @@ public class Ananta {
     @Mod.EventHandler
     public void postinit(FMLPostInitializationEvent event) {
         logger.info("Ananta Started");
+    }
+}
+
+class ConfigStopper extends Thread{
+    @Override
+    public void run() {
+        SaveConfig.init();
     }
 }

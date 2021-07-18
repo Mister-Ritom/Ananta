@@ -86,6 +86,10 @@ public class ColourSetting extends Setting  {
         return Color.getHSBColor(hue, saturation, brightness);
     }
 
+    public static Color getColor(Color color, int alpha) {
+        return new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
+    }
+
     public void setColor(Color color) {
         this.color = color;
     }
@@ -102,15 +106,7 @@ public class ColourSetting extends Setting  {
         return allowRainbow;
     }
 
-    public void setAllowRainbow(boolean allowRainbow) {
-        this.allowRainbow = allowRainbow;
-    }
-
     public boolean isHasAlpha() {
         return hasAlpha;
-    }
-
-    public void setHasAlpha(boolean hasAlpha) {
-        this.hasAlpha = hasAlpha;
     }
 }

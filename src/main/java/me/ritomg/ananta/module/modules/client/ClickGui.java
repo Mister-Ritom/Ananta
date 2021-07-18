@@ -22,6 +22,7 @@ public class ClickGui extends Module {
     public ModeSetting layout = addModeSetting("Layout", "Normal", Arrays.asList("Normal", "CSGO", "Search", "Single","Stacked"));
     public NumberSetting animationSpeed = addIntegerSetting("AnimationSpeed", 0,200,1000);
     public BooleanSetting blur = addBooleanSetting("Blur", false);
+    public BooleanSetting shadow = addBooleanSetting("Shadow", true);
 
     public ClickGui() {
     }

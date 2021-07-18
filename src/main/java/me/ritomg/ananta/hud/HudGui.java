@@ -24,8 +24,11 @@ import me.ritomg.ananta.gui.TextFieldKeys;
 import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.module.modules.client.ClickGui;
+import me.ritomg.ananta.module.modules.client.CustomFont;
 import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.*;
+import me.ritomg.ananta.util.font.FontUtil;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.input.Keyboard;
 
@@ -53,8 +56,29 @@ public class HudGui extends MinecraftHUDGUI {
         guiInterface = new GUIInterface(true) {
 
             @Override
-            public String getResourcePrefix() {
-                return "raptor:gui/";
+            public void drawString(Point pos, int height, String s, Color c) {
+                GlStateManager.pushMatrix();
+                GlStateManager.translate(pos.x,pos.y,0);
+                double scale=height/(double)(FontUtil.getFontHeight()+(ModuleManager.getModule(CustomFont.class).isEnabled()?1:0));
+//                GlStateManager.scale(scale,scale,1);
+                end(false);
+                if (clickGui.shadow.isOn())
+                    FontUtil.drawStringWithShadow(s,0,0,c);
+                else FontUtil.drawString(s,0,0,c);
+                begin(false);
+                GlStateManager.scale(scale,scale,1);
+                GlStateManager.popMatrix();
+            }
+
+            @Override
+            public int getFontWidth(int height, String s) {
+                double scale=height/(double)(FontUtil.getFontHeight()+(ModuleManager.getModule(CustomFont.class).isEnabled()?1:0));
+                return (int)Math.round(FontUtil.getStringWidth(ModuleManager.getModule(CustomFont.class).isEnabled(),s)*scale);
+            }
+
+            @Override
+            protected String getResourcePrefix() {
+                return "ananta:gui/";
             }
         };
 

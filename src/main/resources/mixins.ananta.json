@@ -5,10 +5,9 @@
   "package": "me.ritomg.ananta.mixin.mixins",
   "refmap": "ananta.refmap.json",
   "client": [
-    "MixinMinecraft",
-    "MixinNetWorkManager"
   ],
   "mixins": [
-    "accessor.CPacketChatMessageAccessor"
+    "MixinMinecraft",
+    "MixinNetWorkManager"
   ]
 }

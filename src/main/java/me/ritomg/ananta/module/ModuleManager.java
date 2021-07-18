@@ -32,6 +32,7 @@ public class ModuleManager {
         addnewModule(new AutoReply());
         addnewModule(new ToggleMessage());
         addnewModule(new HudEditor());
+        addnewModule(new CustomFont());
     }
 
     public static List<Module> getModulesinCategory(Category c) {

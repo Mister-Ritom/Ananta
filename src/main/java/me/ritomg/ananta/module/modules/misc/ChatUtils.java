@@ -1,14 +1,9 @@
 package me.ritomg.ananta.module.modules.misc;
 
-import me.ritomg.ananta.event.events.PacketEvent;
-import me.ritomg.ananta.mixin.mixins.accessor.CPacketChatMessageAccessor;
 import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.setting.settings.BooleanSetting;
 import me.ritomg.ananta.setting.settings.ModeSetting;
-import net.minecraft.network.play.client.CPacketChatMessage;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Arrays;
 

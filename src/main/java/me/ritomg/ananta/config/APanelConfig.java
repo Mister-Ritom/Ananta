@@ -23,6 +23,12 @@ public class APanelConfig implements IPanelConfig {
     }
 
     @Override
+    public void saveSize(Dimension size) {
+        configObject.add("Width", new JsonPrimitive(size.getWidth()));
+        configObject.add("Height", new JsonPrimitive(size.getHeight()));
+    }
+
+    @Override
     public Point loadPosition() {
         Point point = new Point();
         JsonElement panelGuiPositionXObject = configObject.get("GuiPositionX");
@@ -34,6 +40,20 @@ public class APanelConfig implements IPanelConfig {
             point.y = panelGuiPositionYObject.getAsInt();
         } else return null;
         return point;
+    }
+
+    @Override
+    public Dimension loadSize() {
+        Dimension dimension =new Dimension();
+        JsonElement panelWidth = configObject.get("Width");
+        JsonElement panelHeight = configObject.get("Height");
+        if (panelWidth != null && panelWidth.isJsonPrimitive()) {
+            dimension.width = panelWidth.getAsInt();
+        }
+        if (panelHeight != null && panelHeight.isJsonPrimitive()) {
+            dimension.height = panelHeight.getAsInt();
+        }
+        return dimension;
     }
 
     @Override

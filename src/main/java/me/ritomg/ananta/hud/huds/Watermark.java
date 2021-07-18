@@ -13,7 +13,7 @@ import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.setting.settings.ColourSetting;
 
-@Module.Info(name = "Watermark", description = "Shows watermark on sceen", category = Category.Client)
+@Module.Info(name = "Watermark", description = "Shows watermark on screen", category = Category.Client)
 public class Watermark extends Hud {
 
     ColourSetting color  = addColorSetting("Color", new Color(0,255,0));
