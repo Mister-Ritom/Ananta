@@ -5,7 +5,7 @@ import me.ritomg.ananta.module.modules.combat.AutoXp;
 import me.ritomg.ananta.module.modules.exploits.Fastutil;
 import me.ritomg.ananta.module.modules.misc.*;
 import me.ritomg.ananta.module.modules.movement.*;
-import me.ritomg.ananta.module.modules.render.FullBright;
+import me.ritomg.ananta.module.modules.render.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +33,7 @@ public class ModuleManager {
         addnewModule(new ToggleMessage());
         addnewModule(new HudEditor());
         addnewModule(new CustomFont());
+        addnewModule(new AutoClick());
     }
 
     public static List<Module> getModulesinCategory(Category c) {

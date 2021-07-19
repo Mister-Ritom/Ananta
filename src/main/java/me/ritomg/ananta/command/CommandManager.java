@@ -1,9 +1,7 @@
 package me.ritomg.ananta.command;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import me.ritomg.ananta.command.commands.BindCommand;
-import me.ritomg.ananta.command.commands.HelpCommand;
-import me.ritomg.ananta.command.commands.PrefixCommand;
+import me.ritomg.ananta.command.commands.*;
 import me.ritomg.ananta.util.AnantaMessageUtil;
 
 import java.util.ArrayList;
@@ -19,6 +17,8 @@ public class CommandManager {
         commandList.add(new BindCommand());
         commandList.add(new HelpCommand());
         commandList.add(new PrefixCommand());
+        commandList.add(new GetCommand());
+        commandList.add(new SetCommand());
     }
 
     public static void callCommand(String message) {

@@ -5,6 +5,8 @@ import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.util.AnantaMessageUtil;
 import org.lwjgl.input.Keyboard;
 
+import java.util.Objects;
+
 public class BindCommand extends Command {
     public BindCommand() {
         super("Bind", "sets modules binds", new String[]{"Bind", "setBind"}, "bind 'module" );
@@ -22,7 +24,7 @@ public class BindCommand extends Command {
                 AnantaMessageUtil.sendClientPrefixMessage(module + " not found");
             }
             else {
-                ModuleManager.getModule(module).setBind(key);
+                Objects.requireNonNull(ModuleManager.getModule(module)).setBind(key);
             }
         }
     }

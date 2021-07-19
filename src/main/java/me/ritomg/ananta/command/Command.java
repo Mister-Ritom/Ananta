@@ -1,5 +1,7 @@
 package me.ritomg.ananta.command;
 
+import me.ritomg.ananta.util.AnantaMessageUtil;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,6 +17,10 @@ public abstract class Command {
         this.description = description;
         this.alias = alias;
         this.syntax = syntax;
+    }
+
+    public void sendWrongCommand() {
+        AnantaMessageUtil.sendClientPrefixMessage("Wrong usage pls use" + syntax + "for command-" + name);
     }
 
     public abstract void onCommand(String[] args, String command);

@@ -3,6 +3,7 @@ package me.ritomg.ananta.module.modules.client;
 import me.ritomg.ananta.Ananta;
 import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
+import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.BooleanSetting;
 import me.ritomg.ananta.setting.settings.ColourSetting;
 import me.ritomg.ananta.setting.settings.ModeSetting;
@@ -35,9 +36,15 @@ public class ClickGui extends Module {
             mc.entityRenderer.loadShader(blurLocation);
     }
 
-    public void onUpdate() {
-        if (!blur.isOn())
-            mc.entityRenderer.stopUseShader();
+    public void onSettingChange(Module m, Setting s) {
+        if (m.equals(this) && s.equals(blur)) {
+            if (blur.isOn()) {
+                mc.entityRenderer.loadShader(blurLocation);
+            }
+            else if (!blur.isOn()) {
+                mc.entityRenderer.stopUseShader();
+            }
+        }
     }
 
     public void onDisable() {
