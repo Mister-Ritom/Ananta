@@ -1,6 +1,7 @@
 package me.ritomg.ananta.setting.settings;
 
 import me.ritomg.ananta.module.Module;
+import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.setting.Setting;
 
 public class BooleanSetting extends Setting {
@@ -28,5 +29,10 @@ public class BooleanSetting extends Setting {
 
     public void On(boolean on) {
         isOn = on;
+        for (Module m : ModuleManager.getModules()) {
+            if (m.isEnabled()) {
+                m.onSettingChange(getParent(), this);
+            }
+        }
     }
 }

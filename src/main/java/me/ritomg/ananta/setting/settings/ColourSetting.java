@@ -1,6 +1,7 @@
 package me.ritomg.ananta.setting.settings;
 
 import me.ritomg.ananta.module.Module;
+import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.setting.Setting;
 
 import java.awt.*;
@@ -92,6 +93,11 @@ public class ColourSetting extends Setting  {
 
     public void setColor(Color color) {
         this.color = color;
+        for (Module m : ModuleManager.getModules()) {
+            if (m.isEnabled()) {
+                m.onSettingChange(getParent(), this);
+            }
+        }
     }
 
     public boolean isRainbow() {

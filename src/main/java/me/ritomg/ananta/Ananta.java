@@ -16,6 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.opengl.Display;
 
 import java.awt.*;
 
@@ -53,6 +54,7 @@ public class Ananta {
     @Mod.EventHandler
     public void preinit(FMLPreInitializationEvent event) {
         logger.info("Starting Ananta");
+        Display.setTitle("Ananta");
     }
 
     /**

@@ -1,6 +1,7 @@
 package me.ritomg.ananta.setting.settings;
 
 import me.ritomg.ananta.module.Module;
+import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.setting.Setting;
 
 import java.util.List;
@@ -49,9 +50,6 @@ public class ModeSetting extends Setting {
         return getCurrentMode().equalsIgnoreCase(s);
     }
 
-    public void setModes(List<String> modes) {
-        this.modes = modes;
-    }
 
     public String getCurrentMode() {
         return currentMode;
@@ -59,5 +57,10 @@ public class ModeSetting extends Setting {
 
     public void setCurrentMode(String currentMode) {
         this.currentMode = currentMode;
+        for (Module m : ModuleManager.getModules()) {
+            if (m.isEnabled()) {
+                m.onSettingChange(getParent(), this);
+            }
+        }
     }
 }

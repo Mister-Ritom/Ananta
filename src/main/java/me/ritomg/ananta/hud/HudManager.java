@@ -1,5 +1,6 @@
 package me.ritomg.ananta.hud;
 
+import me.ritomg.ananta.hud.huds.Cords;
 import me.ritomg.ananta.hud.huds.Watermark;
 import me.ritomg.ananta.module.Category;
 

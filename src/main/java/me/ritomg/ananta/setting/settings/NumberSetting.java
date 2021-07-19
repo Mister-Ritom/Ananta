@@ -1,6 +1,7 @@
 package me.ritomg.ananta.setting.settings;
 
 import me.ritomg.ananta.module.Module;
+import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.setting.Setting;
 
 public class NumberSetting extends Setting {
@@ -34,6 +35,11 @@ public class NumberSetting extends Setting {
 
     public void setCurrent(int current) {
         this.current = current;
+        for (Module m : ModuleManager.getModules()) {
+            if (m.isEnabled()) {
+                m.onSettingChange(getParent(),this);
+            }
+        }
     }
 
     public int getMin() {

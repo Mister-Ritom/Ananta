@@ -69,6 +69,7 @@ public class Module {
     public void onEnable() {}
     public void onDisable() {}
     public void onUpdate() {}
+    public void onSettingChange(Module m, Setting s) {}
 
     public String getName() {
         return name;
