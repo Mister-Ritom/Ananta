@@ -92,7 +92,7 @@ public class Ananta {
     }
 }
 
-class ConfigStopper extends Thread{
+class ConfigStopper extends Thread {
     @Override
     public void run() {
         SaveConfig.init();

@@ -6,6 +6,7 @@ import me.ritomg.ananta.module.modules.exploits.Fastutil;
 import me.ritomg.ananta.module.modules.misc.*;
 import me.ritomg.ananta.module.modules.movement.*;
 import me.ritomg.ananta.module.modules.render.*;
+import me.ritomg.ananta.module.modules.theme.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,6 @@ public class ModuleManager {
         addnewModule(new GamesenseThemeModule());
 
         addnewModule(new PlayerMovements());
-        addnewModule(new ChatUtils());
         addnewModule(new Fastutil());
         addnewModule(new AutoXp());
         addnewModule(new FullBright());
@@ -33,7 +33,9 @@ public class ModuleManager {
         addnewModule(new ToggleMessage());
         addnewModule(new HudEditor());
         addnewModule(new CustomFont());
+        addnewModule(new AutoSpam());
         addnewModule(new AutoClick());
+        addnewModule(new AntiAfk());
     }
 
     public static List<Module> getModulesinCategory(Category c) {
@@ -47,7 +49,8 @@ public class ModuleManager {
     }
 
     public static void addnewModule(Module m) {
-        modules.add(m);
+        if (!modules.contains(m))
+            modules.add(m);
     }
 
     public static Module getModule(String name) {

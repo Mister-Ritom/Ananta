@@ -1,6 +1,9 @@
 package me.ritomg.ananta.util;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+import me.ritomg.ananta.hud.HudManager;
+import me.ritomg.ananta.notifcation.Notification;
+import me.ritomg.ananta.notifcation.NotificationManager;
 import net.minecraft.network.play.client.CPacketChatMessage;
 import net.minecraft.util.text.TextComponentString;
 
@@ -9,15 +12,23 @@ public class AnantaMessageUtil extends Util{
     public static String Ananta = ChatFormatting.GRAY + "[" + ChatFormatting.DARK_PURPLE + "Ananta" + ChatFormatting.LIGHT_PURPLE+ "Client" + ChatFormatting.GRAY + "] " + ChatFormatting.RESET;
 
     public static void sendClientPrefixMessage(String message, ChatFormatting messageFormatting) {
-        TextComponentString string1 = new TextComponentString(Ananta + messageFormatting + message);
-        if (mc.player != null && mc.world !=null)
-            mc.player.sendMessage(string1);
+        if (mc.player != null)
+        if (!HudManager.getHud(me.ritomg.ananta.hud.huds.Notification.class).isEnabled() && !((me.ritomg.ananta.hud.huds.Notification)HudManager.getHud(me.ritomg.ananta.hud.huds.Notification.class)).stopChat.isOn()) {
+            TextComponentString string1 = new TextComponentString(Ananta + messageFormatting + message);
+            if (mc.player != null && mc.world !=null)
+                mc.player.sendMessage(string1);
+        }
+        NotificationManager.addNotification(new Notification(message));
     }
 
     public static void sendClientPrefixMessage(String message) {
-        TextComponentString string1 = new TextComponentString(Ananta + ChatFormatting.GRAY + message);
-        if (mc.player != null && mc.world !=null)
-            mc.player.sendMessage(string1);
+        if (mc.player != null)
+            if (!HudManager.getHud(me.ritomg.ananta.hud.huds.Notification.class).isEnabled() && !((me.ritomg.ananta.hud.huds.Notification)HudManager.getHud(me.ritomg.ananta.hud.huds.Notification.class)).stopChat.isOn()) {
+                TextComponentString string1 = new TextComponentString(Ananta + ChatFormatting.GRAY + message);
+                if (mc.player != null && mc.world !=null)
+                    mc.player.sendMessage(string1);
+            }
+        NotificationManager.addNotification(new Notification(message));
     }
 
     public static void sendClientRawMessage(String message, ChatFormatting messageFormatting) {

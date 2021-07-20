@@ -56,6 +56,10 @@ repositories {
     maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
     maven { url = 'https://impactdevelopment.github.io/maven/' }
     maven { url = "https://jitpack.io" }
+    maven {
+        name = 'lukflug'
+        url = 'https://lukflug.github.io/maven'
+    }
 }
 
 dependencies {
@@ -73,6 +77,9 @@ dependencies {
         exclude module: 'gson'
     }
     implementation('club.minnced:java-discord-rpc:2.0.1')
+
+    implementation('com.lukflug:panelstudio:0.2.0-SNAPSHOT')
+    implementation('com.lukflug:panelstudio-mc12:0.2.0-SNAPSHOT')
 
 }
 

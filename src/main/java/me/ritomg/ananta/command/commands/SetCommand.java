@@ -10,7 +10,7 @@ import me.ritomg.ananta.setting.settings.NumberSetting;
 import me.ritomg.ananta.setting.settings.StringSetting;
 
 public class SetCommand extends Command {
-
+//Doesn't work currently
     public SetCommand() {
         super("Set", "Sets value of a setting. types - string,int,double,mode", new String[]{"set", "setSetting"}, "Set {module} {type} {setting} {value}");
     }
@@ -23,6 +23,7 @@ public class SetCommand extends Command {
             String type  = args[2];
             String value = args[3];
             Module module = ModuleManager.getModule(modulename);
+            assert module != null;
             Setting setting = module.getSettingByName(settingname);
 
             if (ModuleManager.getModules().contains(module)) {

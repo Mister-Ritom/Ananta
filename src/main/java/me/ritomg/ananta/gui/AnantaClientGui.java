@@ -15,12 +15,11 @@ import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.module.modules.client.ClickGui;
 import me.ritomg.ananta.module.modules.client.CustomFont;
-import me.ritomg.ananta.module.modules.client.GamesenseThemeModule;
-import me.ritomg.ananta.module.modules.client.WindowsTheme;
+import me.ritomg.ananta.module.modules.theme.GamesenseThemeModule;
+import me.ritomg.ananta.module.modules.theme.WindowsTheme;
 import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.*;
 import me.ritomg.ananta.util.font.FontUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.input.Keyboard;
@@ -76,11 +75,11 @@ public class AnantaClientGui extends MinecraftGUI {
             }
         };
         gameSenseTheme = new GameSenseTheme(new AColorScheme(ModuleManager.getModule(GamesenseThemeModule.class)), FONT_HEIGHT, 3, 5, ": " + TextFormatting.GRAY);
-        clearTheme = new ClearTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.ClearTheme.class)), () -> false, FONT_HEIGHT, 3, 1, ": " + TextFormatting.GRAY);
-        cleargradientTheme = new ClearTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.ClearTheme.class)), () -> true, FONT_HEIGHT, 3, 1, ": " + TextFormatting.GRAY);
-        rainbowTheme = new RainbowTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.RainbowTheme.class)), () -> ModuleManager.getModule(me.ritomg.ananta.module.modules.client.RainbowTheme.class).ignoreDisabled.isOn(), () -> ModuleManager.getModule(me.ritomg.ananta.module.modules.client.RainbowTheme.class).buttonRainbow.isOn(), () -> 1, FONT_HEIGHT, 3, ":" + TextFormatting.GRAY);
+        clearTheme = new ClearTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.theme.ClearTheme.class)), () -> false, FONT_HEIGHT, 3, 1, ": " + TextFormatting.GRAY);
+        cleargradientTheme = new ClearTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.theme.ClearTheme.class)), () -> true, FONT_HEIGHT, 3, 1, ": " + TextFormatting.GRAY);
+        rainbowTheme = new RainbowTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.theme.RainbowTheme.class)), () -> ModuleManager.getModule(me.ritomg.ananta.module.modules.theme.RainbowTheme.class).ignoreDisabled.isOn(), () -> ModuleManager.getModule(me.ritomg.ananta.module.modules.theme.RainbowTheme.class).buttonRainbow.isOn(), () -> 1, FONT_HEIGHT, 3, ":" + TextFormatting.GRAY);
         windowstheme = new Windows31Theme(new AColorScheme(ModuleManager.getModule(WindowsTheme.class)), FONT_HEIGHT, 3, 5, ":" + TextFormatting.GRAY);
-        impacttheme = new ImpactTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.client.ImpactTheme.class)), FONT_HEIGHT, 3);
+        impacttheme = new ImpactTheme(new AColorScheme(ModuleManager.getModule(me.ritomg.ananta.module.modules.theme.ImpactTheme.class)), FONT_HEIGHT, 3);
 
         ITheme theme = getTheme();
 
@@ -362,6 +361,13 @@ public class AnantaClientGui extends MinecraftGUI {
         ILayout searchLayout = new SearchableLayout(new Labeled("AnantaClient", null, () -> true), new Labeled("Search", null, () -> true), new Point(100, 100), 480, WIDTH, animation, "Enabled", 2, ChildUtil.ChildMode.DOWN, popupTuple, modulesCompar , character -> character >= ' ', new TextFieldKeys());
         searchLayout.populateGUI(searchAdder, generator,client, theme);
 
+    }
+
+    // see this custom code lol
+    @Override
+    public void onGuiClosed() {
+        ModuleManager.getModule(ClickGui.class).disable();
+        super.onGuiClosed();
     }
 
     //settings
