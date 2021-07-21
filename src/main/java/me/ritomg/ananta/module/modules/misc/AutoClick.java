@@ -21,4 +21,8 @@ public class AutoClick extends Module {
         }
         KeyBinding.setKeyBindState(key, true);
     }
+
+    public void onDisable() {
+        KeyBinding.setKeyBindState(key, false);
+    }
 }

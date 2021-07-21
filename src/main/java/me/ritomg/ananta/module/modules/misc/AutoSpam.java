@@ -4,8 +4,8 @@ import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.setting.settings.NumberSetting;
 import me.ritomg.ananta.setting.settings.StringSetting;
-import me.ritomg.ananta.util.AnantaMessageUtil;
-import me.ritomg.ananta.util.Timer;
+import me.ritomg.ananta.util.misc.AnantaMessageUtil;
+import me.ritomg.ananta.util.misc.Timer;
 
 @Module.Info(name = "AutoSpam", description = "sends messages to server automatically", category = Category.Misc)
 public class AutoSpam extends Module {

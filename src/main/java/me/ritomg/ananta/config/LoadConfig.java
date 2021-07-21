@@ -213,8 +213,8 @@ public class LoadConfig {
     }
 
     public static void loadGuiPos() throws IOException{
-        me.ritomg.ananta.Ananta.INSTANCE.hudGui.gui.loadConfig(new AnantaGuiConfig());
-        me.ritomg.ananta.Ananta.INSTANCE.gui.gui.loadConfig(new AnantaGuiConfig());
+        me.ritomg.ananta.Ananta.INSTANCE.hudGui.gui.loadConfig(new AnantaGuiConfig(false));
+        me.ritomg.ananta.Ananta.INSTANCE.gui.gui.loadConfig(new AnantaGuiConfig(true));
     }
 
     private static void loadCommandPrefix() throws IOException {

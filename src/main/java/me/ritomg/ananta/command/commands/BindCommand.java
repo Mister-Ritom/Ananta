@@ -2,7 +2,7 @@ package me.ritomg.ananta.command.commands;
 
 import me.ritomg.ananta.command.Command;
 import me.ritomg.ananta.module.ModuleManager;
-import me.ritomg.ananta.util.AnantaMessageUtil;
+import me.ritomg.ananta.util.misc.AnantaMessageUtil;
 import org.lwjgl.input.Keyboard;
 
 import java.util.Objects;

@@ -1,25 +1,16 @@
-package me.ritomg.ananta.util;
+package me.ritomg.ananta.util.misc;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.ritomg.ananta.hud.HudManager;
 import me.ritomg.ananta.notifcation.Notification;
 import me.ritomg.ananta.notifcation.NotificationManager;
+import me.ritomg.ananta.util.Util;
 import net.minecraft.network.play.client.CPacketChatMessage;
 import net.minecraft.util.text.TextComponentString;
 
-public class AnantaMessageUtil extends Util{
+public class AnantaMessageUtil extends Util {
 
     public static String Ananta = ChatFormatting.GRAY + "[" + ChatFormatting.DARK_PURPLE + "Ananta" + ChatFormatting.LIGHT_PURPLE+ "Client" + ChatFormatting.GRAY + "] " + ChatFormatting.RESET;
-
-    public static void sendClientPrefixMessage(String message, ChatFormatting messageFormatting) {
-        if (mc.player != null)
-        if (!HudManager.getHud(me.ritomg.ananta.hud.huds.Notification.class).isEnabled() && !((me.ritomg.ananta.hud.huds.Notification)HudManager.getHud(me.ritomg.ananta.hud.huds.Notification.class)).stopChat.isOn()) {
-            TextComponentString string1 = new TextComponentString(Ananta + messageFormatting + message);
-            if (mc.player != null && mc.world !=null)
-                mc.player.sendMessage(string1);
-        }
-        NotificationManager.addNotification(new Notification(message));
-    }
 
     public static void sendClientPrefixMessage(String message) {
         if (mc.player != null)
@@ -31,11 +22,6 @@ public class AnantaMessageUtil extends Util{
         NotificationManager.addNotification(new Notification(message));
     }
 
-    public static void sendClientRawMessage(String message, ChatFormatting messageFormatting) {
-        TextComponentString string = new TextComponentString(messageFormatting + message);
-        if (mc.player != null && mc.world !=null)
-            mc.player.sendMessage(string);
-    }
 
     public static void sendServerMessage(String message, ChatFormatting formatting) {
         if (mc.player != null && mc.world !=null)
@@ -43,7 +29,8 @@ public class AnantaMessageUtil extends Util{
     }
     public static void sendServerMessage(String message) {
         if (mc.player != null && mc.world !=null)
-            player.connection.sendPacket(new CPacketChatMessage(ChatFormatting.GRAY + message));
+//            player.connection.sendPacket(new CPacketChatMessage(ChatFormatting.GRAY + message));
+            mc.player.sendChatMessage(message);
     }
 
 }

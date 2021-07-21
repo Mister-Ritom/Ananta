@@ -4,7 +4,7 @@ import me.ritomg.ananta.command.Command;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.setting.settings.ModeSetting;
-import me.ritomg.ananta.util.AnantaMessageUtil;
+import me.ritomg.ananta.util.misc.AnantaMessageUtil;
 
 import java.util.List;
 

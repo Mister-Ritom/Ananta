@@ -1,6 +1,6 @@
 package me.ritomg.ananta.command;
 
-import me.ritomg.ananta.util.AnantaMessageUtil;
+import me.ritomg.ananta.util.misc.AnantaMessageUtil;
 
 import java.util.Arrays;
 import java.util.List;

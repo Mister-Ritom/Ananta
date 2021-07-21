@@ -2,6 +2,7 @@ package me.ritomg.ananta.module;
 
 import me.ritomg.ananta.module.modules.client.*;
 import me.ritomg.ananta.module.modules.combat.AutoXp;
+import me.ritomg.ananta.module.modules.combat.KillAura;
 import me.ritomg.ananta.module.modules.exploits.Fastutil;
 import me.ritomg.ananta.module.modules.misc.*;
 import me.ritomg.ananta.module.modules.movement.*;
@@ -36,6 +37,7 @@ public class ModuleManager {
         addnewModule(new AutoSpam());
         addnewModule(new AutoClick());
         addnewModule(new AntiAfk());
+        addnewModule(new KillAura());
     }
 
     public static List<Module> getModulesinCategory(Category c) {

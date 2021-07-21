@@ -151,8 +151,8 @@ public class SaveConfig {
     }
 
     public static void saveGuiPos()throws IOException {
-        me.ritomg.ananta.Ananta.INSTANCE.hudGui.gui.saveConfig(new AnantaGuiConfig());
-        me.ritomg.ananta.Ananta.INSTANCE.gui.gui.saveConfig(new AnantaGuiConfig());
+        me.ritomg.ananta.Ananta.INSTANCE.hudGui.gui.saveConfig(new AnantaGuiConfig(false));
+        me.ritomg.ananta.Ananta.INSTANCE.gui.gui.saveConfig(new AnantaGuiConfig(true));
     }
 
     public static void saveCommandPrefix() throws IOException {

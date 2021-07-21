@@ -1,8 +1,10 @@
-package me.ritomg.ananta.util;
+package me.ritomg.ananta.util.misc;
+
+import me.ritomg.ananta.util.Util;
 
 @SuppressWarnings("unused")
 //Good now it works maybe lol
-public class Timer extends Util{
+public class Timer extends Util {
 
     long time;
 

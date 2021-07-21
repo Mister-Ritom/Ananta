@@ -2,7 +2,7 @@ package me.ritomg.ananta.module.modules.combat;
 
 import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
-import me.ritomg.ananta.util.AnantaMessageUtil;
+import me.ritomg.ananta.util.misc.AnantaMessageUtil;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.Items;
 

@@ -13,16 +13,21 @@ import java.nio.file.Paths;
 public class AnantaGuiConfig implements IConfigList {
     
     private JsonObject panelObject;
+    private boolean hud;
+
+    public AnantaGuiConfig(boolean hud) {
+        this.hud = hud;
+    }
 
     @Override
     public void begin(boolean loading) {
         if (loading) {
-            if (!Files.exists(Paths.get("Ananta/Main/" + "ClickGUI" + ".json"))) {
+            if (!Files.exists(Paths.get(hud?"Ananta/Main/" + "ClickGUI" + ".json" : "Ananta/Main/" + "HudEditor" + ".json"))) {
                 return;
             }
             try {
                 InputStream inputStream;
-                inputStream = Files.newInputStream(Paths.get("Ananta/Main/" + "ClickGUI" + ".json"));
+                inputStream = Files.newInputStream(Paths.get(hud?"Ananta/Main/" + "ClickGUI" + ".json" : "Ananta/Main/" + "HudEditor" + ".json"));
                 JsonObject mainObject = new JsonParser().parse(new InputStreamReader(inputStream)).getAsJsonObject();
                 if (mainObject.get("Panels") == null) {
                     return;
@@ -47,7 +52,7 @@ public class AnantaGuiConfig implements IConfigList {
         else if (!loading) {
             try {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                OutputStreamWriter fileOutputStreamWriter = new OutputStreamWriter(new FileOutputStream("Ananta/Main/" + "ClickGUI" + ".json"), StandardCharsets.UTF_8);
+                OutputStreamWriter fileOutputStreamWriter = new OutputStreamWriter(new FileOutputStream(hud?"Ananta/Main/" + "ClickGUI" + ".json" : "Ananta/Main/" + "HudEditor" + ".json"), StandardCharsets.UTF_8);
                 JsonObject mainObject = new JsonObject();
                 mainObject.add("Panels", panelObject);
                 String jsonString = gson.toJson(new JsonParser().parse(mainObject.toString()));

@@ -3,7 +3,7 @@ package me.ritomg.ananta.module;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.*;
-import me.ritomg.ananta.util.AnantaMessageUtil;
+import me.ritomg.ananta.util.misc.AnantaMessageUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Keyboard;

@@ -27,29 +27,28 @@ public class Coordinates extends Hud {
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
-
         Entity renderViewEntity = mc.getRenderViewEntity();
         if (renderViewEntity == null) {
             if (mc.player != null)
                 renderViewEntity = mc.player;
         }
+        if (renderViewEntity != null) {
+            int dimension = renderViewEntity.dimension;
+            list[0] = getXYZ(renderViewEntity.posX, renderViewEntity.posY, renderViewEntity.posZ);
 
-        int dimension = renderViewEntity.dimension;
-        list[0] = getXYZ(renderViewEntity.posX, renderViewEntity.posY, renderViewEntity.posZ);
-
-        if (nether.isOn()) {
-            if (dimension == 0) {
-                getXYZ(renderViewEntity.posX/8, renderViewEntity.posY, renderViewEntity.posZ/8);
-            }
-            else if (dimension == -1) {
-                list[1] = getXYZ(renderViewEntity.posX*8, renderViewEntity.posY, renderViewEntity.posZ*8);
+            if (nether.isOn()) {
+                if (dimension == 0) {
+                    list[1] = getXYZ(renderViewEntity.posX/8, renderViewEntity.posY, renderViewEntity.posZ/8);
+                }
+                else if (dimension == -1) {
+                    list[1] = getXYZ(renderViewEntity.posX*8, renderViewEntity.posY, renderViewEntity.posZ*8);
+                }
             }
         }
-
     }
 
     public String getXYZ(double x, double y, double z) {
-        return "X:"+ x+ "Y:" + y + "Z:"+z;
+        return "X:"+ Math.round(x)+ "Y:" + Math.round(y) + "Z:"+Math.round(z);
     }
 
     public Coordinates() {
@@ -65,7 +64,8 @@ public class Coordinates extends Hud {
 
         @Override
         public int getSize() {
-            return list.length;
+            if (nether.isOn()) return 2;
+            else return 1;
         }
 
         @Override

@@ -2,7 +2,7 @@ package me.ritomg.ananta.command.commands;
 
 import me.ritomg.ananta.command.Command;
 import me.ritomg.ananta.command.CommandManager;
-import me.ritomg.ananta.util.AnantaMessageUtil;
+import me.ritomg.ananta.util.misc.AnantaMessageUtil;
 
 public class HelpCommand extends Command {
 

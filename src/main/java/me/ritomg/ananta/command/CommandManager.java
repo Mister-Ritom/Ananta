@@ -2,7 +2,7 @@ package me.ritomg.ananta.command;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.ritomg.ananta.command.commands.*;
-import me.ritomg.ananta.util.AnantaMessageUtil;
+import me.ritomg.ananta.util.misc.AnantaMessageUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
