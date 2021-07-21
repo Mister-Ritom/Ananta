@@ -20,9 +20,9 @@ public class Timer extends Util{
         this.time = System.currentTimeMillis();
     }
 
-    public void resetTimeSkipTo(long p_MS)
+    public void resetTimeSkipTo(long ms)
     {
-        this.time = System.currentTimeMillis() + p_MS;
+        this.time = System.currentTimeMillis() + ms;
     }
 
     public long getTime()

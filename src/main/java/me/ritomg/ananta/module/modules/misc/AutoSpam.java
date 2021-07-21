@@ -17,7 +17,7 @@ public class AutoSpam extends Module {
 
     public void onUpdate() {
         if (timer.passed(delay.getCurrent() * 1000L)) {
-            AnantaMessageUtil.sendClientPrefixMessage(message.getText());
+            AnantaMessageUtil.sendServerMessage(message.getText());
             timer.reset();
         }
     }

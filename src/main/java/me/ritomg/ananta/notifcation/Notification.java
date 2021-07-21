@@ -4,12 +4,12 @@ public class Notification {
 
     private String prefix = "Ananta";
     private String text;
-    private long disableTime = 1000L;
+    private long disableTime = 500L;
 
     public Notification(String prefix, String text, long disableTime) {
         this.prefix = prefix;
         this.text = text;
-        this.disableTime = disableTime*1000L;
+        this.disableTime = disableTime;
     }
 
     public Notification(String text) {

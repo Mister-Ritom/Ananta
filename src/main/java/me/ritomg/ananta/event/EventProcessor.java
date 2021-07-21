@@ -2,6 +2,8 @@ package me.ritomg.ananta.event;
 
 import me.ritomg.ananta.Ananta;
 import me.ritomg.ananta.command.CommandManager;
+import me.ritomg.ananta.hud.Hud;
+import me.ritomg.ananta.hud.HudManager;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
 import net.minecraft.client.Minecraft;
@@ -41,6 +43,11 @@ public class EventProcessor {
             for (Module m : ModuleManager.getModules()) {
                 if (m.isEnabled()) {
                     m.onUpdate();
+                }
+            }
+            for (Hud h : HudManager.huds) {
+                if (h.isEnabled()) {
+                    h.onUpdate();
                 }
             }
         }

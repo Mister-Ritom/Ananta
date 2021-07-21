@@ -13,6 +13,7 @@ public class HudManager {
     public static void init() {
         huds.add(new Watermark());
         huds.add(new Notification());
+        huds.add(new Coordinates());
     }
 
     public static Hud getHud(Class clazz) {

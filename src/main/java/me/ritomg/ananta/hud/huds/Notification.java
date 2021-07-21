@@ -20,22 +20,23 @@ import java.awt.*;
 public class Notification extends Hud {
 
     public BooleanSetting stopChat = addBooleanSetting("StopChat", true);
-    public BooleanSetting sortUp = addBooleanSetting("SorUp", true);
+    public BooleanSetting sortUp = addBooleanSetting("SorUp", false);
     public BooleanSetting sortRight = addBooleanSetting("SortRight", false);
     public ColourSetting color = addColorSetting("Color", new Color(255, 0, 0));
 
     public Notification() {
-        super(3,3);
+        super(3,-3);
     }
 
     Timer waitTimer  = new Timer();
 
     public void onUpdate() {
-        for (me.ritomg.ananta.notifcation.Notification n : NotificationManager.notifications) {
-            if (waitTimer.passed(n.getDisableTime())) {
+        if (waitTimer.passed(1000)) {
+                if (NotificationManager.notifications.size() > 3) {
                     NotificationManager.notifications.remove(0);
-                waitTimer.reset();
-            }
+                }
+
+            waitTimer.reset();
         }
     }
 
@@ -53,7 +54,7 @@ public class Notification extends Hud {
 
         @Override
         public String getItem(int index) {
-            return NotificationManager.notifications.get(index).getText();
+            return NotificationManager.notifications.get(index).getPrefix() + " - "  + NotificationManager.notifications.get(index).getText();
         }
 
         @Override
