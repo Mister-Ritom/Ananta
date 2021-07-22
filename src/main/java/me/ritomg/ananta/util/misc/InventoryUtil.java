@@ -7,25 +7,16 @@ import net.minecraft.network.play.client.CPacketHeldItemChange;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
-//Thanks neko
-//Tobe used in killaura
 public class InventoryUtil extends Util {
 
-    public static int findItemInventorySlot (Item item , boolean offHand ) {
-        AtomicInteger slot = new AtomicInteger( );
-        slot.set ( - 1 );
-        for (Map.Entry < Integer, ItemStack> entry : getInventoryAndHotbarSlots ( ).entrySet ( )) {
-            if ( entry.getValue ( ).getItem ( ) == item ) {
-                if ( entry.getKey ( ) == 45 && ! offHand ) {
-                    continue;
-                }
-                slot.set ( entry.getKey ( ) );
-                return slot.get ( );
-            }
+    public static int findItemInHotbar(Item item) {
+        for (int i = 0; i<9; i++) {
+           ItemStack stack = mc.player.inventory.getStackInSlot(i);
+           if (stack == ItemStack.EMPTY) continue;
+           if (stack.getItem() == item) return i;
         }
-        return slot.get ( );
+        return -1;
     }
 
     public static void switchToHotbarSlot ( int slot , boolean silent ) {
@@ -47,22 +38,6 @@ public class InventoryUtil extends Util {
         mc.player.connection.sendPacket ( new CPacketHeldItemChange( slot ) );
         mc.player.inventory.currentItem = slot;
         mc.playerController.updateController ( );
-    }
-
-    public static
-    Map < Integer, ItemStack > getInventoryAndHotbarSlots ( ) {
-        return getInventorySlots ( 9 , 44 );
-    }
-
-    private static
-    Map < Integer, ItemStack > getInventorySlots ( int currentI , int last ) {
-        int current = currentI;
-        Map < Integer, ItemStack > fullInventorySlots = new HashMap<>( );
-        while ( current <= last ) {
-            fullInventorySlots.put ( current , mc.player.inventoryContainer.getInventory ( ).get ( current ) );
-            current++;
-        }
-        return fullInventorySlots;
     }
 
 }

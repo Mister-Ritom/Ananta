@@ -7,7 +7,6 @@ import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.DNumberSetting;
 import me.ritomg.ananta.setting.settings.ModeSetting;
 import me.ritomg.ananta.setting.settings.NumberSetting;
-import me.ritomg.ananta.setting.settings.StringSetting;
 
 public class SetCommand extends Command {
 //Doesn't work currently

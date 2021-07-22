@@ -4,7 +4,6 @@ import java.util.Random;
 
 import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
-import me.ritomg.ananta.setting.settings.BooleanSetting;
 import net.minecraft.network.play.client.CPacketAnimation;
 import net.minecraft.util.EnumHand;
 

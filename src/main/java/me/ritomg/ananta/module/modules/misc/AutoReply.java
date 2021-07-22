@@ -2,7 +2,6 @@ package me.ritomg.ananta.module.modules.misc;
 
 import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
-import me.ritomg.ananta.setting.settings.StringSetting;
 import me.ritomg.ananta.util.misc.AnantaMessageUtil;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

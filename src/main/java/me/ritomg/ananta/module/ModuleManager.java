@@ -1,9 +1,8 @@
 package me.ritomg.ananta.module;
 
 import me.ritomg.ananta.module.modules.client.*;
-import me.ritomg.ananta.module.modules.combat.AutoXp;
-import me.ritomg.ananta.module.modules.combat.KillAura;
-import me.ritomg.ananta.module.modules.exploits.Fastutil;
+import me.ritomg.ananta.module.modules.combat.*;
+import me.ritomg.ananta.module.modules.exploits.*;
 import me.ritomg.ananta.module.modules.misc.*;
 import me.ritomg.ananta.module.modules.movement.*;
 import me.ritomg.ananta.module.modules.render.*;
@@ -37,7 +36,9 @@ public class ModuleManager {
         addnewModule(new AutoSpam());
         addnewModule(new AutoClick());
         addnewModule(new AntiAfk());
+        addnewModule(new PlayerTweaks());
         addnewModule(new KillAura());
+        addnewModule(new Critical());
     }
 
     public static List<Module> getModulesinCategory(Category c) {

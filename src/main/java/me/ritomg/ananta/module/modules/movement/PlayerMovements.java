@@ -2,7 +2,6 @@ package me.ritomg.ananta.module.modules.movement;
 
 import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
-import me.ritomg.ananta.setting.settings.BooleanSetting;
 import net.minecraft.client.settings.KeyBinding;
 
 @Module.Info(name = "PlayerMovements", description = "Automatically presses the sprint button", category = Category.Movement)
