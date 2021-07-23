@@ -2,6 +2,7 @@ package me.ritomg.ananta.module.modules.misc;
 
 import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
+import me.ritomg.ananta.setting.settings.StringSetting;
 import me.ritomg.ananta.util.misc.AnantaMessageUtil;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -14,7 +15,7 @@ public class AutoReply extends Module {
     @SubscribeEvent
     public void onMessageRecive(ClientChatReceivedEvent event) {
         if (event.getMessage().getUnformattedText().contains("whispers: ") && !event.getMessage().getUnformattedText().startsWith(mc.player.getName())) {
-            if (event.getMessage().getUnformattedText().contains("I don't speak to newfags!")) {
+            if (event.getMessage().getUnformattedText().contains(message.getText())) {
                 return;
             }
 

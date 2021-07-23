@@ -2,6 +2,7 @@ package me.ritomg.ananta.module.modules.combat;
 
 import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
+import me.ritomg.ananta.setting.settings.BooleanSetting;
 import me.ritomg.ananta.setting.settings.NumberSetting;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;

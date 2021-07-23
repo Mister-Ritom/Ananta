@@ -4,6 +4,7 @@ import me.ritomg.ananta.Ananta;
 import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.setting.Setting;
+import me.ritomg.ananta.setting.settings.BooleanSetting;
 import me.ritomg.ananta.setting.settings.ModeSetting;
 import me.ritomg.ananta.setting.settings.NumberSetting;
 import me.ritomg.ananta.util.font.CFontRenderer;

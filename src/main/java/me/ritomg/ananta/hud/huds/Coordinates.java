@@ -8,6 +8,7 @@ import me.ritomg.ananta.hud.Hud;
 import me.ritomg.ananta.hud.HudGui;
 import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
+import me.ritomg.ananta.setting.settings.BooleanSetting;
 import me.ritomg.ananta.setting.settings.ColourSetting;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

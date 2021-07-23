@@ -23,6 +23,7 @@ public class ModuleManager {
         addnewModule(new ImpactTheme());
         addnewModule(new RainbowTheme());
         addnewModule(new WindowsTheme());
+        addnewModule(new AnantaThemeModule());
         addnewModule(new GamesenseThemeModule());
 
         addnewModule(new PlayerMovements());

@@ -10,6 +10,7 @@ import me.ritomg.ananta.hud.HudManager;
 import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.notifcation.NotificationManager;
+import me.ritomg.ananta.setting.settings.BooleanSetting;
 import me.ritomg.ananta.setting.settings.ColourSetting;
 import me.ritomg.ananta.util.misc.Timer;
 

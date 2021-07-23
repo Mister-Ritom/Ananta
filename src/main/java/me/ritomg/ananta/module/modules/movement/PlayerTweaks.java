@@ -3,6 +3,7 @@ package me.ritomg.ananta.module.modules.movement;
 import me.ritomg.ananta.event.events.PacketEvent;
 import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
+import me.ritomg.ananta.setting.settings.BooleanSetting;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.network.play.server.SPacketExplosion;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
