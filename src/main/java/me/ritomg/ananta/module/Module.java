@@ -1,6 +1,7 @@
 package me.ritomg.ananta.module;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+import me.ritomg.ananta.event.events.RenderEvent;
 import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.*;
 import me.ritomg.ananta.util.misc.AnantaMessageUtil;
@@ -69,6 +70,8 @@ public class Module {
     public void onEnable() {}
     public void onDisable() {}
     public void onUpdate() {}
+    public void onRender() {}
+    public void onWorldRender(RenderEvent event) {}
     public void onSettingChange(Module m, Setting s) {}
 
     public String getName() {
@@ -80,7 +83,7 @@ public class Module {
     }
 
     public Setting getSettingByName(String name) {
-        return settings.stream().filter(setting -> setting.getName().toLowerCase().equalsIgnoreCase(name.toLowerCase())).findFirst().orElse(null);
+        return settings.stream().filter(setting -> setting.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 
     public List<Setting> getSettings() {

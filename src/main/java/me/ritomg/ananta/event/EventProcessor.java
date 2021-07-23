@@ -2,13 +2,14 @@ package me.ritomg.ananta.event;
 
 import me.ritomg.ananta.Ananta;
 import me.ritomg.ananta.command.CommandManager;
+import me.ritomg.ananta.event.events.RenderEvent;
 import me.ritomg.ananta.hud.Hud;
 import me.ritomg.ananta.hud.HudManager;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -63,10 +64,29 @@ public class EventProcessor {
     }
 
     @SubscribeEvent
+    public void onWorldRender(RenderWorldLastEvent event) {
+        if (event.isCanceled()) return;
+        if (getMinecraft().player == null || getMinecraft().world == null) return;
+
+        getMinecraft().profiler.startSection("ananta");
+        getMinecraft().profiler.startSection("setup");
+        RenderEvent renderEvent = new RenderEvent(event.getPartialTicks());
+        getMinecraft().profiler.endSection();
+        for (Module module : ModuleManager.getModules()) {
+            if (module.isEnabled())
+            module.onWorldRender(renderEvent);
+        }
+
+    }
+
+    @SubscribeEvent
     public void onRender(RenderGameOverlayEvent.Post event) {
         if (getMinecraft().player == null || getMinecraft().world == null) return;
 
         if (event.getType() == RenderGameOverlayEvent.ElementType.HOTBAR) {
+            for (Module m : ModuleManager.getModules()) {
+                if (m.isEnabled()) m.onRender();
+            }
             Ananta.INSTANCE.hudGui.render();
         }
 

@@ -1,6 +1,8 @@
 package me.ritomg.ananta.config;
 
-import me.ritomg.ananta.Ananta;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import me.ritomg.ananta.command.CommandManager;
 import me.ritomg.ananta.hud.Hud;
 import me.ritomg.ananta.hud.HudManager;
@@ -8,11 +10,7 @@ import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.*;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
-import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -25,9 +23,11 @@ public class LoadConfig {
     private static final String Ananta = "Ananta/";
     private static final String modulesPath = "Modules/";
     private static final String hudsPath = "HUDS/";
+    public static boolean isLoading = false;
 
     public static void init() {
         try {
+            isLoading = true;
             loadModules();
             loadGuiPos();
             loadCommandPrefix();

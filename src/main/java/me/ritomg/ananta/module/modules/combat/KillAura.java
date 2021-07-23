@@ -20,8 +20,8 @@ public class KillAura extends Module {
 
     public BooleanSetting players = addBooleanSetting("Players", true);
     public BooleanSetting mobs  = addBooleanSetting("Mobs", false);
-    BooleanSetting cooldown = addBooleanSetting("CoolDown", false);
     public BooleanSetting animals = addBooleanSetting("Animals", false);
+    BooleanSetting cooldown = addBooleanSetting("CoolDown", false);
     public NumberSetting range = addIntegerSetting("Range", 1,6,15);
 
     public void onUpdate() {
@@ -54,8 +54,7 @@ public class KillAura extends Module {
     public boolean isValidTargt(Entity e) {
        if (players.isOn() && e instanceof EntityPlayer) return true;
        if (mobs.isOn() && e instanceof EntityMob) return true;
-       if (animals.isOn() && e instanceof EntityAnimal) return true;
-       return false;
+        return animals.isOn() && e instanceof EntityAnimal;
     }
 
 

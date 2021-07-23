@@ -1,11 +1,21 @@
 package me.ritomg.ananta.module;
 
-import me.ritomg.ananta.module.modules.client.*;
-import me.ritomg.ananta.module.modules.combat.*;
-import me.ritomg.ananta.module.modules.exploits.*;
-import me.ritomg.ananta.module.modules.misc.*;
-import me.ritomg.ananta.module.modules.movement.*;
-import me.ritomg.ananta.module.modules.render.*;
+import me.ritomg.ananta.module.modules.client.ClickGui;
+import me.ritomg.ananta.module.modules.client.CustomFont;
+import me.ritomg.ananta.module.modules.client.HudEditor;
+import me.ritomg.ananta.module.modules.client.ToggleMessage;
+import me.ritomg.ananta.module.modules.combat.AutoXp;
+import me.ritomg.ananta.module.modules.combat.Critical;
+import me.ritomg.ananta.module.modules.combat.KillAura;
+import me.ritomg.ananta.module.modules.exploits.Fastutil;
+import me.ritomg.ananta.module.modules.misc.AntiAfk;
+import me.ritomg.ananta.module.modules.misc.AutoClick;
+import me.ritomg.ananta.module.modules.misc.AutoReply;
+import me.ritomg.ananta.module.modules.misc.AutoSpam;
+import me.ritomg.ananta.module.modules.movement.PlayerMovements;
+import me.ritomg.ananta.module.modules.movement.PlayerTweaks;
+import me.ritomg.ananta.module.modules.render.ESP;
+import me.ritomg.ananta.module.modules.render.FullBright;
 import me.ritomg.ananta.module.modules.theme.*;
 
 import java.util.ArrayList;
@@ -23,7 +33,7 @@ public class ModuleManager {
         addnewModule(new ImpactTheme());
         addnewModule(new RainbowTheme());
         addnewModule(new WindowsTheme());
-        addnewModule(new AnantaThemeModule());
+ //       addnewModule(new AnantaThemeModule());
         addnewModule(new GamesenseThemeModule());
 
         addnewModule(new PlayerMovements());
@@ -39,6 +49,7 @@ public class ModuleManager {
         addnewModule(new AntiAfk());
         addnewModule(new PlayerTweaks());
         addnewModule(new KillAura());
+        addnewModule(new ESP());
         addnewModule(new Critical());
     }
 
