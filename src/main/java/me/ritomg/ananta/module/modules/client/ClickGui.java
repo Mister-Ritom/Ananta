@@ -4,6 +4,7 @@ import me.ritomg.ananta.Ananta;
 import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.setting.Setting;
+import me.ritomg.ananta.setting.settings.BooleanSetting;
 import me.ritomg.ananta.setting.settings.ModeSetting;
 import me.ritomg.ananta.setting.settings.NumberSetting;
 import net.minecraft.util.ResourceLocation;
@@ -15,7 +16,7 @@ import java.util.Arrays;
 public class ClickGui extends Module {
 
     public NumberSetting scrollSpeed = addIntegerSetting("ScrollSpeed", 1,2,20);
-    public ModeSetting theme = addModeSetting("Theme", "ImpactTheme",Arrays.asList("RainbowTheme", "ClearGradientTheme", "GamesenseTheme", "ClearTheme", "WindowsTheme","ImpactTheme"));
+    public ModeSetting theme = addModeSetting("Theme", "ImpactTheme",Arrays.asList("RainbowTheme", "ClearGradientTheme", "GamesenseTheme", "ClearTheme", "WindowsTheme","ImpactTheme", "AnantaTheme"));
     public ModeSetting scrolling = addModeSetting("Scrolling", "Screen",Arrays.asList("Screen", "Container"));
     public ModeSetting layout = addModeSetting("Layout", "Normal", Arrays.asList("Normal", "CSGO", "Search", "Single","Stacked"));
     public NumberSetting animationSpeed = addIntegerSetting("AnimationSpeed", 0,200,1000);
