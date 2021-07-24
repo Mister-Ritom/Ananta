@@ -14,13 +14,13 @@ public class HelpCommand extends Command {
     public void onCommand(String[] args, String command) {
 
         for (Command c : CommandManager.commandList) {
-            AnantaMessageUtil.sendClientPrefixMessage(c.getName() + ": " + "\"" + c.getDescription() + "\"!");
+            AnantaMessageUtil.sendCommandMessage(c.getName() + ": " + "\"" + c.getDescription() + "\"!");
         }
 
         if (args.length == 1) {
            if (args[0].equalsIgnoreCase("syntax")) {
                 for (Command c : CommandManager.commandList) {
-                    AnantaMessageUtil.sendClientPrefixMessage(c.getName() + ": " + "\"" + c.getSyntax() + "\"!");
+                    AnantaMessageUtil.sendCommandMessage(c.getName() + ": " + "\"" + c.getSyntax() + "\"!");
                 }
             }
         }

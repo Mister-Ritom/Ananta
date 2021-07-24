@@ -6,7 +6,9 @@ import com.lukflug.panelstudio.container.GUI;
 import com.lukflug.panelstudio.container.IContainer;
 import com.lukflug.panelstudio.layout.*;
 import com.lukflug.panelstudio.mc12.MinecraftGUI;
-import com.lukflug.panelstudio.popup.*;
+import com.lukflug.panelstudio.popup.MousePositioner;
+import com.lukflug.panelstudio.popup.PanelPositioner;
+import com.lukflug.panelstudio.popup.PopupTuple;
 import com.lukflug.panelstudio.setting.*;
 import com.lukflug.panelstudio.theme.*;
 import com.lukflug.panelstudio.widget.ColorPickerComponent;
@@ -38,12 +40,12 @@ public class AnantaClientGui extends MinecraftGUI {
     public ClickGui clickGui = ModuleManager.getModule(ClickGui.class);
     public IClient client;
     public int FONT_HEIGHT = 9;
-    private ITheme gameSenseTheme;
-    private ITheme clearTheme;
-    private ITheme rainbowTheme;
-    private ITheme windowstheme;
-    private ITheme cleargradientTheme;
-    private ITheme impacttheme;
+    private final ITheme gameSenseTheme;
+    private final ITheme clearTheme;
+    private final ITheme rainbowTheme;
+    private final ITheme windowstheme;
+    private final ITheme cleargradientTheme;
+    private final ITheme impacttheme;
 
     public AnantaClientGui() {
         guiInterface = new GUIInterface(true) {
@@ -400,7 +402,8 @@ public class AnantaClientGui extends MinecraftGUI {
 
                 @Override
                 public Stream<ISetting<?>> getSubSettings() {
-                    return null;
+                    if (setting.getSubSettings().size() < 1) return null;
+                    return setting.getSubSettings().stream().map(subsetting -> createSettings(subsetting));
                 }
             };
         } else if (setting instanceof NumberSetting) {
@@ -446,7 +449,8 @@ public class AnantaClientGui extends MinecraftGUI {
 
                 @Override
                 public Stream<ISetting<?>> getSubSettings() {
-                    return null;
+                    if (setting.getSubSettings().size() < 1) return null;
+                    return setting.getSubSettings().stream().map(subsetting -> createSettings(subsetting));
                 }
             };
         } else if (setting instanceof DNumberSetting) {
@@ -492,7 +496,8 @@ public class AnantaClientGui extends MinecraftGUI {
 
                 @Override
                 public Stream<ISetting<?>> getSubSettings() {
-                    return null;
+                    if (setting.getSubSettings().size() < 1) return null;
+                    return setting.getSubSettings().stream().map(subsetting -> createSettings(subsetting));
                 }
             };
         } else if (setting instanceof ModeSetting) {
@@ -546,7 +551,8 @@ public class AnantaClientGui extends MinecraftGUI {
 
                 @Override
                 public Stream<ISetting<?>> getSubSettings() {
-                    return null;
+                    if (setting.getSubSettings().size() < 1) return null;
+                    return setting.getSubSettings().stream().map(subsetting -> createSettings(subsetting));
                 }
             };
         } else if (setting instanceof ColourSetting) {

@@ -13,7 +13,7 @@ public class PrefixCommand extends Command {
     public void onCommand(String[] args, String command) {
         if (args.length == 1) {
             CommandManager.prefix = args[0];
-            AnantaMessageUtil.sendClientPrefixMessage("Set preifx to" + CommandManager.prefix);
+            AnantaMessageUtil.sendCommandMessage("Set preifx to" + CommandManager.prefix);
         }
     }
 }

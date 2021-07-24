@@ -18,10 +18,6 @@ public class RenderUtil extends Util {
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDepthMask(false);
-            GL11.glColor4d(
-                    color.getRed(),
-                    color.getGreen(),
-                    color.getBlue(), color.getAlpha());
         RenderGlobal.drawSelectionBoundingBox(
                 new AxisAlignedBB(
                         entity.getEntityBoundingBox().minX

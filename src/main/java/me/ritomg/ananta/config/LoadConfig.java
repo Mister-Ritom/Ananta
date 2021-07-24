@@ -71,21 +71,6 @@ public class LoadConfig {
         JsonElement bindObject = settingObject.get("Bind");
         JsonElement enabledObject = settingObject.get("Enabled");
 
-//        JsonObject positionObject;
-//            positionObject = moduleObject.get("Position").getAsJsonObject();
-//            try {
-//     /*TODO*/   JsonElement xElement = positionObject.get("X");
-//                JsonElement yElement = positionObject.get("Y");
-//                if (xElement != null && xElement.isJsonPrimitive()) {
-//                    module.x = xElement.getAsInt();
-//                }
-//                if (yElement != null && yElement.isJsonPrimitive()) {
-//                    module.y = yElement.getAsInt();
-//                }
-//
-//            } catch (java.lang.NumberFormatException e) {
-//                System.out.println(module.x + " " + module.y + " " + module.getName());
-//            }
         try {
             if (bindObject != null && bindObject.isJsonPrimitive()) {
                 module.setBind(bindObject.getAsInt());
@@ -107,6 +92,7 @@ public class LoadConfig {
 
         for (Setting setting : module.getSettings()) {
             JsonElement dataObject = settingObject.get(setting.getName().replace(" ", ""));
+
             try {
                 if (dataObject != null && dataObject.isJsonPrimitive()) {
                     if (setting instanceof BooleanSetting) {
@@ -124,6 +110,7 @@ public class LoadConfig {
                     }
 
                 }
+
             } catch (java.lang.NumberFormatException e) {
                 System.out.println(setting.getName().replace(" ", "") + " " + module.getName());
                 System.out.println(dataObject);
@@ -163,6 +150,7 @@ public class LoadConfig {
         }
 
         JsonObject settingObject = moduleObject.get("Settings").getAsJsonObject();
+        JsonObject subSettingsObject = settingObject.getAsJsonObject("SubSettings").getAsJsonObject();
         JsonElement bindObject = settingObject.get("Bind");
         JsonElement enabledObject = settingObject.get("Enabled");
 
@@ -204,6 +192,27 @@ public class LoadConfig {
                     }
 
                 }
+                if (setting.getSubSettings().size() >0) {
+                    for (Setting subSetting : setting.getSubSettings()) {
+                        JsonElement subSettingElement = subSettingsObject.get(subSetting.getName().replace(" ", ""));
+                        if (subSettingElement != null && subSettingElement.isJsonPrimitive()) {
+                            if (subSetting instanceof BooleanSetting) {
+                                ((BooleanSetting) subSetting).On(subSettingElement.getAsBoolean());
+                            } else if (subSetting instanceof NumberSetting) {
+                                ((NumberSetting) subSetting).setCurrent(subSettingElement.getAsInt());
+                            } else if (subSetting instanceof DNumberSetting) {
+                                ((DNumberSetting) subSetting).setCurrent(subSettingElement.getAsDouble());
+                            } else if (subSetting instanceof ColourSetting) {
+                                ((ColourSetting) subSetting).setColorRGB(subSettingElement.getAsLong());
+                            } // TODO
+                            else if (subSetting instanceof ModeSetting) {
+                                ((ModeSetting) subSetting).setCurrentMode(subSettingElement.getAsString());
+                            } else if (subSetting instanceof StringSetting) {
+                                ((StringSetting) subSetting).setText(subSettingElement.getAsString());
+                            }
+                        }
+                    }
+                }
             } catch (java.lang.NumberFormatException e) {
                 System.out.println(setting.getName().replace(" ", "") + " " + module.getName());
                 System.out.println(dataObject);
@@ -213,8 +222,8 @@ public class LoadConfig {
     }
 
     public static void loadGuiPos() throws IOException{
-        me.ritomg.ananta.Ananta.INSTANCE.hudGui.gui.loadConfig(new AnantaGuiConfig(false));
-        me.ritomg.ananta.Ananta.INSTANCE.gui.gui.loadConfig(new AnantaGuiConfig(true));
+        me.ritomg.ananta.Ananta.hudGui.gui.loadConfig(new AnantaGuiConfig(false));
+        me.ritomg.ananta.Ananta.gui.gui.loadConfig(new AnantaGuiConfig(true));
     }
 
     private static void loadCommandPrefix() throws IOException {

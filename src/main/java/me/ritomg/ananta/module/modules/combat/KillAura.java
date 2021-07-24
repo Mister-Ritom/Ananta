@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @Module.Info(name = "KillAura", description = "Automatically attacks targets", category = Category.Combat)
 public class KillAura extends Module {
 
+    public BooleanSetting settings = addBooleanSetting("SelectionPage", true);
     public BooleanSetting players = addBooleanSetting("Players", true);
     public BooleanSetting mobs  = addBooleanSetting("Mobs", false);
     public BooleanSetting animals = addBooleanSetting("Animals", false);

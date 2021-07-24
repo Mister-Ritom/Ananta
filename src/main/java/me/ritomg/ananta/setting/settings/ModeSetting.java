@@ -5,10 +5,11 @@ import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.setting.Setting;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class ModeSetting extends Setting {
 
-    private List<String> modes;
+    private final List<String> modes;
     private String currentMode;
 
     public void increaseMode() {
@@ -30,13 +31,13 @@ public class ModeSetting extends Setting {
         this.currentMode = currentMode;
     }
 
-    public ModeSetting(String name, Module parent, boolean isVisible, List<String> modes, String currentMode) {
+    public ModeSetting(String name, Module parent, Supplier<Boolean> isVisible, List<String> modes, String currentMode) {
         super(name, parent, isVisible);
         this.modes = modes;
         this.currentMode = currentMode;
     }
 
-    public ModeSetting(String name, Module parent,String description, boolean isVisible, List<String> modes, String currentMode) {
+    public ModeSetting(String name, Module parent,String description, Supplier<Boolean> isVisible, List<String> modes, String currentMode) {
         super(name, parent,description, isVisible);
         this.modes = modes;
         this.currentMode = currentMode;

@@ -25,12 +25,12 @@ public class GetCommand extends Command {
                     List<String> modes = ((ModeSetting) module.getSettingByName(settingName)).getModes();
                     if (modes != null)
                         for (String mode : modes) {
-                            AnantaMessageUtil.sendClientPrefixMessage(mode);
+                            AnantaMessageUtil.sendCommandMessage(mode);
                         }
                 }
-                else AnantaMessageUtil.sendClientPrefixMessage("404 Wrong name of setting for " + moduleName);
+                else AnantaMessageUtil.sendCommandMessage("404 Wrong name of setting for " + moduleName);
             }
-            else AnantaMessageUtil.sendClientPrefixMessage("404 wrong name of module");
+            else AnantaMessageUtil.sendCommandMessage("404 wrong name of module");
         }
         else sendWrongCommand();
     }

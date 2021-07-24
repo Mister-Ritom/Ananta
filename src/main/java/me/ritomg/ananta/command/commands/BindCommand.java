@@ -21,7 +21,7 @@ public class BindCommand extends Command {
             if (bind.equalsIgnoreCase("none")) key = 0;
             else key = Keyboard.getKeyIndex(bind.toUpperCase());
             if (ModuleManager.getModule(module) == null) {
-                AnantaMessageUtil.sendClientPrefixMessage(module + " not found");
+                AnantaMessageUtil.sendCommandMessage(module + " not found");
             }
             else {
                 Objects.requireNonNull(ModuleManager.getModule(module)).setBind(key);

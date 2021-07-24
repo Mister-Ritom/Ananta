@@ -4,6 +4,8 @@ import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.setting.Setting;
 
+import java.util.function.Supplier;
+
 public class BooleanSetting extends Setting {
 
     private boolean isOn;
@@ -13,12 +15,12 @@ public class BooleanSetting extends Setting {
         this.isOn = isOn;
     }
 
-    public BooleanSetting(String name, Module parent, boolean isVisible,boolean isOn) {
+    public BooleanSetting(String name, Module parent, Supplier<Boolean> isVisible, boolean isOn) {
         super(name, parent, isVisible);
         this.isOn = isOn;
     }
 
-    public BooleanSetting(String name, Module parent, String description,boolean isVisible,boolean isOn) {
+    public BooleanSetting(String name, Module parent, String description,Supplier<Boolean> isVisible,boolean isOn) {
         super(name,parent,description,isVisible);
         this.isOn = isOn;
     }

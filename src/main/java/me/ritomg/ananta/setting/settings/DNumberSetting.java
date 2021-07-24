@@ -4,6 +4,8 @@ import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.setting.Setting;
 
+import java.util.function.Supplier;
+
 public class DNumberSetting extends Setting {
 
     private double current,min,max;
@@ -15,14 +17,14 @@ public class DNumberSetting extends Setting {
         this.max = max;
     }
 
-    public DNumberSetting(String name, Module parent, boolean isVisible, double current, double min, double max) {
+    public DNumberSetting(String name, Module parent, Supplier<Boolean> isVisible, double current, double min, double max) {
         super(name, parent, isVisible);
         this.current = current;
         this.min = min;
         this.max = max;
     }
 
-    public DNumberSetting(String name, Module parent, String description, boolean isVisible, double current, double min, double max) {
+    public DNumberSetting(String name, Module parent, String description, Supplier<Boolean> isVisible, double current, double min, double max) {
         super(name, parent,description, isVisible);
         this.current = current;
         this.min = min;

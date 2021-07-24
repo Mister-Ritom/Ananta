@@ -5,12 +5,14 @@ import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.setting.Setting;
 
 import java.awt.*;
+import java.util.function.Supplier;
 
 public class ColourSetting extends Setting  {
 
     private Color color;
-    private  boolean isRainbow = false,allowRainbow;
-    private  boolean hasAlpha;
+    private  boolean isRainbow = false;
+    private final boolean allowRainbow;
+    private final boolean hasAlpha;
 
     public ColourSetting(String name, Module parent, Color color, boolean isRainbow, boolean allowRainbow) {
         super(name, parent);
@@ -20,7 +22,7 @@ public class ColourSetting extends Setting  {
         hasAlpha = false;
     }
 
-    public ColourSetting(String name, Module parent, boolean isVisible, Color color, boolean isRainbow, boolean allowRainbow,boolean hasAlpha) {
+    public ColourSetting(String name, Module parent, Supplier<Boolean> isVisible, Color color, boolean isRainbow, boolean allowRainbow, boolean hasAlpha) {
         super(name, parent, isVisible);
         this.color = color;
         this.isRainbow = isRainbow;
@@ -36,7 +38,7 @@ public class ColourSetting extends Setting  {
         this.hasAlpha = false;
     }
 
-    public ColourSetting(String name, Module parent, boolean isVisible, Color color) {
+    public ColourSetting(String name, Module parent,Supplier<Boolean> isVisible, Color color) {
         super(name, parent, isVisible);
         this.color = color;
         this.isRainbow = false;
@@ -45,7 +47,7 @@ public class ColourSetting extends Setting  {
     }
 
 
-    public ColourSetting(String name, Module parent, boolean isVisible, Color color,boolean hasAlpha) {
+    public ColourSetting(String name, Module parent, Supplier<Boolean> isVisible, Color color,boolean hasAlpha) {
         super(name, parent, isVisible);
         this.color = color;
         this.isRainbow = false;
@@ -53,7 +55,7 @@ public class ColourSetting extends Setting  {
         this.hasAlpha = hasAlpha;
     }
 
-    public ColourSetting(String name, Module parent,String description, boolean isVisible, Color color,boolean hasAlpha) {
+    public ColourSetting(String name, Module parent,String description, Supplier<Boolean> isVisible, Color color,boolean hasAlpha) {
         super(name, parent,description, isVisible);
         this.color = color;
         this.isRainbow = false;
@@ -61,7 +63,7 @@ public class ColourSetting extends Setting  {
         this.hasAlpha = hasAlpha;
     }
 
-    public ColourSetting(String name, Module parent,String description, boolean isVisible, Color color,boolean hasAlpha,boolean allowRainbow,boolean isRainbow) {
+    public ColourSetting(String name, Module parent,String description, Supplier<Boolean> isVisible, Color color,boolean hasAlpha,boolean allowRainbow,boolean isRainbow) {
         super(name, parent,description, isVisible);
         this.color = color;
         this.isRainbow = isRainbow;

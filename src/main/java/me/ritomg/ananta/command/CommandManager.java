@@ -19,6 +19,7 @@ public class CommandManager {
         commandList.add(new PrefixCommand());
         commandList.add(new GetCommand());
         commandList.add(new SetCommand());
+        commandList.add(new FixGuiCommand());
     }
 
     public static void callCommand(String message) {
@@ -34,7 +35,7 @@ public class CommandManager {
                 }
             }
             if(!commandFound) {
-                AnantaMessageUtil.sendClientPrefixMessage(ChatFormatting.DARK_RED + "Command not found, use " + ChatFormatting.ITALIC + prefix + "help " + ChatFormatting.RESET + "" + ChatFormatting.DARK_RED + "for list of commands.");
+                AnantaMessageUtil.sendCommandMessage(ChatFormatting.DARK_RED + "Command not found, use " + ChatFormatting.ITALIC + prefix + "help " + ChatFormatting.RESET + "" + ChatFormatting.DARK_RED + "for list of commands.");
             }
         }
     }

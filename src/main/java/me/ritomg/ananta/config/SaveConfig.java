@@ -1,7 +1,6 @@
 package me.ritomg.ananta.config;
 
 import com.google.gson.*;
-import me.ritomg.ananta.Ananta;
 import me.ritomg.ananta.command.CommandManager;
 import me.ritomg.ananta.hud.Hud;
 import me.ritomg.ananta.hud.HudManager;
@@ -125,6 +124,7 @@ public class SaveConfig {
         OutputStreamWriter fileOutputStreamWriter = new OutputStreamWriter(new FileOutputStream(Ananta + modulesPath + module.getName() + ".json"), StandardCharsets.UTF_8);
         JsonObject moduleObject = new JsonObject();
         JsonObject settingObject = new JsonObject();
+        JsonObject subSettingsObject = new JsonObject();
         moduleObject.add("Module", new JsonPrimitive(module.getName()));
         for (Setting setting : module.getSettings()) {
             if (setting instanceof BooleanSetting) {
@@ -141,18 +141,41 @@ public class SaveConfig {
             } else if (setting instanceof StringSetting) {
                 settingObject.add(setting.getName().replace(" ", ""), new JsonPrimitive(((StringSetting) setting).getText()));
             }
+
+            if (setting.getSubSettings().size() > 0) {
+                for (Setting subSetting : setting.getSubSettings()) {
+                    if (subSetting instanceof BooleanSetting) {
+                        subSettingsObject.add(subSetting.getName().replace(" ", ""), new JsonPrimitive(((BooleanSetting) subSetting).isOn()));
+                    } else if (subSetting instanceof NumberSetting) {
+                        subSettingsObject.add(subSetting.getName().replace(" ", ""), new JsonPrimitive(((NumberSetting) subSetting).getCurrent()));
+                    } else if (subSetting instanceof DNumberSetting) {
+                        subSettingsObject.add(subSetting.getName().replace(" ", ""), new JsonPrimitive(((DNumberSetting) subSetting).getCurrent()));
+                    } else if (subSetting instanceof ColourSetting) {
+                        subSettingsObject.add(subSetting.getName().replace(" ", ""), new JsonPrimitive(((ColourSetting) subSetting).getColorRGB()));
+                    } else if (subSetting instanceof ModeSetting) {
+                        subSettingsObject.add(setting.getName().replace(" ", ""), new JsonPrimitive(((ModeSetting) subSetting).getCurrentMode()));
+                    } else if (subSetting instanceof StringSetting) {
+                        subSettingsObject.add(setting.getName().replace(" ", ""), new JsonPrimitive(((StringSetting) subSetting).getText()));
+                    }
+                }
+            }
+
         }
+
+
         settingObject.add("Enabled", new JsonPrimitive(module.isEnabled()));
         settingObject.add("Bind", new JsonPrimitive(module.getBind()));
+        settingObject.add("SubSettings", subSettingsObject);
         moduleObject.add("Settings", settingObject);
         String jsonString = gson.toJson(new JsonParser().parse(moduleObject.toString()));
         fileOutputStreamWriter.write(jsonString);
         fileOutputStreamWriter.close();
     }
 
+
     public static void saveGuiPos()throws IOException {
-        me.ritomg.ananta.Ananta.INSTANCE.hudGui.gui.saveConfig(new AnantaGuiConfig(false));
-        me.ritomg.ananta.Ananta.INSTANCE.gui.gui.saveConfig(new AnantaGuiConfig(true));
+        me.ritomg.ananta.Ananta.hudGui.gui.saveConfig(new AnantaGuiConfig(false));
+        me.ritomg.ananta.Ananta.gui.gui.saveConfig(new AnantaGuiConfig(true));
     }
 
     public static void saveCommandPrefix() throws IOException {
