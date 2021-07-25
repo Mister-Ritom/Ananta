@@ -12,7 +12,7 @@ public class Setting {
     private final Module parent;
     private Supplier<Boolean> isVisible;
     private String description;
-    private final List<Setting> subSettings = new ArrayList<>();
+    private List<Setting> subSettings = new ArrayList<>();
 
     public Setting(String name,Module parent) {
         this.name = name;
@@ -76,4 +76,7 @@ public class Setting {
         return subSettings;
     }
 
+    public void setSubSettings(List<Setting> subSettings) {
+        this.subSettings = subSettings;
+    }
 }

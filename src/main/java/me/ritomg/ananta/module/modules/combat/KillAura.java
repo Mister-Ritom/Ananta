@@ -18,12 +18,38 @@ import java.util.stream.Collectors;
 @Module.Info(name = "KillAura", description = "Automatically attacks targets", category = Category.Combat)
 public class KillAura extends Module {
 
-    public BooleanSetting settings = addBooleanSetting("SelectionPage", true);
-    public BooleanSetting players = addBooleanSetting("Players", true);
-    public BooleanSetting mobs  = addBooleanSetting("Mobs", false);
-    public BooleanSetting animals = addBooleanSetting("Animals", false);
-    BooleanSetting cooldown = addBooleanSetting("CoolDown", false);
-    public NumberSetting range = addIntegerSetting("Range", 1,6,15);
+    public BooleanSetting players = new BooleanSetting.BooleanSettingBuilder()
+            .withParent(this)
+            .withName("Players")
+            .withDescription("Should players be attacked?")
+            .withIsOn(true)
+            .build();
+    public BooleanSetting mobs  = new BooleanSetting.BooleanSettingBuilder()
+            .withParent(this)
+            .withName("Mobs")
+            .withDescription("Should monsters be attacked?")
+            .withIsOn(true)
+            .build();
+    public BooleanSetting animals = new BooleanSetting.BooleanSettingBuilder()
+            .withParent(this)
+            .withName("Players")
+            .withDescription("Should animals be attacked?")
+            .withIsOn(true)
+            .build();
+    BooleanSetting cooldown = new BooleanSetting.BooleanSettingBuilder()
+            .withParent(this)
+            .withName("Cooldown")
+            .withDescription("no description IDK?")
+            .withIsOn(true)
+            .build();
+    public NumberSetting range = new NumberSetting.NumberSettingBuilder()
+            .withParent(this)
+            .withName("Range")
+            .withDescription("The range for attacking")
+            .withCurrent(6)
+            .withMax(15)
+            .withMin(1)
+            .build();
 
     public void onUpdate() {
         if (mc.player == null || mc.player.isDead)return;

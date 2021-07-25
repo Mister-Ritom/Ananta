@@ -3,13 +3,11 @@ package me.ritomg.ananta.module;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.ritomg.ananta.event.events.RenderEvent;
 import me.ritomg.ananta.setting.Setting;
-import me.ritomg.ananta.setting.settings.*;
 import me.ritomg.ananta.util.misc.AnantaMessageUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Keyboard;
 
-import java.awt.*;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -136,42 +134,6 @@ public class Module {
 
     public void addSetting(Setting setting) {
         settings.add(setting);
-    }
-
-    public BooleanSetting addBooleanSetting(String name, boolean value) {
-        BooleanSetting setting = new BooleanSetting(name,this,value);
-        addSetting(setting);
-        return setting;
-    }
-
-    public StringSetting addStringSetting(String name, String value) {
-        StringSetting setting = new StringSetting(name,this,value);
-        addSetting(setting);
-        return setting;
-    }
-
-    public NumberSetting addIntegerSetting(String name,int min,int value,int max) {
-        NumberSetting setting = new NumberSetting(name,this,value,min,max);
-        addSetting(setting);
-        return setting;
-    }
-
-    public DNumberSetting addDoublesetting(String name,double min,double value,double max) {
-        DNumberSetting setting = new DNumberSetting(name,this,value,min,max);
-        addSetting(setting);
-        return setting;
-    }
-
-    public ModeSetting addModeSetting(String name,String value,List<String> modes) {
-        ModeSetting setting = new ModeSetting(name,this,modes,value);
-        addSetting(setting);
-        return setting;
-    }
-
-    public ColourSetting addColorSetting(String name, Color value) {
-        ColourSetting setting = new ColourSetting(name,this,value);
-        addSetting(setting);
-        return setting;
     }
 
 }

@@ -10,8 +10,20 @@ import me.ritomg.ananta.util.misc.Timer;
 @Module.Info(name = "AutoSpam", description = "sends messages to server automatically", category = Category.Misc)
 public class AutoSpam extends Module {
 
-    StringSetting message = addStringSetting("Message", "Download ananta");
-    NumberSetting delay = addIntegerSetting("Delay(Second)", 1,5,10);
+    StringSetting message = new StringSetting.StringSettingBuilder()
+            .withParent(this)
+            .withName("Message")
+            .withDescription("The message to be sent")
+            .withText( "Download Ananta the best client")
+            .build();
+    NumberSetting delay = new NumberSetting.NumberSettingBuilder()
+            .withParent(this)
+            .withName("Delay")
+            .withDescription("The delay to send message in seconds")
+            .withCurrent(5)
+            .withMax(10)
+            .withMin(1)
+            .build();
 
     Timer timer = new Timer();
 

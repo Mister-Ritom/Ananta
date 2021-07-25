@@ -11,7 +11,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Module.Info(name = "PlayerTweaks", description = "Changes various things about player", category = Category.Movement)
 public class PlayerTweaks extends Module {
 
-    BooleanSetting velocity = addBooleanSetting("Velocity", false);
+    BooleanSetting velocity = new BooleanSetting.BooleanSettingBuilder()
+            .withParent(this)
+            .withName("velocity")
+            .withDescription("stop the player from taking knockback")
+            .withIsOn(false)
+            .build();
 
     @SubscribeEvent
     public void OnVeloctiy(PacketEvent.Receive event) {

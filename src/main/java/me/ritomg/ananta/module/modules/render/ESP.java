@@ -16,17 +16,61 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import java.awt.*;
 
-@Module.Info(name = "ESP", description = "", category = Category.Render)
+@Module.Info(name = "ESP", description = "draws lines around targets", category = Category.Render)
 public class ESP extends Module {
 
-    public BooleanSetting players = addBooleanSetting("Players", true);
-    public BooleanSetting mobs  = addBooleanSetting("Mobs", false);
-    public BooleanSetting animals = addBooleanSetting("Animals", false);
-    public BooleanSetting others = addBooleanSetting("Others", false);
-    ColourSetting color = addColorSetting("PlayerColor", new Color(255,0,0,50));
-    ColourSetting color2 = addColorSetting("MobsColor", new Color(0,0,255));
-    ColourSetting color3 = addColorSetting("AnimalsColor", new Color(0,255,0));
-    ColourSetting othersColour = addColorSetting("OthersColour", new Color(255,255,255));
+    public BooleanSetting players = new BooleanSetting.BooleanSettingBuilder()
+            .withParent(this)
+            .withName("Players")
+            .withDescription("Should players be rendered?")
+            .withIsOn(true)
+            .build();
+    public BooleanSetting mobs  = new BooleanSetting.BooleanSettingBuilder()
+            .withParent(this)
+            .withName("Mobs")
+            .withDescription("Should monsters be rendered?")
+            .withIsOn(true)
+            .build();
+    public BooleanSetting animals = new BooleanSetting.BooleanSettingBuilder()
+            .withParent(this)
+            .withName("Animals")
+            .withDescription("Should animals be rendered?")
+            .withIsOn(true)
+            .build();
+    public BooleanSetting others = new BooleanSetting.BooleanSettingBuilder()
+            .withParent(this)
+            .withName("Others")
+            .withDescription("Should animals be rendered?")
+            .withIsOn(true)
+            .build();
+    ColourSetting color = new ColourSetting.ColourSettingBuilder()
+            .withParent(this)
+            .withName("PlayerColor")
+            .withDescription("The color for player ESP")
+            .withColor(new Color(255,0,0))
+            .withIsVisible(()->players.isOn())
+            .build();
+    ColourSetting color2 = new ColourSetting.ColourSettingBuilder()
+            .withParent(this)
+            .withName("MobsColor")
+            .withDescription("The color for monsters ESP")
+            .withColor(new Color(0,0,255))
+            .withIsVisible(()->mobs.isOn())
+            .build();
+    ColourSetting color3 = new ColourSetting.ColourSettingBuilder()
+            .withParent(this)
+            .withName("AnimalsColor")
+            .withDescription("The color for animals ESP")
+            .withColor(new Color(0,255,0))
+            .withIsVisible(()->animals.isOn())
+            .build();
+    ColourSetting othersColour = new ColourSetting.ColourSettingBuilder()
+            .withParent(this)
+            .withName("OthersColor")
+            .withDescription("The color for Other entity ESP")
+            .withColor(new Color(255,0,0))
+            .withIsVisible(()->others.isOn())
+            .build();
 
     @Override
     public void onWorldRender(RenderEvent event) {

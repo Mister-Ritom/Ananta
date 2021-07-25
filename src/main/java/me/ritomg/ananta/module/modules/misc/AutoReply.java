@@ -10,7 +10,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Module.Info(name = "AutoReply", description = "Automatically replies to players that message you", category = Category.Misc)
 public class AutoReply extends Module {
 
-    public StringSetting message = addStringSetting("Message", "i don't speak newfags!");
+    public StringSetting message = new StringSetting.StringSettingBuilder()
+            .withParent(this)
+            .withName("Message")
+            .withDescription("The reply message")
+            .withText( "i don't speak newfags!")
+            .build();
 
     @SubscribeEvent
     public void onMessageRecive(ClientChatReceivedEvent event) {

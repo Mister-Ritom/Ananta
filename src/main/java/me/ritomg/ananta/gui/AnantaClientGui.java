@@ -22,6 +22,7 @@ import me.ritomg.ananta.module.modules.theme.WindowsTheme;
 import me.ritomg.ananta.setting.Setting;
 import me.ritomg.ananta.setting.settings.*;
 import me.ritomg.ananta.util.font.FontUtil;
+import me.ritomg.ananta.util.misc.AnantaMessageUtil;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.input.Keyboard;
@@ -625,9 +626,50 @@ public class AnantaClientGui extends MinecraftGUI {
                 }
 
                 @Override
+                public String getDescription() {
+                    return setting.getDescription();
+                }
+
+                @Override
+                public Stream<ISetting<?>> getSubSettings() {
+                    if (setting.getSubSettings().size() < 1) return null;
+                    return setting.getSubSettings().stream().map(subsetting -> createSettings(subsetting));
+                }
+
+                @Override
                 public String getDisplayName() {
                     return setting.getName();
                 }
+            };
+        }
+        else if (setting instanceof SettingGroup) {
+            return new IBooleanSetting() {
+                @Override
+                public void toggle() {
+                    AnantaMessageUtil.sendClientPrefixMessage("this is a SettingGround don't use it as a booleanSetting");
+                }
+
+                @Override
+                public boolean isOn() {
+                    return true;
+                }
+
+                @Override
+                public String getDisplayName() {
+                    return "***" + setting.getName() + "***";
+                }
+
+                @Override
+                public String getDescription() {
+                    return setting.getDescription();
+                }
+
+                @Override
+                public Stream<ISetting<?>> getSubSettings() {
+                    if (setting.getSubSettings().size() < 1) return null;
+                    return setting.getSubSettings().stream().map(subsetting -> createSettings(subsetting));
+                }
+
             };
         }
         return new ISetting<Void>() {

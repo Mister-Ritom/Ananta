@@ -1,9 +1,6 @@
 package me.ritomg.ananta.module;
 
-import me.ritomg.ananta.module.modules.client.ClickGui;
-import me.ritomg.ananta.module.modules.client.CustomFont;
-import me.ritomg.ananta.module.modules.client.HudEditor;
-import me.ritomg.ananta.module.modules.client.ToggleMessage;
+import me.ritomg.ananta.module.modules.client.*;
 import me.ritomg.ananta.module.modules.combat.AutoXp;
 import me.ritomg.ananta.module.modules.combat.Critical;
 import me.ritomg.ananta.module.modules.combat.KillAura;
@@ -50,6 +47,7 @@ public class ModuleManager {
         addnewModule(new PlayerTweaks());
         addnewModule(new KillAura());
         addnewModule(new ESP());
+        addnewModule(new ATestModule());
         addnewModule(new Critical());
     }
 

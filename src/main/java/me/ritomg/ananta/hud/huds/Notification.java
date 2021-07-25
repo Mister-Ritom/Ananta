@@ -19,10 +19,30 @@ import java.awt.*;
 @Module.Info(name = "Notification", description = "Shows client message on screen", category = Category.Client)
 public class Notification extends Hud {
 
-    public BooleanSetting stopChat = addBooleanSetting("StopChat", true);
-    public BooleanSetting sortUp = addBooleanSetting("SorUp", false);
-    public BooleanSetting sortRight = addBooleanSetting("SortRight", false);
-    public ColourSetting color = addColorSetting("Color", new Color(255, 0, 0));
+    public BooleanSetting stopChat =  new BooleanSetting.BooleanSettingBuilder()
+            .withParent(this)
+            .withName("StopChat")
+            .withDescription("should Ananta chatMessages stop")
+            .withIsOn(false)
+            .build();
+    public BooleanSetting sortUp =  new BooleanSetting.BooleanSettingBuilder()
+            .withParent(this)
+            .withName("Sortup")
+            .withDescription("name what you expect")
+            .withIsOn(false)
+            .build();
+    public BooleanSetting sortRight = new BooleanSetting.BooleanSettingBuilder()
+            .withParent(this)
+            .withName("SortRight")
+            .withDescription("name what you expect")
+            .withIsOn(false)
+            .build();
+    public ColourSetting color = new ColourSetting.ColourSettingBuilder()
+            .withParent(this)
+            .withName("Color")
+            .withDescription("The color text")
+            .withColor(new Color(255,0,255))
+            .build();
 
     public Notification() {
         super(3,-3);

@@ -19,8 +19,18 @@ import java.awt.*;
 @Module.Info(name = "Coordinates", description = "shows your coordinates on screen", category = Category.Misc)
 public class Coordinates extends Hud {
 
-    ColourSetting color  = addColorSetting("Color", new Color(255,255,255));
-    BooleanSetting nether  = addBooleanSetting("OtherDimension", false);
+    ColourSetting color  = new ColourSetting.ColourSettingBuilder()
+            .withParent(this)
+            .withName("Color")
+            .withDescription("The color text")
+            .withColor(new Color(255,255,255))
+            .build();
+    BooleanSetting nether  = new BooleanSetting.BooleanSettingBuilder()
+            .withParent(this)
+            .withName("OtherDimenstion")
+            .withDescription("should we see other dimensions coordinates")
+            .withIsOn(false)
+            .build();
 
     public String[] list  = new String[] {"", ""};
 

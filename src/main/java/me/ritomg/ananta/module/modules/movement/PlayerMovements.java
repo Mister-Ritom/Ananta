@@ -8,9 +8,24 @@ import net.minecraft.client.settings.KeyBinding;
 @Module.Info(name = "PlayerMovements", description = "Automatically presses the sprint button", category = Category.Movement)
 public class PlayerMovements extends Module {
 
-    public BooleanSetting sprint = addBooleanSetting("Sprint", false);
-    public BooleanSetting walk = addBooleanSetting("Walk", false);
-    public BooleanSetting jump = addBooleanSetting("Jump", false);
+    public BooleanSetting sprint =  new BooleanSetting.BooleanSettingBuilder()
+            .withParent(this)
+            .withName("Sprint")
+            .withDescription("Should player automatically sprint?")
+            .withIsOn(false)
+            .build();
+    public BooleanSetting walk =  new BooleanSetting.BooleanSettingBuilder()
+            .withParent(this)
+            .withName("Walk")
+            .withDescription("Should player automatically walk?")
+            .withIsOn(false)
+            .build();
+    public BooleanSetting jump = new BooleanSetting.BooleanSettingBuilder()
+            .withParent(this)
+            .withName("Jump")
+            .withDescription("Should player automatically sprint?")
+            .withIsOn(false)
+            .build();
 
     public void onUpdate() {
 

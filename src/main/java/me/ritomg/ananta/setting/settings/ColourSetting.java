@@ -5,6 +5,8 @@ import me.ritomg.ananta.module.ModuleManager;
 import me.ritomg.ananta.setting.Setting;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class ColourSetting extends Setting  {
@@ -116,5 +118,80 @@ public class ColourSetting extends Setting  {
 
     public boolean isHasAlpha() {
         return hasAlpha;
+    }
+
+    public static final class ColourSettingBuilder {
+        private String name;
+        private Module parent;
+        private Supplier<Boolean> isVisible = ()->true;
+        private String description;
+        private java.util.List<Setting> subSettings = new ArrayList<>();
+        private Color color;
+        private  boolean isRainbow = false;
+        private boolean allowRainbow = true;
+        private boolean hasAlpha = false;
+
+        public ColourSettingBuilder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public ColourSettingBuilder withParent(Module parent) {
+            this.parent = parent;
+            return this;
+        }
+
+        public ColourSettingBuilder withIsVisible(Supplier<Boolean> isVisible) {
+            this.isVisible = isVisible;
+            return this;
+        }
+
+        public ColourSettingBuilder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public ColourSettingBuilder withSubSettings(List<Setting> subSettings) {
+            this.subSettings = subSettings;
+            return this;
+        }
+
+        public ColourSettingBuilder withColor(Color color) {
+            this.color = color;
+            return this;
+        }
+
+        public ColourSettingBuilder withIsRainbow(boolean isRainbow) {
+            this.isRainbow = isRainbow;
+            return this;
+        }
+
+        public ColourSettingBuilder withAllowRainbow(boolean allowRainbow) {
+            this.allowRainbow = allowRainbow;
+            return this;
+        }
+
+        public ColourSettingBuilder withHasAlpha(boolean hasAlpha) {
+            this.hasAlpha = hasAlpha;
+            return this;
+        }
+
+        public ColourSetting build() {
+            ColourSetting colourSetting = new ColourSetting(name, parent, isVisible, color, isRainbow, allowRainbow, hasAlpha);
+            colourSetting.setDescription(description);
+            colourSetting.setSubSettings(subSettings);
+            parent.addSetting(colourSetting);
+            return colourSetting;
+        }
+
+        public ColourSetting build(boolean subSetting) {
+            ColourSetting colourSetting = new ColourSetting(name, parent, isVisible, color, isRainbow, allowRainbow, hasAlpha);
+            colourSetting.setDescription(description);
+            colourSetting.setSubSettings(subSettings);
+            if (!subSetting)
+                parent.addSetting(colourSetting);
+            return colourSetting;
+        }
+
     }
 }

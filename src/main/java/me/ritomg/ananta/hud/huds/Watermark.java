@@ -1,7 +1,5 @@
 package me.ritomg.ananta.hud.huds;
 
-import java.awt.Color;
-
 import com.lukflug.panelstudio.hud.HUDList;
 import com.lukflug.panelstudio.hud.ListComponent;
 import com.lukflug.panelstudio.setting.Labeled;
@@ -13,10 +11,17 @@ import me.ritomg.ananta.module.Category;
 import me.ritomg.ananta.module.Module;
 import me.ritomg.ananta.setting.settings.ColourSetting;
 
+import java.awt.*;
+
 @Module.Info(name = "Watermark", description = "Shows watermark on screen", category = Category.Client)
 public class Watermark extends Hud {
 
-    ColourSetting color  = addColorSetting("Color", new Color(0,255,0));
+    ColourSetting color  = new ColourSetting.ColourSettingBuilder()
+            .withParent(this)
+            .withName("Color")
+            .withDescription("The color text")
+            .withColor(new Color(255,0,255))
+            .build();
 
     public Watermark() {
         super(20,25);

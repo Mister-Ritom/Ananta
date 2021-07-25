@@ -9,7 +9,13 @@ import java.util.Arrays;
 
 @Module.Info(name = "AutoClick", description = "Clicks buttons automatically", category = Category.Misc)
 public class AutoClick extends Module {
-    public ModeSetting button = addModeSetting("Button", "RightClick", Arrays.asList("RightClick", "LeftClick"));
+    public ModeSetting button = new ModeSetting.ModeSettingBuilder()
+            .withParent(this)
+            .withName("Button")
+            .withDescription("which button should be clicked?")
+            .withCurrentMode("RightClick")
+            .withModes( Arrays.asList("RightClick", "LeftClick"))
+            .build();
     int key;
     public void onUpdate() {
         switch (button.getCurrentMode()) {

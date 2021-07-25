@@ -15,21 +15,61 @@ import java.util.Arrays;
 @Module.Info(name = "ClickGui", description = "Open the gui", category = Category.Client, bind = Keyboard.KEY_RSHIFT)
 public class ClickGui extends Module {
 
-    public NumberSetting scrollSpeed = addIntegerSetting("ScrollSpeed", 1,2,20);
-    public ModeSetting theme = addModeSetting("Theme", "ImpactTheme",Arrays.asList("RainbowTheme", "ClearGradientTheme", "GamesenseTheme", "ClearTheme", "WindowsTheme","ImpactTheme", "AnantaTheme"));
-    public ModeSetting scrolling = addModeSetting("Scrolling", "Screen",Arrays.asList("Screen", "Container"));
-    public ModeSetting layout = addModeSetting("Layout", "Normal", Arrays.asList("Normal", "CSGO", "Search", "Single","Stacked"));
-    public NumberSetting animationSpeed = addIntegerSetting("AnimationSpeed", 0,200,1000);
-    public BooleanSetting blur = addBooleanSetting("Blur", false);
-    public BooleanSetting shadow = addBooleanSetting("Shadow", true);
+    public NumberSetting scrollSpeed = new NumberSetting.NumberSettingBuilder()
+            .withParent(this)
+            .withName("ScrollSpeed")
+            .withDescription("The scroll speed for your coolgui")
+            .withCurrent(5)
+            .withMax(20)
+            .withMin(1)
+            .build();
+    public ModeSetting theme = new ModeSetting.ModeSettingBuilder()
+            .withParent(this)
+            .withName("Theme")
+            .withDescription("the theme for your cool gui changes how the GUi looks")
+            .withCurrentMode("ImpactTheme")
+            .withModes(Arrays.asList("RainbowTheme", "ClearGradientTheme", "GamesenseTheme", "ClearTheme", "WindowsTheme","ImpactTheme", "AnantaTheme"))
+            .build();
+    public ModeSetting scrolling = new ModeSetting.ModeSettingBuilder()
+            .withParent(this)
+            .withName("Scrolling")
+            .withDescription("your cool gui scrolling mode")
+            .withCurrentMode("Screen")
+            .withModes(Arrays.asList("Screen", "Container"))
+            .build();
+    public ModeSetting layout = new ModeSetting.ModeSettingBuilder()
+            .withParent(this)
+            .withName("Layout")
+            .withDescription("the layout for your gui completely changes how the gui looks")
+            .withCurrentMode("Normal")
+            .withModes(Arrays.asList("Normal", "CSGO", "Search", "Single","Stacked"))
+            .build();
+    public NumberSetting animationSpeed = new NumberSetting.NumberSettingBuilder()
+            .withParent(this)
+            .withName("AnimationSpeed")
+            .withDescription("gui animations speed")
+            .withCurrent(200)
+            .withMax(1000)
+            .withMin(0)
+            .build();
+    public BooleanSetting blur = new BooleanSetting.BooleanSettingBuilder()
+            .withParent(this)
+            .withName("Blur")
+            .withDescription("Should the gui background be blurred?")
+            .withIsOn(false)
+            .build();
+    public BooleanSetting shadow = new BooleanSetting.BooleanSettingBuilder()
+            .withParent(this)
+            .withName("Shadow")
+            .withDescription("Should the gui fonts have shadow?")
+            .withIsOn(true)
+            .build();
 
-    public ClickGui() {
-    }
 
     ResourceLocation blurLocation = new ResourceLocation("shaders/post/blur.json");
 
     public void onEnable() {
-        Ananta.INSTANCE.gui.enterGUI();
+        Ananta.gui.enterGUI();
         if (blur.isOn())
             mc.entityRenderer.loadShader(blurLocation);
     }
