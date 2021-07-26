@@ -17,7 +17,7 @@ public class AColorScheme implements IColorScheme {
 
     @Override
     public void createSetting(ITheme theme, String name, String description, boolean hasAlpha, boolean allowsRainbow, Color color, boolean rainbow) {
-        m.addSetting(new ColourSetting(name,m,description,()->m.isEnabled(),color,hasAlpha,allowsRainbow,rainbow));
+        m.addSetting(new ColourSetting(name,m,description,()->true,color,hasAlpha,allowsRainbow,rainbow));
         m.setCategory(Category.Theme);
     }
 

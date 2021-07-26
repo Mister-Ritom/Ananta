@@ -87,7 +87,7 @@ public class EventProcessor {
             for (Module m : ModuleManager.getModules()) {
                 if (m.isEnabled()) m.onRender();
             }
-            Ananta.INSTANCE.hudGui.render();
+            Ananta.hudGui.render();
         }
 
     }

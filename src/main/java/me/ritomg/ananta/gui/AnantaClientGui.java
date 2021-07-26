@@ -86,7 +86,7 @@ public class AnantaClientGui extends MinecraftGUI {
 
         ITheme theme = getTheme();
 
-        client = () -> Arrays.stream(Category.values()).sorted(Comparator.comparing(Enum::toString)).map(category -> new ICategory() {
+        client = () -> Arrays.stream(Category.values()).map(category -> new ICategory() {
 
             @Override
             public String getDisplayName() {
@@ -374,7 +374,7 @@ public class AnantaClientGui extends MinecraftGUI {
     }
 
     //settings
-    private ISetting<?> createSettings (Setting setting) {
+    public ISetting<?> createSettings (Setting setting) {
         if (setting instanceof BooleanSetting) {
             return new IBooleanSetting() {
                 @Override
@@ -646,7 +646,7 @@ public class AnantaClientGui extends MinecraftGUI {
             return new IBooleanSetting() {
                 @Override
                 public void toggle() {
-                    AnantaMessageUtil.sendClientPrefixMessage("this is a SettingGround don't use it as a booleanSetting");
+                    AnantaMessageUtil.sendClientPrefixMessage("this is a SettingGroup don't use it as a booleanSetting");
                 }
 
                 @Override
@@ -656,7 +656,7 @@ public class AnantaClientGui extends MinecraftGUI {
 
                 @Override
                 public String getDisplayName() {
-                    return "***" + setting.getName() + "***";
+                    return  TextFormatting.AQUA + "***" + TextFormatting.GOLD + setting.getName() + TextFormatting.AQUA + "***";
                 }
 
                 @Override

@@ -71,12 +71,12 @@ public class Ananta {
         HudManager.init();
         logger.info("Huds Started");
         MinecraftForge.EVENT_BUS.register(new EventProcessor());
-        gui = new AnantaClientGui();
+        CommandManager.init();
+        logger.info("Commands Started");
+		gui = new AnantaClientGui(); 
         logger.info("Gui Started");
         hudGui = new HudGui();
         logger.info("Hud gui started");
-        CommandManager.init();
-        logger.info("Commands Started");
         LoadConfig.init();
         logger.info("Loaded Config");
         customFont = new CFontRenderer(new Font("Verdana", Font.BOLD, 18), true, true);

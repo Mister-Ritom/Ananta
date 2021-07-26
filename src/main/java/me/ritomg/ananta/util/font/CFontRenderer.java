@@ -258,7 +258,7 @@ public class CFontRenderer extends CFont {
     }
 
     public List<String> wrapWords(String text, double width) {
-        List finalWords = new ArrayList();
+        List<String> finalWords = new ArrayList<>();
         if (getStringWidth(text) > width) {
             String[] words = text.split(" ");
             String currentWord = "";
@@ -294,7 +294,7 @@ public class CFontRenderer extends CFont {
     }
 
     public List<String> formatString(String string, double width) {
-        List finalWords = new ArrayList();
+        List<String> finalWords = new ArrayList<>();
         String currentWord = "";
         char lastColorCode = 65535;
         char[] chars = string.toCharArray();

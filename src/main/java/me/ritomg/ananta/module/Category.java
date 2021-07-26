@@ -8,5 +8,6 @@ public enum Category {
     Movement,
     Render,
     Theme,
-    Exploits
+    Exploits,
+    Chat;
 }

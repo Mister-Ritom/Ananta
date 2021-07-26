@@ -1,18 +1,12 @@
 package me.ritomg.ananta.module;
 
+import me.ritomg.ananta.module.modules.chat.*;
 import me.ritomg.ananta.module.modules.client.*;
-import me.ritomg.ananta.module.modules.combat.AutoXp;
-import me.ritomg.ananta.module.modules.combat.Critical;
-import me.ritomg.ananta.module.modules.combat.KillAura;
-import me.ritomg.ananta.module.modules.exploits.Fastutil;
-import me.ritomg.ananta.module.modules.misc.AntiAfk;
-import me.ritomg.ananta.module.modules.misc.AutoClick;
-import me.ritomg.ananta.module.modules.misc.AutoReply;
-import me.ritomg.ananta.module.modules.misc.AutoSpam;
-import me.ritomg.ananta.module.modules.movement.PlayerMovements;
-import me.ritomg.ananta.module.modules.movement.PlayerTweaks;
-import me.ritomg.ananta.module.modules.render.ESP;
-import me.ritomg.ananta.module.modules.render.FullBright;
+import me.ritomg.ananta.module.modules.combat.*;
+import me.ritomg.ananta.module.modules.exploits.*;
+import me.ritomg.ananta.module.modules.misc.*;
+import me.ritomg.ananta.module.modules.movement.*;
+import me.ritomg.ananta.module.modules.render.*;
 import me.ritomg.ananta.module.modules.theme.*;
 
 import java.util.ArrayList;
@@ -47,8 +41,11 @@ public class ModuleManager {
         addnewModule(new PlayerTweaks());
         addnewModule(new KillAura());
         addnewModule(new ESP());
-        addnewModule(new ATestModule());
         addnewModule(new Critical());
+        addnewModule(new ChatSuffix());
+        addnewModule(new Timer());
+        addnewModule(new CustomChat());
+		addnewModule(new ColouredChat());
     }
 
     public static List<Module> getModulesinCategory(Category c) {
