@@ -43,7 +43,6 @@ public class ModuleManager {
         addnewModule(new ESP());
         addnewModule(new Critical());
         addnewModule(new ChatSuffix());
-        addnewModule(new Timer());
         addnewModule(new CustomChat());
 		addnewModule(new ColouredChat());
     }
