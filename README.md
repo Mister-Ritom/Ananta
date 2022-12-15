@@ -9,5 +9,5 @@
 A Minecraft utility mod for anarchy servers
 
 ![GitHub All Releases](https://img.shields.io/github/downloads/RitomG69/Ananta/total)
-***Join dicrod for updates***
+####***Join dicrod for updates***
 [![Discord](https://dcbadge.vercel.app/api/server/hUfFKFTkPJ)](https://discord.gg/hUfFKFTkPJ)
